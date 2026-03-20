@@ -1,70 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Returns Utilization — Juno Tax</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juno Enterprise Account Report — March 20, 2026</title>
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{background:#013A2F;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    #box{background:#F8F9FA;border-radius:16px;padding:40px 36px;width:340px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.25)}
-    #logo{width:48px;height:48px;background:#013A2F;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
-    #logo svg{width:28px;height:28px}
-    h1{font-size:18px;font-weight:800;color:#013A2F;margin-bottom:6px}
-    p{font-size:13px;color:#6B7280;margin-bottom:24px}
-    input{width:100%;padding:10px 14px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:14px;outline:none;margin-bottom:12px;font-family:inherit}
-    input:focus{border-color:#1CE49B}
-    button{width:100%;padding:11px;background:#013A2F;color:#1CE49B;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
-    button:hover{background:#025040}
-    #err{font-size:12px;color:#B91C1C;margin-top:8px;min-height:18px;font-family:inherit}
-    #loading{display:none;font-size:13px;color:#6B7280;margin-top:8px}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F8F9FA;
+      color: #1E1E1E;
+      padding: 32px 24px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .logo-area h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #013A2F;
+      letter-spacing: -0.3px;
+    }
+    .logo-area p {
+      font-size: 13px;
+      color: #666;
+      margin-top: 2px;
+    }
+    .report-badge {
+      background: #013A2F;
+      color: #1CE49B;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Summary cards */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px 24px;
+      border: 1px solid #e6ebe8;
+    }
+    .card-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: #013A2F;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .card-value {
+      font-size: 30px;
+      font-weight: 700;
+      color: #013A2F;
+    }
+    .card-value span {
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      margin-left: 4px;
+    }
+    .card-sub {
+      font-size: 12px;
+      color: #777;
+      margin-top: 4px;
+    }
+    .card.alert { border-left: 4px solid #FF4D4D; }
+    .card.highlight { border-left: 4px solid #1CE49B; }
+
+    /* Section heading */
+    .section-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: #013A2F;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #1CE49B;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-heading .count {
+      background: #1CE49B;
+      color: #013A2F;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e6ebe8;
+      margin-bottom: 32px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead th {
+      background: #013A2F;
+      color: #fff;
+      padding: 11px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    thead th:first-child { border-radius: 10px 0 0 0; }
+    thead th:last-child  { border-radius: 0 10px 0 0; }
+    tbody tr:nth-child(even) { background: #B4F7CA30; }
+    tbody tr:hover { background: #B4F7CA50; }
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #eef1ee;
+      vertical-align: middle;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    .company-name {
+      font-weight: 600;
+      color: #013A2F;
+    }
+    .company-name a {
+      color: #013A2F;
+      text-decoration: none;
+    }
+    .company-name a:hover { text-decoration: underline; color: #1CE49B; }
+
+    /* Utilization bar */
+    .util-wrap { display: flex; align-items: center; gap: 8px; min-width: 130px; }
+    .util-bar-bg {
+      flex: 1;
+      background: #e6ebe8;
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .util-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+    .util-pct {
+      font-size: 12px;
+      font-weight: 700;
+      min-width: 40px;
+      text-align: right;
+    }
+    .util-crit  { color: #D32F2F; }
+    .util-high  { color: #E65100; }
+    .util-med   { color: #F57F17; }
+    .util-low   { color: #2E7D32; }
+    .fill-crit  { background: #EF5350; }
+    .fill-high  { background: #FF8C00; }
+    .fill-med   { background: #FFC107; }
+    .fill-low   { background: #1CE49B; }
+
+    /* Stage badge */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-onboarded  { background: #B4F7CA; color: #013A2F; }
+    .badge-onboarding { background: #FFF3CD; color: #7D5C00; }
+    .badge-pending    { background: #FFE0E0; color: #8B0000; }
+    .badge-unknown    { background: #E6EBE8; color: #555; }
+
+    /* Days chip */
+    .days-chip {
+      font-size: 12px;
+      color: #555;
+    }
+
+    /* CSM */
+    .csm-name {
+      font-size: 12px;
+      color: #333;
+      white-space: nowrap;
+    }
+
+    /* Numbers */
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* At-risk row highlight */
+    tr.at-risk td { background: #FFF0F0 !important; }
+    tr.at-risk:hover td { background: #FFE0E0 !important; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #e6ebe8;
+    }
+    footer strong { color: #013A2F; }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 14px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   </style>
 </head>
 <body>
-<div id="box">
-  <div id="logo">
-    <svg viewBox="0 0 28 28" fill="none">
-      <rect width="28" height="28" rx="6" fill="#1CE49B"/>
-      <path d="M7 14l5 5 9-9" stroke="#013A2F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+
+<header>
+  <div class="logo-area">
+    <h1>Juno — Enterprise Account Report</h1>
+    <p>Daily snapshot &nbsp;·&nbsp; Generated March 20, 2026</p>
   </div>
-  <h1>Juno Tax</h1>
-  <p>Returns Utilization Report</p>
-  <input type="password" id="pw" placeholder="Password" onkeydown="if(event.key==='Enter')unlock()"/>
-  <button onclick="unlock()">View Report</button>
-  <div id="err"></div>
-  <div id="loading">Loading report…</div>
+  <div class="report-badge">AUTOMATED · DAILY</div>
+</header>
+
+<!-- Summary cards -->
+<div class="summary-grid">
+  <div class="card highlight">
+    <div class="card-label">Enterprise Accounts</div>
+    <div class="card-value">50</div>
+    <div class="card-sub">500+ returns purchased, non-internal</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Total Returns Purchased</div>
+    <div class="card-value">43,828</div>
+    <div class="card-sub">Across all enterprise orgs</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Total Returns Used</div>
+    <div class="card-value">10,034 <span>/ 43,828</span></div>
+    <div class="card-sub">Segment utilization: 22.9%</div>
+  </div>
+  <div class="card alert">
+    <div class="card-label">At Risk (≥ 80% Utilization)</div>
+    <div class="card-value" style="color:#D32F2F;">1</div>
+    <div class="card-sub">Tax Rite — 84.2% used</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Onboarded</div>
+    <div class="card-value">40</div>
+    <div class="card-sub">10 in onboarding / no stage</div>
+  </div>
 </div>
+
+<div class="section-heading">
+  All Enterprise Accounts — Sorted by Utilization (High → Low)
+  <span class="count">50 accounts</span>
+</div>
+
+<div class="legend">
+  <span class="legend-item"><span class="legend-dot" style="background:#EF5350"></span>≥ 80% — Critical</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#FF8C00"></span>60–79% — High</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#FFC107"></span>30–59% — Medium</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#1CE49B"></span>&lt; 30% — Low</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Company</th>
+      <th>Stage</th>
+      <th>CSM</th>
+      <th class="num">Purchased</th>
+      <th class="num">Used</th>
+      <th style="min-width:160px">Utilization</th>
+      <th>Close Date</th>
+      <th>Days Since Close</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+  </tbody>
+</table>
+</div>
+
+<footer>
+  <strong>Juno Tax</strong> &nbsp;·&nbsp; Enterprise Account Report &nbsp;·&nbsp; March 20, 2026 &nbsp;·&nbsp;
+  Data sourced from HubSpot CRM (returns_currently_used synced from Juno app DB).
+  Excludes internal Juno accounts, test orgs, and Liam-owned accounts.
+  <br>Last modified dates reflect automated DB syncs and may not represent manual activity.
+  View all accounts: <a href="https://app.hubspot.com/contacts/45750757/companies" style="color:#013A2F">HubSpot Companies</a>
+</footer>
+
 <script>
-const HASH = '7d5038c2985b8b6c93fa24c9fed56b884f2783940ea3204195dd46bd99854a3b';
-async function sha256(msg) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+const accounts = [
+  { name: "Tax Rite",                        url: "https://app.hubspot.com/contacts/45750757/record/0-2/51288201365?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 500,  used: 421, util: 0.842,    closedate: "2025-08-13" },
+  { name: "Harbor Group",                    url: "https://app.hubspot.com/contacts/45750757/record/0-2/48510675116?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 500,  used: 379, util: 0.758,    closedate: "2026-01-06" },
+  { name: "Pacific Financial Navigators",    url: "https://app.hubspot.com/contacts/45750757/record/0-2/36770084536?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 810,  used: 548, util: 0.6765,   closedate: "2025-11-26" },
+  { name: "Roberta A Otto CPA",              url: "https://app.hubspot.com/contacts/45750757/record/0-2/50741192352?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Currently Onboarding", csm: "Jonina Craig",    purchased: 500,  used: 327, util: 0.654,    closedate: "2026-02-05" },
+  { name: "Duncan & Associates",             url: "https://app.hubspot.com/contacts/45750757/record/0-2/39352993361?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 700,  used: 403, util: 0.5757,   closedate: "2025-09-16" },
+  { name: "ROR Tax Professionals",           url: "https://app.hubspot.com/contacts/45750757/record/0-2/39131456697?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 605,  used: 346, util: 0.5719,   closedate: "2025-11-25" },
+  { name: "JCW Tax & Accounting",            url: "https://app.hubspot.com/contacts/45750757/record/0-2/39124441203?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 710,  used: 382, util: 0.538,    closedate: "2025-10-08" },
+  { name: "The Jones CPA Group",             url: "https://app.hubspot.com/contacts/45750757/record/0-2/44066283354?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 505,  used: 261, util: 0.5168,   closedate: "2025-11-21" },
+  { name: "Belt Accounting",                 url: "https://app.hubspot.com/contacts/45750757/record/0-2/36767099709?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 850,  used: 406, util: 0.4776,   closedate: "2025-08-29" },
+  { name: "CPA Financial Advantage",         url: "https://app.hubspot.com/contacts/45750757/record/0-2/45225607272?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 900,  used: 425, util: 0.4722,   closedate: "2025-12-17" },
+  { name: "Seaside Resources",               url: "https://app.hubspot.com/contacts/45750757/record/0-2/28841387310?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: null,                  csm: "Jonina Craig",    purchased: 530,  used: 249, util: 0.4698,   closedate: "2025-06-16" },
+  { name: "Wills & Associates (CHILD)",      url: "https://app.hubspot.com/contacts/45750757/record/0-2/35988840307?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 500,  used: 233, util: 0.466,    closedate: "2025-12-02" },
+  { name: "RLH Tax Services",                url: "https://app.hubspot.com/contacts/45750757/record/0-2/40760610824?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 505,  used: 230, util: 0.4554,   closedate: "2025-09-30" },
+  { name: "K & B Business Service",          url: "https://app.hubspot.com/contacts/45750757/record/0-2/40248436499?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 505,  used: 223, util: 0.4416,   closedate: "2025-09-30" },
+  { name: "Travel Nurse Tax",                url: "https://app.hubspot.com/contacts/45750757/record/0-2/49437388717?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 1300, used: 569, util: 0.4377,   closedate: "2026-01-20" },
+  { name: "KBI Consulting",                  url: "https://app.hubspot.com/contacts/45750757/record/0-2/39884129584?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 500,  used: 197, util: 0.394,    closedate: "2025-10-31" },
+  { name: "Dark Horse CPAs",                 url: "https://app.hubspot.com/contacts/45750757/record/0-2/52980749656?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Currently Onboarding", csm: "Devon Carlson",   purchased: 2000, used: 670, util: 0.335,    closedate: "2026-01-14" },
+  { name: "ElevatedCPA",                     url: "https://app.hubspot.com/contacts/45750757/record/0-2/46591173018?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 700,  used: 217, util: 0.31,     closedate: "2025-12-09" },
+  { name: "Vincere Tax",                     url: "https://app.hubspot.com/contacts/45750757/record/0-2/25473213454?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 2500, used: 742, util: 0.2968,   closedate: "2025-02-18" },
+  { name: "Arete Partners",                  url: "https://app.hubspot.com/contacts/45750757/record/0-2/22201859510?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 500,  used: 143, util: 0.286,    closedate: "2024-08-16" },
+  { name: "Eck Tax & Accounting",            url: "https://app.hubspot.com/contacts/45750757/record/0-2/36259037616?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 593,  used: 152, util: 0.2563,   closedate: "2025-12-05" },
+  { name: "PAZTAX",                          url: "https://app.hubspot.com/contacts/45750757/record/0-2/44539392376?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 1000, used: 250, util: 0.25,     closedate: "2025-12-09" },
+  { name: "CLA",                             url: "https://app.hubspot.com/contacts/45750757/record/0-2/51632646515?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Currently Onboarding", csm: "Kendyll Woolsey", purchased: 500,  used: 121, util: 0.242,    closedate: "2026-02-12" },
+  { name: "LedgerWay",                       url: "https://app.hubspot.com/contacts/45750757/record/0-2/26892667239?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 1000, used: 226, util: 0.226,    closedate: "2025-12-23" },
+  { name: "Firestone Tax & Acctg (CHILD)",   url: "https://app.hubspot.com/contacts/45750757/record/0-2/46441316171?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: null,                  csm: "Devon Carlson",   purchased: 1700, used: 364, util: 0.2141,   closedate: "2025-12-17" },
+  { name: "Associates in Accounting, CPA",   url: "https://app.hubspot.com/contacts/45750757/record/0-2/49437812548?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 900,  used: 170, util: 0.1889,   closedate: "2026-02-03" },
+  { name: "Doc Wealth",                      url: "https://app.hubspot.com/contacts/45750757/record/0-2/34892698939?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 850,  used: 160, util: 0.1882,   closedate: "2025-09-21" },
+  { name: "Daniel J Feyka CPA PC",           url: "https://app.hubspot.com/contacts/45750757/record/0-2/52511393286?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Currently Onboarding", csm: "Kendyll Woolsey", purchased: 1000, used: 177, util: 0.177,    closedate: "2026-03-04" },
+  { name: "Sentinel Tax Advisors (PARENT)",  url: "https://app.hubspot.com/contacts/45750757/record/0-2/40750708539?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 700,  used: 106, util: 0.1514,   closedate: "2025-08-28" },
+  { name: "Privity CPA Partners",            url: "https://app.hubspot.com/contacts/45750757/record/0-2/37018388645?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 1000, used: 126, util: 0.126,    closedate: "2025-08-28" },
+  { name: "Badu Tax Services",               url: "https://app.hubspot.com/contacts/45750757/record/0-2/30626604906?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 800,  used: 99,  util: 0.12375,  closedate: "2025-09-11" },
+  { name: "R. Berger & Company",             url: "https://app.hubspot.com/contacts/45750757/record/0-2/47547455068?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 700,  used: 79,  util: 0.1129,   closedate: "2026-01-07" },
+  { name: "Smith Tax & Accounting LLC",      url: "https://app.hubspot.com/contacts/45750757/record/0-2/36977823385?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 500,  used: 54,  util: 0.108,    closedate: "2025-09-08" },
+  { name: "thebeaconadvisors.com",           url: "https://app.hubspot.com/contacts/45750757/record/0-2/35222953101?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 500,  used: 36,  util: 0.072,    closedate: "2025-10-29" },
+  { name: "Lijin J Philip CPA",              url: "https://app.hubspot.com/contacts/45750757/record/0-2/49404746847?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 1000, used: 70,  util: 0.07,     closedate: "2026-01-22" },
+  { name: "Allison Accounting",              url: "https://app.hubspot.com/contacts/45750757/record/0-2/38108322318?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Devon Carlson",   purchased: 3000, used: 176, util: 0.0587,   closedate: "2025-08-26" },
+  { name: "Taxes Made EZ",                   url: "https://app.hubspot.com/contacts/45750757/record/0-2/36664844106?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 500,  used: 29,  util: 0.058,    closedate: "2025-08-27" },
+  { name: "OC Accountancy",                  url: "https://app.hubspot.com/contacts/45750757/record/0-2/49745381529?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 700,  used: 39,  util: 0.0557,   closedate: "2025-12-31" },
+  { name: "Lutz | Hoenig CPAs LLC",          url: "https://app.hubspot.com/contacts/45750757/record/0-2/49265311314?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 600,  used: 32,  util: 0.0533,   closedate: "2025-12-02" },
+  { name: "Kapper CPA",                      url: "https://app.hubspot.com/contacts/45750757/record/0-2/30145576572?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: null,                  csm: "—",               purchased: 2000, used: 88,  util: 0.044,    closedate: "2025-01-27" },
+  { name: "nahastone.com",                   url: "https://app.hubspot.com/contacts/45750757/record/0-2/21650969374?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 500,  used: 21,  util: 0.042,    closedate: "2025-02-03" },
+  { name: "thllp",                           url: "https://app.hubspot.com/contacts/45750757/record/0-2/49740974084?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 1000, used: 30,  util: 0.03,     closedate: "2024-08-28" },
+  { name: "Vantage Point Tax",               url: "https://app.hubspot.com/contacts/45750757/record/0-2/39514800736?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 715,  used: 21,  util: 0.02937,  closedate: "2025-11-25" },
+  { name: "District Tax",                    url: "https://app.hubspot.com/contacts/45750757/record/0-2/35460261012?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 600,  used: 17,  util: 0.02833,  closedate: "2025-07-30" },
+  { name: "Avia Accounting",                 url: "https://app.hubspot.com/contacts/45750757/record/0-2/28745079468?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: null,                  csm: "—",               purchased: 750,  used: 11,  util: 0.01467,  closedate: "2025-01-21" },
+  { name: "Silicon Valley Tax Coach",        url: "https://app.hubspot.com/contacts/45750757/record/0-2/36902135152?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 500,  used: 2,   util: 0.004,    closedate: "2025-12-09" },
+  { name: "Focus CPA Group",                 url: "https://app.hubspot.com/contacts/45750757/record/0-2/39614766440?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Kendyll Woolsey", purchased: 500,  used: 1,   util: 0.002,    closedate: "2025-08-27" },
+  { name: "Inspired Vision",                 url: "https://app.hubspot.com/contacts/45750757/record/0-2/34735966279?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 600,  used: 5,   util: 0.00833,  closedate: "2026-01-19" },
+  { name: "True North Advisory Group LLC",   url: "https://app.hubspot.com/contacts/45750757/record/0-2/39521106272?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Pending Onboarding",   csm: "Devon Carlson",   purchased: 2000, used: 1,   util: 0.0005,   closedate: "2025-11-03" },
+  { name: "Fligel, Brint & Co., CPAs",       url: "https://app.hubspot.com/contacts/45750757/record/0-2/26831816828?utm_source=app_16228553_mcp&utm_medium=ai_agent&utm_campaign=search", stage: "Onboarded",           csm: "Jonina Craig",    purchased: 1000, used: 0,   util: 0,        closedate: "2025-12-31" },
+];
+
+function utilClass(u) {
+  if (u >= 0.8)  return { pct: 'util-crit', fill: 'fill-crit' };
+  if (u >= 0.6)  return { pct: 'util-high', fill: 'fill-high' };
+  if (u >= 0.3)  return { pct: 'util-med',  fill: 'fill-med'  };
+  return { pct: 'util-low', fill: 'fill-low' };
 }
-async function unlock() {
-  const pw = document.getElementById('pw').value;
-  if (!pw) return;
-  const h = await sha256(pw);
-  if (h === HASH) {
-    document.getElementById('err').textContent = '';
-    document.getElementById('loading').style.display = 'block';
-    document.getElementById('box').querySelector('button').disabled = true;
-    try {
-      const resp = await fetch('report.html');
-      const html = await resp.text();
-      document.open(); document.write(html); document.close();
-    } catch(e) {
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('box').querySelector('button').disabled = false;
-      document.getElementById('err').textContent = 'Failed to load report.';
-    }
-  } else {
-    document.getElementById('err').textContent = 'Incorrect password.';
-    document.getElementById('pw').value = '';
-    document.getElementById('pw').focus();
-  }
+
+function stageBadge(stage) {
+  if (!stage) return '<span class="badge badge-unknown">—</span>';
+  if (stage === 'Onboarded') return '<span class="badge badge-onboarded">Onboarded</span>';
+  if (stage.includes('Currently')) return '<span class="badge badge-onboarding">Onboarding</span>';
+  if (stage.includes('Pending')) return '<span class="badge badge-pending">Pending</span>';
+  return `<span class="badge badge-unknown">${stage}</span>`;
 }
-document.getElementById('pw').focus();
+
+function daysSince(dateStr) {
+  const close = new Date(dateStr);
+  const today = new Date('2026-03-20');
+  const diff = Math.floor((today - close) / (1000 * 60 * 60 * 24));
+  return diff;
+}
+
+function fmtDate(dateStr) {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+const tbody = document.getElementById('tableBody');
+accounts.forEach((a, i) => {
+  const pct = (a.util * 100).toFixed(1) + '%';
+  const cls = utilClass(a.util);
+  const barW = Math.min(a.util * 100, 100).toFixed(1) + '%';
+  const days = daysSince(a.closedate);
+  const isAtRisk = a.util >= 0.8;
+
+  tbody.innerHTML += `
+    <tr${isAtRisk ? ' class="at-risk"' : ''}>
+      <td style="color:#999;font-size:12px;">${i+1}</td>
+      <td class="company-name"><a href="${a.url}" target="_blank">${a.name}</a></td>
+      <td>${stageBadge(a.stage)}</td>
+      <td class="csm-name">${a.csm}</td>
+      <td class="num">${a.purchased.toLocaleString()}</td>
+      <td class="num">${a.used.toLocaleString()}</td>
+      <td>
+        <div class="util-wrap">
+          <div class="util-bar-bg"><div class="util-bar-fill ${cls.fill}" style="width:${barW}"></div></div>
+          <span class="util-pct ${cls.pct}">${pct}</span>
+        </div>
+      </td>
+      <td class="days-chip">${fmtDate(a.closedate)}</td>
+      <td class="days-chip">${days}d ago</td>
+    </tr>`;
+});
 </script>
 </body>
 </html>
