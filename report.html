@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Returns Utilization — March 21, 2026</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#F8F9FA;color:#1E1E1E;padding:28px 20px}
+    .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .hl{display:flex;align-items:center;gap:14px}
+    .logo{width:40px;height:40px;background:#013A2F;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .pt{font-size:22px;font-weight:800;color:#013A2F}
+    .ps{font-size:13px;color:#6B7280;margin-top:3px}
+    .badge{background:#013A2F;color:#1CE49B;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px}
+    .sr{display:flex;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+    .stat{background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:14px 20px}
+    .sl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9CA3AF;margin-bottom:4px}
+    .sv{font-size:26px;font-weight:800;color:#013A2F}
+    .tw{background:#fff;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden}
+    .tt{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #E5E7EB;flex-wrap:wrap;gap:10px}
+    .ttl{font-size:14px;font-weight:700;color:#013A2F}
+    .tts{font-size:12px;color:#9CA3AF;margin-top:2px}
+    .sb{padding:6px 12px;border:1px solid #E5E7EB;border-radius:20px;font-size:13px;outline:none;width:200px}
+    .sb:focus{border-color:#1CE49B}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    thead tr{background:#013A2F}
+    thead th{color:#B4F7CA;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:10px 14px;text-align:left;white-space:nowrap}
+    thead th.r{text-align:right}
+    tbody tr:hover{background:#ECFDF5!important}
+    .td-rank{padding:9px 14px;color:#9CA3AF;font-size:12px;width:32px}
+    .td-name{padding:9px 14px;font-weight:500}
+    .td-num{padding:9px 14px;text-align:right;font-variant-numeric:tabular-nums;color:#374151}
+    .td-bar{padding:9px 14px;min-width:150px;white-space:nowrap}
+    .bw{display:inline-block;width:90px;background:#F3F4F6;border-radius:4px;height:7px;margin-right:8px;vertical-align:middle;overflow:hidden}
+    .bf{height:7px;border-radius:4px;background:#1CE49B}
+    .bp{font-size:12px;font-weight:600;color:#374151;vertical-align:middle}
+    .footer{margin-top:24px;text-align:center;font-size:12px;color:#9CA3AF}
+  </style>
+</head>
+<body>
+<div class="ph">
+  <div class="hl">
+    <div class="logo"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3L19 7.5V14.5L11 19L3 14.5V7.5L11 3Z" fill="#1CE49B"/></svg></div>
+    <div>
+      <div class="pt">Returns Utilization</div>
+      <div class="ps">Saturday, March 21, 2026 &middot; Source: HubSpot &middot; Top 25% by day-over-day change</div>
+    </div>
+  </div>
+  <div class="badge">10:00 AM</div>
+</div>
+<div class="sr">
+  <div class="stat"><div class="sl">Companies Tracked</div><div class="sv">362</div></div>
+  <div class="stat"><div class="sl">Shown (Top 25%)</div><div class="sv">91</div></div>
+  <div class="stat"><div class="sl">Total Purchased</div><div class="sv">80,892</div></div>
+  <div class="stat"><div class="sl">Total Used</div><div class="sv">20,945</div></div>
+  <div class="stat"><div class="sl">New Returns Today</div><div class="sv">11</div></div>
+</div>
+<div class="tw">
+  <div class="tt">
+    <div>
+      <div class="ttl">Top 25% by Day-over-Day Change — 91 Companies</div>
+      <div class="tts">Sorted by returns added since yesterday &middot; 362 companies tracked total</div>
+    </div>
+    <input class="sb" type="text" id="sb" placeholder="Filter by name..." oninput="f()"/>
+  </div>
+  <table>
+    <thead><tr>
+      <th>#</th><th>Company</th>
+      <th class="r">Yesterday</th><th class="r">Today</th><th class="r">Change</th>
+      <th class="r">Purchased</th><th class="r">Remaining</th><th>Utilization</th>
+    </tr></thead>
+    <tbody id="tb">
+    <tr style="">
+      <td class="td-rank">1</td>
+      <td class="td-name">PAZTAX</td>
+      <td class="td-num">252</td>
+      <td class="td-num">254</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+2</td>
+      <td class="td-num">1000</td>
+      <td class="td-num">746</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:25.4%"></div></div><span class="bp">25.4%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">2</td>
+      <td class="td-name">Grace CPA Services</td>
+      <td class="td-num">83</td>
+      <td class="td-num">85</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+2</td>
+      <td class="td-num">200</td>
+      <td class="td-num">115</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:42.5%"></div></div><span class="bp">42.5%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">3</td>
+      <td class="td-name">Garry A Jones & Associates</td>
+      <td class="td-num">47</td>
+      <td class="td-num">48</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+1</td>
+      <td class="td-num">100</td>
+      <td class="td-num">52</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:48.0%"></div></div><span class="bp">48.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">4</td>
+      <td class="td-name">Daniel J Feyka CPA PC</td>
+      <td class="td-num">177</td>
+      <td class="td-num">178</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+1</td>
+      <td class="td-num">1000</td>
+      <td class="td-num">822</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:17.8%"></div></div><span class="bp">17.8%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">5</td>
+      <td class="td-name">Aspyr Professional Group</td>
+      <td class="td-num">179</td>
+      <td class="td-num">180</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+1</td>
+      <td class="td-num">200</td>
+      <td class="td-num">20</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:90.0%"></div></div><span class="bp">90.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">6</td>
+      <td class="td-name">Detterbeck Wealth Management</td>
+      <td class="td-num">16</td>
+      <td class="td-num">17</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+1</td>
+      <td class="td-num">100</td>
+      <td class="td-num">83</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:17.0%"></div></div><span class="bp">17.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">7</td>
+      <td class="td-name">Red Rock Accounting Solutions</td>
+      <td class="td-num">23</td>
+      <td class="td-num">24</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+1</td>
+      <td class="td-num">100</td>
+      <td class="td-num">76</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:24.0%"></div></div><span class="bp">24.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">8</td>
+      <td class="td-name">Kane CPA</td>
+      <td class="td-num">54</td>
+      <td class="td-num">55</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+1</td>
+      <td class="td-num">200</td>
+      <td class="td-num">145</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:27.5%"></div></div><span class="bp">27.5%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">9</td>
+      <td class="td-name">Hanlon CPA, LLC</td>
+      <td class="td-num">192</td>
+      <td class="td-num">193</td>
+      <td class="td-num" style="color:#059669;font-weight:700">+1</td>
+      <td class="td-num">300</td>
+      <td class="td-num">107</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:64.3%"></div></div><span class="bp">64.3%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">10</td>
+      <td class="td-name">Stryker Finance LLC</td>
+      <td class="td-num">1</td>
+      <td class="td-num">1</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">99</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:1.0%"></div></div><span class="bp">1.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">11</td>
+      <td class="td-name">Yeager Tax & Accounting</td>
+      <td class="td-num">0</td>
+      <td class="td-num">0</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">100</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:0.0%"></div></div><span class="bp">0.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">12</td>
+      <td class="td-name">Spicer CPA LLC</td>
+      <td class="td-num">0</td>
+      <td class="td-num">0</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">100</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:0.0%"></div></div><span class="bp">0.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">13</td>
+      <td class="td-name">DeVito & Hutchinson, PLLC</td>
+      <td class="td-num">22</td>
+      <td class="td-num">22</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">78</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:22.0%"></div></div><span class="bp">22.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">14</td>
+      <td class="td-name">Hoboken Financial Services LLC</td>
+      <td class="td-num">7</td>
+      <td class="td-num">7</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">93</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:7.0%"></div></div><span class="bp">7.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">15</td>
+      <td class="td-name">CPA-ROD INC.</td>
+      <td class="td-num">17</td>
+      <td class="td-num">17</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">83</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:17.0%"></div></div><span class="bp">17.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">16</td>
+      <td class="td-name">David Urban Bookkeeping & Tax</td>
+      <td class="td-num">9</td>
+      <td class="td-num">9</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">91</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:9.0%"></div></div><span class="bp">9.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">17</td>
+      <td class="td-name">Bloom Financial Group</td>
+      <td class="td-num">1</td>
+      <td class="td-num">1</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">99</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:1.0%"></div></div><span class="bp">1.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">18</td>
+      <td class="td-name">Baruno, Hannaford, Heap, Aurello & Co</td>
+      <td class="td-num">2</td>
+      <td class="td-num">2</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">250</td>
+      <td class="td-num">248</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:0.8%"></div></div><span class="bp">0.8%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">19</td>
+      <td class="td-name">Fiore Accounting & Tax Services</td>
+      <td class="td-num">1</td>
+      <td class="td-num">1</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">99</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:1.0%"></div></div><span class="bp">1.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">20</td>
+      <td class="td-name">Lori A Ream LLC</td>
+      <td class="td-num">10</td>
+      <td class="td-num">10</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">90</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:10.0%"></div></div><span class="bp">10.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">21</td>
+      <td class="td-name">EJM Tax Service LLC</td>
+      <td class="td-num">17</td>
+      <td class="td-num">17</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">83</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:17.0%"></div></div><span class="bp">17.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">22</td>
+      <td class="td-name">Rockin S Business Services LLC</td>
+      <td class="td-num">6</td>
+      <td class="td-num">6</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">94</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:6.0%"></div></div><span class="bp">6.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">23</td>
+      <td class="td-name">Brett A. Efimov, CPA, Ltd (Tinley)</td>
+      <td class="td-num">5</td>
+      <td class="td-num">5</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">95</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:5.0%"></div></div><span class="bp">5.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">24</td>
+      <td class="td-name">Charles Kerner CPA PC</td>
+      <td class="td-num">5</td>
+      <td class="td-num">5</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">95</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:5.0%"></div></div><span class="bp">5.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">25</td>
+      <td class="td-name">Cheryl J Gallina, CPA</td>
+      <td class="td-num">12</td>
+      <td class="td-num">12</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">88</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:12.0%"></div></div><span class="bp">12.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">26</td>
+      <td class="td-name">MANA CPA Services</td>
+      <td class="td-num">0</td>
+      <td class="td-num">0</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">100</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:0.0%"></div></div><span class="bp">0.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">27</td>
+      <td class="td-name">Boatswain CPA, PLLC</td>
+      <td class="td-num">4</td>
+      <td class="td-num">4</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">96</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:4.0%"></div></div><span class="bp">4.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">28</td>
+      <td class="td-name">Strategic Direction Inc</td>
+      <td class="td-num">10</td>
+      <td class="td-num">10</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">90</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:10.0%"></div></div><span class="bp">10.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">29</td>
+      <td class="td-name">Jessica R. King EA LLC</td>
+      <td class="td-num">28</td>
+      <td class="td-num">28</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">72</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:28.0%"></div></div><span class="bp">28.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">30</td>
+      <td class="td-name">VR Global LLC</td>
+      <td class="td-num">9</td>
+      <td class="td-num">9</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">101</td>
+      <td class="td-num">92</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:8.9%"></div></div><span class="bp">8.9%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">31</td>
+      <td class="td-name">FRESE CPA, L.C.</td>
+      <td class="td-num">4</td>
+      <td class="td-num">4</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">96</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:4.0%"></div></div><span class="bp">4.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">32</td>
+      <td class="td-name">JTaylor & Associates, Accounting and Tax Advisory</td>
+      <td class="td-num">5</td>
+      <td class="td-num">5</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">95</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:5.0%"></div></div><span class="bp">5.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">33</td>
+      <td class="td-name">Simplified Accounting Solutions</td>
+      <td class="td-num">50</td>
+      <td class="td-num">50</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">50</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:50.0%"></div></div><span class="bp">50.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">34</td>
+      <td class="td-name">Chris Morris CPA LLC</td>
+      <td class="td-num">28</td>
+      <td class="td-num">28</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">72</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:28.0%"></div></div><span class="bp">28.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">35</td>
+      <td class="td-name">Helix CPA</td>
+      <td class="td-num">21</td>
+      <td class="td-num">21</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">102</td>
+      <td class="td-num">81</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:20.6%"></div></div><span class="bp">20.6%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">36</td>
+      <td class="td-name">James Financial Solutions</td>
+      <td class="td-num">38</td>
+      <td class="td-num">38</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">62</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:38.0%"></div></div><span class="bp">38.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">37</td>
+      <td class="td-name">Accounting Made Accessible</td>
+      <td class="td-num">28</td>
+      <td class="td-num">28</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">72</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:28.0%"></div></div><span class="bp">28.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">38</td>
+      <td class="td-name">Meo Brennan</td>
+      <td class="td-num">21</td>
+      <td class="td-num">21</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">79</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:21.0%"></div></div><span class="bp">21.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">39</td>
+      <td class="td-name">Hill and Poppy, PC (PARTNER)</td>
+      <td class="td-num">10</td>
+      <td class="td-num">10</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">50</td>
+      <td class="td-num">40</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:20.0%"></div></div><span class="bp">20.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">40</td>
+      <td class="td-name">Pfenning Accountancy PC</td>
+      <td class="td-num">11</td>
+      <td class="td-num">11</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">89</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:11.0%"></div></div><span class="bp">11.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">41</td>
+      <td class="td-name">Centennial Tax Solutions LLC</td>
+      <td class="td-num">7</td>
+      <td class="td-num">7</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">93</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:7.0%"></div></div><span class="bp">7.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">42</td>
+      <td class="td-name">Kagabo Consulting</td>
+      <td class="td-num">8</td>
+      <td class="td-num">8</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">92</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:8.0%"></div></div><span class="bp">8.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">43</td>
+      <td class="td-name">Ledgerly</td>
+      <td class="td-num">29</td>
+      <td class="td-num">29</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">71</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:29.0%"></div></div><span class="bp">29.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">44</td>
+      <td class="td-name">CFG Tax Solutions</td>
+      <td class="td-num">33</td>
+      <td class="td-num">33</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">102</td>
+      <td class="td-num">69</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:32.4%"></div></div><span class="bp">32.4%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">45</td>
+      <td class="td-name">Elitax International Inc</td>
+      <td class="td-num">6</td>
+      <td class="td-num">6</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">94</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:6.0%"></div></div><span class="bp">6.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">46</td>
+      <td class="td-name">Richmond Services & Associates</td>
+      <td class="td-num">41</td>
+      <td class="td-num">41</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">59</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:41.0%"></div></div><span class="bp">41.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">47</td>
+      <td class="td-name">Matters Accounting Solutions</td>
+      <td class="td-num">10</td>
+      <td class="td-num">10</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">90</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:10.0%"></div></div><span class="bp">10.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">48</td>
+      <td class="td-name">JGT CPA Solutions, AC</td>
+      <td class="td-num">21</td>
+      <td class="td-num">21</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">79</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:21.0%"></div></div><span class="bp">21.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">49</td>
+      <td class="td-name">Premier Taxes Inc</td>
+      <td class="td-num">12</td>
+      <td class="td-num">12</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">88</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:12.0%"></div></div><span class="bp">12.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">50</td>
+      <td class="td-name">Bulletproof Tax</td>
+      <td class="td-num">74</td>
+      <td class="td-num">74</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">102</td>
+      <td class="td-num">28</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:72.5%"></div></div><span class="bp">72.5%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">51</td>
+      <td class="td-name">John Sheeley Inc</td>
+      <td class="td-num">36</td>
+      <td class="td-num">36</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">64</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:36.0%"></div></div><span class="bp">36.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">52</td>
+      <td class="td-name">Roberta A Otto CPA</td>
+      <td class="td-num">327</td>
+      <td class="td-num">327</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">500</td>
+      <td class="td-num">173</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:65.4%"></div></div><span class="bp">65.4%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">53</td>
+      <td class="td-name">ProBooks</td>
+      <td class="td-num">66</td>
+      <td class="td-num">66</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">34</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:66.0%"></div></div><span class="bp">66.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">54</td>
+      <td class="td-name">The Onyx CPA Group, Inc.</td>
+      <td class="td-num">42</td>
+      <td class="td-num">42</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">58</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:42.0%"></div></div><span class="bp">42.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">55</td>
+      <td class="td-name">Miska & Associates</td>
+      <td class="td-num">24</td>
+      <td class="td-num">24</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">103</td>
+      <td class="td-num">79</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:23.3%"></div></div><span class="bp">23.3%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">56</td>
+      <td class="td-name">Manada Tax Service PC</td>
+      <td class="td-num">26</td>
+      <td class="td-num">26</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">74</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:26.0%"></div></div><span class="bp">26.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">57</td>
+      <td class="td-name">Redemption Accounting & Tax Solutions LLC</td>
+      <td class="td-num">1</td>
+      <td class="td-num">1</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">99</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:1.0%"></div></div><span class="bp">1.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">58</td>
+      <td class="td-name">Rosenbaum Sobel Weinrub & Burns</td>
+      <td class="td-num">103</td>
+      <td class="td-num">103</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">200</td>
+      <td class="td-num">97</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:51.5%"></div></div><span class="bp">51.5%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">59</td>
+      <td class="td-name">Alliance Accounting</td>
+      <td class="td-num">0</td>
+      <td class="td-num">0</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">100</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:0.0%"></div></div><span class="bp">0.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">60</td>
+      <td class="td-name">Elite Accounting Services</td>
+      <td class="td-num">45</td>
+      <td class="td-num">45</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">103</td>
+      <td class="td-num">58</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:43.7%"></div></div><span class="bp">43.7%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">61</td>
+      <td class="td-name">Associates in Accounting, CPA</td>
+      <td class="td-num">170</td>
+      <td class="td-num">170</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">900</td>
+      <td class="td-num">730</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:18.9%"></div></div><span class="bp">18.9%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">62</td>
+      <td class="td-name">Bastion Financial Group</td>
+      <td class="td-num">19</td>
+      <td class="td-num">19</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">81</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:19.0%"></div></div><span class="bp">19.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">63</td>
+      <td class="td-name">RCG CPA & Advisors, LLP</td>
+      <td class="td-num">23</td>
+      <td class="td-num">23</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">77</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:23.0%"></div></div><span class="bp">23.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">64</td>
+      <td class="td-name">IRS Solutions Valencia, Inc.</td>
+      <td class="td-num">63</td>
+      <td class="td-num">63</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">37</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:63.0%"></div></div><span class="bp">63.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">65</td>
+      <td class="td-name">Lijin J Philip CPA</td>
+      <td class="td-num">70</td>
+      <td class="td-num">70</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">1000</td>
+      <td class="td-num">930</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:7.0%"></div></div><span class="bp">7.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">66</td>
+      <td class="td-name">Shoemaker CPA LLC</td>
+      <td class="td-num">8</td>
+      <td class="td-num">8</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">92</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:8.0%"></div></div><span class="bp">8.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">67</td>
+      <td class="td-name">Travel Nurse Tax</td>
+      <td class="td-num">569</td>
+      <td class="td-num">569</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">1300</td>
+      <td class="td-num">731</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:43.8%"></div></div><span class="bp">43.8%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">68</td>
+      <td class="td-name">MacAdam & Associates</td>
+      <td class="td-num">4</td>
+      <td class="td-num">4</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">96</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:4.0%"></div></div><span class="bp">4.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">69</td>
+      <td class="td-name">Bluegrass Professional Associates</td>
+      <td class="td-num">53</td>
+      <td class="td-num">53</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">150</td>
+      <td class="td-num">97</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:35.3%"></div></div><span class="bp">35.3%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">70</td>
+      <td class="td-name">East Coast Advisors LLC</td>
+      <td class="td-num">30</td>
+      <td class="td-num">30</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">70</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:30.0%"></div></div><span class="bp">30.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">71</td>
+      <td class="td-name">The Bottom Line, LLC</td>
+      <td class="td-num">38</td>
+      <td class="td-num">38</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">62</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:38.0%"></div></div><span class="bp">38.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">72</td>
+      <td class="td-name">Kelly R McDonald, CPA Cornerstone Professional Accountants, PC</td>
+      <td class="td-num">109</td>
+      <td class="td-num">109</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">108</td>
+      <td class="td-num"><span style="color:#B91C1C">-1</span></td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:100.0%"></div></div><span class="bp">100.9%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">73</td>
+      <td class="td-name">Instrument Tax LLLP</td>
+      <td class="td-num">2</td>
+      <td class="td-num">2</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">98</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:2.0%"></div></div><span class="bp">2.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">74</td>
+      <td class="td-name">Pensgen CPA</td>
+      <td class="td-num">11</td>
+      <td class="td-num">11</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">89</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:11.0%"></div></div><span class="bp">11.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">75</td>
+      <td class="td-name">Gianno & Freda CPAs & Financial Center Inc</td>
+      <td class="td-num">98</td>
+      <td class="td-num">98</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">200</td>
+      <td class="td-num">102</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:49.0%"></div></div><span class="bp">49.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">76</td>
+      <td class="td-name">Scott Tax Resources</td>
+      <td class="td-num">20</td>
+      <td class="td-num">20</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">80</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:20.0%"></div></div><span class="bp">20.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">77</td>
+      <td class="td-name">H2 Advisors</td>
+      <td class="td-num">12</td>
+      <td class="td-num">12</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">203</td>
+      <td class="td-num">191</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:5.9%"></div></div><span class="bp">5.9%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">78</td>
+      <td class="td-name">Blue Lake Tax</td>
+      <td class="td-num">16</td>
+      <td class="td-num">16</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">102</td>
+      <td class="td-num">86</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:15.7%"></div></div><span class="bp">15.7%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">79</td>
+      <td class="td-name">Zaslove Accounting</td>
+      <td class="td-num">34</td>
+      <td class="td-num">34</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">101</td>
+      <td class="td-num">67</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:33.7%"></div></div><span class="bp">33.7%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">80</td>
+      <td class="td-name">CPA Help Now</td>
+      <td class="td-num">56</td>
+      <td class="td-num">56</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">44</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:56.0%"></div></div><span class="bp">56.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">81</td>
+      <td class="td-name">Schmitt Accounting & Tax</td>
+      <td class="td-num">15</td>
+      <td class="td-num">15</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">85</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:15.0%"></div></div><span class="bp">15.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">82</td>
+      <td class="td-name">Cerner Capital Management LLC</td>
+      <td class="td-num">32</td>
+      <td class="td-num">32</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">68</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:32.0%"></div></div><span class="bp">32.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">83</td>
+      <td class="td-name">Lear & Pannepacker</td>
+      <td class="td-num">3</td>
+      <td class="td-num">3</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">300</td>
+      <td class="td-num">297</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:1.0%"></div></div><span class="bp">1.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">84</td>
+      <td class="td-name">Budget Tax Solutions</td>
+      <td class="td-num">30</td>
+      <td class="td-num">30</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">103</td>
+      <td class="td-num">73</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:29.1%"></div></div><span class="bp">29.1%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">85</td>
+      <td class="td-name">Michalik & Daniels, Inc</td>
+      <td class="td-num">33</td>
+      <td class="td-num">33</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">105</td>
+      <td class="td-num">72</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:31.4%"></div></div><span class="bp">31.4%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">86</td>
+      <td class="td-name">SouthPark Family Tax</td>
+      <td class="td-num">25</td>
+      <td class="td-num">25</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">75</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:25.0%"></div></div><span class="bp">25.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">87</td>
+      <td class="td-name">Linn Tax & Accounting</td>
+      <td class="td-num">11</td>
+      <td class="td-num">11</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">89</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:11.0%"></div></div><span class="bp">11.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">88</td>
+      <td class="td-name">Abacus Planning Group</td>
+      <td class="td-num">1</td>
+      <td class="td-num">1</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">99</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:1.0%"></div></div><span class="bp">1.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">89</td>
+      <td class="td-name">YMMD Tax and Wealth Planning, LLC</td>
+      <td class="td-num">9</td>
+      <td class="td-num">9</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">91</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:9.0%"></div></div><span class="bp">9.0%</span></td>
+    </tr>
+    <tr style="background:#F0FDF4;">
+      <td class="td-rank">90</td>
+      <td class="td-name">Reliable Tax & Business Services</td>
+      <td class="td-num">21</td>
+      <td class="td-num">21</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">100</td>
+      <td class="td-num">79</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:21.0%"></div></div><span class="bp">21.0%</span></td>
+    </tr>
+    <tr style="">
+      <td class="td-rank">91</td>
+      <td class="td-name">Montemar Associates PC</td>
+      <td class="td-num">96</td>
+      <td class="td-num">96</td>
+      <td class="td-num" style="color:#9CA3AF">0</td>
+      <td class="td-num">300</td>
+      <td class="td-num">204</td>
+      <td class="td-bar"><div class="bw"><div class="bf" style="width:32.0%"></div></div><span class="bp">32.0%</span></td>
+    </tr></tbody>
+  </table>
+</div>
+<div class="footer">Juno Tax &middot; Returns Utilization Daily &middot; March 21, 2026 &middot; 362 companies tracked</div>
+<script>
+function f(){
+  const q=document.getElementById('sb').value.toLowerCase();
+  document.querySelectorAll('#tb tr').forEach(r=>{
+    const n=r.querySelector('.td-name');
+    r.style.display=(!q||(n&&n.textContent.toLowerCase().includes(q)))?'':'none';
+  });
+}
+</script>
+</body></html>
