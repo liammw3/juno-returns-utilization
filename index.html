@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Returns Utilization — Juno Tax</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:#013A2F;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    #box{background:#F8F9FA;border-radius:16px;padding:40px 36px;width:340px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+    #logo{width:48px;height:48px;background:#013A2F;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+    #logo svg{width:28px;height:28px}
+    h1{font-size:18px;font-weight:800;color:#013A2F;margin-bottom:6px}
+    p{font-size:13px;color:#6B7280;margin-bottom:24px}
+    input{width:100%;padding:10px 14px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:14px;outline:none;margin-bottom:12px;font-family:inherit}
+    input:focus{border-color:#1CE49B}
+    button{width:100%;padding:11px;background:#013A2F;color:#1CE49B;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+    button:hover{background:#025040}
+    #err{font-size:12px;color:#B91C1C;margin-top:8px;min-height:18px;font-family:inherit}
+    #loading{display:none;font-size:13px;color:#6B7280;margin-top:8px}
+  </style>
+</head>
+<body>
+<div id="box">
+  <div id="logo">
+    <svg viewBox="0 0 28 28" fill="none">
+      <rect width="28" height="28" rx="6" fill="#1CE49B"/>
+      <path d="M7 14l5 5 9-9" stroke="#013A2F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <h1>Juno Tax</h1>
+  <p>Returns Utilization Report</p>
+  <input type="password" id="pw" placeholder="Password" onkeydown="if(event.key==='Enter')unlock()"/>
+  <button onclick="unlock()">View Report</button>
+  <div id="err"></div>
+  <div id="loading">Loading report…</div>
+</div>
+<script>
+const HASH = '7d5038c2985b8b6c93fa24c9fed56b884f2783940ea3204195dd46bd99854a3b';
+async function sha256(msg) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function unlock() {
+  const pw = document.getElementById('pw').value;
+  if (!pw) return;
+  const h = await sha256(pw);
+  if (h === HASH) {
+    document.getElementById('err').textContent = '';
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('box').querySelector('button').disabled = true;
+    try {
+      const resp = await fetch('report.html');
+      const html = await resp.text();
+      document.open(); document.write(html); document.close();
+    } catch(e) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('box').querySelector('button').disabled = false;
+      document.getElementById('err').textContent = 'Failed to load report.';
+    }
+  } else {
+    document.getElementById('err').textContent = 'Incorrect password.';
+    document.getElementById('pw').value = '';
+    document.getElementById('pw').focus();
+  }
+}
+document.getElementById('pw').focus();
+</script>
+</body>
+</html>
