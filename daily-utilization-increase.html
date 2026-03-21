@@ -1,804 +1,713 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="favicon.png" type="image/png">
-  <title>Daily Utilization Increase — 2026-03-20</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #F8F9FA;
-      color: #1E1E1E;
-      padding: 28px 24px;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    .header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      padding-bottom: 16px;
-      border-bottom: 3px solid #013A2F;
-    }
-    .header-left h1 { font-size: 24px; font-weight: 700; color: #013A2F; letter-spacing: -0.4px; }
-    .header-left .subtitle { font-size: 13px; color: #666; margin-top: 3px; }
-    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-    .badge { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-    .badge-auto { background: #013A2F; color: #1CE49B; }
-    .badge-source { background: #e8f5ee; color: #013A2F; border: 1px solid #B4F7CA; }
-
-    /* ── Notice banner ── */
-    .notice {
-      background: #fff8e6;
-      border: 1px solid #f0c040;
-      border-left: 4px solid #f0a500;
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 20px;
-      font-size: 13px;
-      line-height: 1.6;
-      color: #4a3800;
-    }
-    .notice strong { color: #2a2200; }
-
-    /* ── Stats row ── */
-    .stats-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-    .stat-card {
-      background: #fff;
-      border: 1px solid #e4e4e4;
-      border-radius: 10px;
-      padding: 14px 18px;
-      flex: 1;
-      min-width: 140px;
-    }
-    .stat-card .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px; color: #888; margin-bottom: 4px; }
-    .stat-card .stat-value { font-size: 22px; font-weight: 700; color: #013A2F; }
-    .stat-card .stat-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
-    .stat-card.highlight { border-top: 3px solid #1CE49B; }
-
-    /* ── Section heading ── */
-    .section-heading {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #013A2F;
-      padding: 10px 0 8px;
-      border-bottom: 2px solid #B4F7CA;
-      margin-bottom: 12px;
-    }
-
-    /* ── Main table ── */
-    .table-wrap { overflow-x: auto; margin-bottom: 28px; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    thead tr { background: #013A2F; color: #fff; }
-    thead th {
-      padding: 10px 12px;
-      text-align: left;
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      white-space: nowrap;
-    }
-    thead th.right { text-align: right; }
-    tbody tr:nth-child(even) { background: #B4F7CA22; }
-    tbody tr:hover { background: #e8f5ee; }
-    tbody td { padding: 9px 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
-    tbody td.right { text-align: right; font-variant-numeric: tabular-nums; }
-    .rank { font-size: 11px; color: #aaa; font-weight: 600; }
-    .org-name { font-weight: 600; color: #013A2F; }
-    .delta-na { color: #bbb; font-size: 12px; }
-
-    /* ── Progress bar ── */
-    .bar-wrap { display: flex; align-items: center; gap: 8px; }
-    .bar-bg { flex: 1; height: 8px; background: #e8e8e8; border-radius: 4px; min-width: 70px; max-width: 120px; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 4px; }
-    .bar-ok    { background: #1CE49B; }
-    .bar-watch { background: #f0c040; }
-    .bar-warn  { background: #f07a20; }
-    .bar-crit  { background: #d93025; }
-    .pct-text { font-size: 12px; font-weight: 600; min-width: 42px; }
-
-    /* ── Threshold badges ── */
-    .badge-ok   { background: #e8f5ee; color: #013A2F; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
-    .badge-watch{ background: #fff8e0; color: #7a5000; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
-    .badge-warn { background: #fff0e4; color: #8a3800; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
-    .badge-crit { background: #fde8e8; color: #8a0000; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
-
-    /* ── Alerts section ── */
-    .alerts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-bottom: 28px; }
-    .alert-card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 12px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-    .alert-card.crit { border-left: 4px solid #d93025; }
-    .alert-card.warn { border-left: 4px solid #f07a20; }
-    .alert-card.watch { border-left: 4px solid #f0c040; }
-    .alert-org { font-size: 13px; font-weight: 600; color: #013A2F; }
-    .alert-used { font-size: 11px; color: #888; margin-top: 2px; }
-    .alert-pct { font-size: 15px; font-weight: 700; }
-    .alert-pct.crit  { color: #d93025; }
-    .alert-pct.warn  { color: #f07a20; }
-    .alert-pct.watch { color: #c08000; }
-
-    /* ── Fix recommendations ── */
-    .rec-section { background: #fff; border: 1px solid #B4F7CA; border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
-    .rec-section h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: #013A2F; margin-bottom: 14px; }
-    .rec-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; line-height: 1.6; }
-    .rec-item:last-child { border-bottom: none; }
-    .rec-num { background: #1CE49B; color: #013A2F; font-weight: 700; font-size: 11px; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-    .rec-body strong { color: #013A2F; }
-    .rec-body code { background: #f0f0f0; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
-
-    /* ── Footer ── */
-    .footer { font-size: 11px; color: #aaa; text-align: center; margin-top: 16px; }
-    .footer span { color: #1CE49B; font-weight: 600; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Utilization — Top 25 by Volume | Juno Tax</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f3f4f6; color: #111827; }
+  .header { background: #1a3c34; color: #fff; padding: 24px 32px; }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .header h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+  .header .subtitle { font-size: 0.9rem; color: #a7f3d0; margin-top: 4px; }
+  .header .run-date { font-size: 0.8rem; color: #6ee7b7; margin-top: 2px; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .badge { background: #2e7d5e; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.04em; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+  .banner { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px; font-size: 0.85rem; color: #92400e; line-height: 1.6; }
+  .banner strong { color: #78350f; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: #fff; border-radius: 10px; padding: 16px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .stat-label { font-size: 0.75rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 6px; }
+  .stat-value { font-size: 1.8rem; font-weight: 800; color: #1a3c34; }
+  .stat-sub { font-size: 0.7rem; color: #9ca3af; margin-top: 2px; }
+  .section-title { font-size: 1.1rem; font-weight: 700; color: #1a3c34; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #2e7d5e; }
+  .table-wrap { background: #fff; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflox-x: auto; margin-bottom: 28px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  thead th { background: #f9fafb; padding: 10px 12px; text-align: left; font-size: 0.75rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 2px solid #e5e7eb; }
+  tbody tr:hover { background: #f9fafb; }
+  .alerts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .rec-section { background: #fff; border-radius: 10px; padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 24px; }
+  .rec-section ol { padding-left: 20px; line-height: 1.9; font-size: 0.875rem; color: #374151; }
+  .rec-section ol li { margin-bottom: 8px; }
+  .rec-section code { background: #f3f4f6; padding: 1px 5px; border-radius: 3px; font-size: 0.8rem; color: #1a3c34; }
+  .footer { text-align: center; font-size: 0.75rem; color: #9ca3af; padding: 20px; border-top: 1px solid #e5e7eb; margin-top: 8px; }
+</style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
 <div class="header">
-  <div class="header-left">
-    <h1>Daily Utilization — Top 25 by Volume</h1>
-    <div class="subtitle">Run Date: 2026-03-20 · Returns used ranked by current volume</div>
-  </div>
-  <div class="header-right">
-    <span class="badge badge-auto">Automated Run</span>
-    <span class="badge badge-source">Source: HubSpot (DB-synced)</span>
+  <div class="header-top">
+    <div>
+      <h1>Daily Utilization — Top 25 by Volume</h1>
+      <div class="subtitle">Returns used ranked by current volume</div>
+      <div class="run-date">Run date: 2026-03-21</div>
+  2   <div class="badges" style="margin-top:10px">
+        <span class="badge">🤖 Automated Run</span>
+        <span class="badge">Source: HubSpot (DB-synced)</span>
+      </div>
+    </div>
+    <div style="text-align:right;padding-top:4px">
+      <div style="font-size:2rem;font-weight:800;color:#a7f3d0">456</div>
+      <div style="font-size:0.75rem;color:#6ee7b7">orgs tracked</div>
+    </div>
   </div>
 </div>
 
-<!-- ── NOTICE ── -->
-<div class="notice">
-  <strong>⚠️ Data source fallback — day-over-day delta unavailable.</strong>
-  This report uses <strong>HubSpot company properties</strong> (<code>returns_currently_used</code> / <code>annual_returns_purchased</code>), which are synced from the Trueprep database.
-  The scheduled task was designed to run SQL directly against Trueprep Prd, but the VM has no database connection (<code>psql</code> not installed, no <code>DATABASE_URL</code>).
-  Rows are ranked by <strong>current returns used</strong> (highest first) as the best available proxy. The Δ column requires a prior-day snapshot from the DB and is unavailable here.
-  <strong>See the fix recommendations at the bottom of this report.</strong>
-</div>
+<div class="container">
 
-<!-- ── STATS ROW ── -->
-<div class="stats-row">
-  <div class="stat-card highlight">
-    <div class="stat-label">Orgs tracked</div>
-    <div class="stat-value">1,001</div>
-    <div class="stat-sub">non-excluded, with usage</div>
+  <!-- Data source fallback banner -->
+  <div class="banner">
+    <strong>⚠️ Data Source Notice:</strong> This report uses HubSpot company properties
+    (<code style="background:#fef3c7;padding:1px 4px;border-radius:3px">returns_currently_used</code> /
+    <code style="background:#fef3c7;padding:1px 4px;border-radius:3px">annual_returns_purchased</code>)
+    synced from Trueprep. The <strong>Δ Change</strong> column requires a prior-day snapshot and is
+    currently unavailable. Current utilization percentages and threshold alerts are accurate.
+    See the <a href="#recommendations" style="color:#92400e;font-weight:700">Root Cause &amp; Fix Recommendations</a>
+    section below for how to restore day-over-day delta.
   </div>
-  <div class="stat-card">
-    <div class="stat-label">🔴 Critical (≥90%)</div>
-    <div class="stat-value" style="color:#d93025">6</div>
-    <div class="stat-sub">require immediate attention</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">⚠️ Warning (≥80%)</div>
-    <div class="stat-value" style="color:#f07a20">7</div>
-    <div class="stat-sub">approaching limit</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">👁 Watch (≥70%)</div>
-    <div class="stat-value" style="color:#c08000">9</div>
-    <div class="stat-sub">monitor closely</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">Data as of</div>
-    <div class="stat-value" style="font-size:15px">2026-03-20</div>
-    <div class="stat-sub">HubSpot last-sync</div>
-  </div>
-</div>
 
-<!-- ── TOP 25 TABLE ── -->
-<div class="section-heading">Top 25 Orgs by Returns Used</div>
-<div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Organization</th>
-        <th class="right">Prior Day</th>
-        <th class="right">Current Used</th>
-        <th class="right">Δ Change</th>
-        <th class="right">Purchased</th>
-        <th>Utilization</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      <tr>
-        <td class="rank">1</td>
-        <td class="org-name">Vincere Tax</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>742</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">2,500</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:29.7%"></div></div>
-            <span class="pct-text">29.7%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">2</td>
-        <td class="org-name">Dark Horse CPAs</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>671</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">2,000</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:33.6%"></div></div>
-            <span class="pct-text">33.6%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">3</td>
-        <td class="org-name">Travel Nurse Tax</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>569</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">1,300</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:43.8%"></div></div>
-            <span class="pct-text">43.8%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">4</td>
-        <td class="org-name">Pacific Financial Navigators</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>548</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">810</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:67.7%"></div></div>
-            <span class="pct-text">67.7%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">5</td>
-        <td class="org-name">CPA Financial Advantage</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>426</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">900</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:47.3%"></div></div>
-            <span class="pct-text">47.3%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">6</td>
-        <td class="org-name">Tax Rite</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>421</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">500</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-warn" style="width:84.2%"></div></div>
-            <span class="pct-text" style="color:#f07a20">84.2%</span>
-          </div>
-        </td>
-        <td><span class="badge-warn">⚠ WARNING</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">7</td>
-        <td class="org-name">Belt Accounting</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>406</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">850</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:47.8%"></div></div>
-            <span class="pct-text">47.8%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">8</td>
-        <td class="org-name">Duncan &amp; Associates</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>403</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">700</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:57.6%"></div></div>
-            <span class="pct-text">57.6%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">9</td>
-        <td class="org-name">JCW Tax &amp; Accounting</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>383</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">710</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:53.9%"></div></div>
-            <span class="pct-text">53.9%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">10</td>
-        <td class="org-name">Harbor Group</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>379</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">500</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-watch" style="width:75.8%"></div></div>
-            <span class="pct-text" style="color:#c08000">75.8%</span>
-          </div>
-        </td>
-        <td><span class="badge-watch">👁 WATCH</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">11</td>
-        <td class="org-name">Firestone Tax &amp; Accounting (CHILD)</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>365</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">1,700</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:21.5%"></div></div>
-            <span class="pct-text">21.5%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">12</td>
-        <td class="org-name">ROR Tax Professionals</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>346</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">605</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:57.2%"></div></div>
-            <span class="pct-text">57.2%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">13</td>
-        <td class="org-name">Roberta A Otto CPA</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>327</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">500</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:65.4%"></div></div>
-            <span class="pct-text">65.4%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">14</td>
-        <td class="org-name">The Jones CPA Group</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>261</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">505</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:51.7%"></div></div>
-            <span class="pct-text">51.7%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">15</td>
-        <td class="org-name">PAZTAX</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>250</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">1,000</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:25.0%"></div></div>
-            <span class="pct-text">25.0%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">16</td>
-        <td class="org-name">Seaside Resources</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>249</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">530</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:47.0%"></div></div>
-            <span class="pct-text">47.0%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">17</td>
-        <td class="org-name">Thomas &amp; Company CPA</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>241</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">350</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:68.9%"></div></div>
-            <span class="pct-text">68.9%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OL</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">18</td>
-        <td class="org-name">Wills &amp; Associates (CHILD)</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>234</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">500</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:46.8%"></div></div>
-            <span class="pct-text">46.8%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">19</td>
-        <td class="org-name">RLH Tax Services</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>231</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">505</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:45.7%"></div></div>
-            <span class="pct-text">45.7%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">20</td>
-        <td class="org-name">LedgerWay</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>226</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">1,000</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:22.6%"></div></div>
-            <span class="pct-text">22.6%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">21</td>
-        <td class="org-name">Wealth Alliance Tax &amp; Financial Services</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>225</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">350</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:64.3%"></div></div>
-            <span class="pct-text">64.3%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">22</td>
-        <td class="org-name">K &amp; B Business Service</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>223</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">505</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:44.2%"></div></div>
-            <span class="pct-text">44.2%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">23</td>
-        <td class="org-name">Henry, Waters &amp; Associates</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>220</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">300</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-watch" style="width:73.3%"></div></div>
-            <span class="pct-text" style="color:#c08000">73.3%</span>
-          </div>
-        </td>
-        <td><span class="badge-watch">👁 WATCH</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">24</td>
-        <td class="org-name">ElevatedCPA</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>219</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">700</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:31.3%"></div></div>
-            <span class="pct-text">31.3%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-      <tr>
-        <td class="rank">25</td>
-        <td class="org-name">ABL &amp; Co</td>
-        <td class="right delta-na">—</td>
-        <td class="right"><strong>205</strong></td>
-        <td class="right delta-na">—</td>
-        <td class="right">405</td>
-        <td>
-          <div class="bar-wrap">
-            <div class="bar-bg"><div class="bar-fill bar-ok" style="width:50.6%"></div></div>
-            <span class="pct-text">50.6%</span>
-          </div>
-        </td>
-        <td><span class="badge-ok">OK</span></td>
-      </tr>
-
-    </tbody>
-  </table>
-</div>
-
-<!-- ── HIGH UTILIZATION ALERTS ── -->
-<div class="section-heading">🚨 High Utilization Alerts — All Orgs ≥70% (Outside Top 25)</div>
-<div class="alerts-grid">
-
-  <div class="alert-card crit">
-    <div>
-      <div class="alert-org">Fire First Tax</div>
-      <div class="alert-used">107 / 108 purchased</div>
+  <!-- Stats row -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-label">Orgs Tracked</div>
+      <div class="stat-value">456</div>
+      <div class="stat-sub">with usage data</div>
     </div>
-    <div class="alert-pct crit">99.1% 🔴</div>
-  </div>
-
-  <div class="alert-card crit">
-    <div>
-      <div class="alert-org">Leading Edge Financial</div>
-      <div class="alert-used">90 / 100 purchased</div>
+    <div class="stat-card" style="border-top: 3px solid #ef4444;">
+      <div class="stat-label">🔴 Critical ≥90%</div>
+      <div class="stat-value" style="color:#ef4444">8</div>
+      <div class="stat-sub">near/over capacity</div>
     </div>
-    <div class="alert-pct crit">90.0% 🔴</div>
-  </div>
-
-  <div class="alert-card crit">
-    <div>
-      <div class="alert-org">Aspyr Professional Group</div>
-      <div class="alert-used">179 / 200 purchased</div>
+    <div class="stat-card" style="border-top: 3px solid #f97316;">
+      <div class="stat-label">⚠️ Warning ≥80%</div>
+      <div class="stat-value" style="color:#f97316">5</div>
+      <div class="stat-sub">high utilization</div>
     </div>
-    <div class="alert-pct crit">89.5% 🔴</div>
-  </div>
-
-  <div class="alert-card warn">
-    <div>
-      <div class="alert-org">Lloyd &amp; Hodge</div>
-      <div class="alert-used">176 / 200 purchased</div>
+    <div class="stat-card" style="border-top: 3px solid #eab308;">
+      <div class="stat-label">👁 Watch ≥70%</div>
+      <div class="stat-value" style="color:#b45309">11</div>
+      <div class="stat-sub">monitor closely</div>
     </div>
-    <div class="alert-pct warn">88.0% ⚠</div>
-  </div>
-
-  <div class="alert-card warn">
-    <div>
-      <div class="alert-org">Bookkeeping Solutions</div>
-      <div class="alert-used">88 / 100 purchased</div>
-    </div>
-    <div class="alert-pct warn">88.0% ⚠</div>
-  </div>
-
-  <div class="alert-card warn">
-    <div>
-      <div class="alert-org">SFBG OpCo LLC</div>
-      <div class="alert-used">87 / 100 purchased</div>
-  2 </div>
-    <div class="alert-pct warn">87.0% ⚠</div>
-  </div>
-
-  <div class="alert-card warn">
-    <div>
-      <div class="alert-org">Taxvanta</div>
-      <div class="alert-used">127 / 150 purchased</div>
-    </div>
-    <div class="alert-pct warn">84.7% ⚠</div>
-  </div>
-
-  <div class="alert-card warn">
-    <div>
-      <div class="alert-org">Accounting Specialists of Asheville</div>
-      <div class="alert-used">78 / 100 purchased</div>
-    </div>
-    <div class="alert-pct warn">78.0% ⚠</div>
-  </div>
-
-  <div class="alert-card watch">
-    <div>
-      <div class="alert-org">Daily Balance</div>
-      <div class="alert-used">153 / 200 purchased</div>
-    </div>
-    <div class="alert-pct watch">76.5% 👁</div>
-  </div>
-
-  <div class="alert-card watch">
-    <div>
-      <div class="alert-org">BLUESKY WEALTH ADVISORS LLC</div>
-      <div class="alert-used">151 / 200 purchased</div>
-    </div>
-    <div class="alert-pct watch">75.5% 👁</div>
-  </div>
-
-  <div class="alert-card watch">
-    <div>
-      <div class="alert-org">Bulletproof Tax</div>
-      <div class="alert-used">74 / 102 purchased</div>
-    </div>
-    <div class="alert-pct watch">72.5% 👁</div>
-  </div>
-
-  <div class="alert-card watch">
-    <div>
-      <div class="alert-org">CPA Teaches</div>
-      <div class="alert-used">72 / 100 purchased</div>
-    </div>
-    <div class="alert-pct watch">72.0% 👁</div>
-  </div>
-
-  <div class="alert-card watch">
-    <div>
-      <div class="alert-org">chesterdaniels.com</div>
-      <div class="alert-used">71 / 100 purchased</div>
-    </div>
-    <div class="alert-pct watch">71.0% 👁</div>
-  </div>
-
-  <div class="alert-card crit" style="border-left-color:#7a00cc">
-    <div>
-      <div class="alert-org">Common Cent$ Business ⚡</div>
-      <div class="alert-used">133 / 100 purchased — OVER CAPACITY</div>
-    </div>
-    <div class="alert-pct crit">133% 🔴</div>
-  </div>
-
-  <div class="alert-card crit" style="border-left-color:#7a00cc">
-    <div>
-      <div class="alert-org">Kelly R McDonald CPA ⚡</div>
-      <div class="alert-used">109 / 108 purchased — OVER CAPACITY</div>
-    </div>
-    <div class="alert-pct crit">100.9% 🔴</div>
-  </div>
-
-  <div class="alert-card crit" style="border-left-color:#7a00cc">
-    <div>
-      <div class="alert-org">Edler Zain ⚡</div>
-      <div class="alert-used">101 / 100 purchased — OVER CAPACITY</div>
-    </div>
-    <div class="alert-pct crit">101.0% 🔴</div>
-  </div>
-
-</div>
-
-<!-- ── FIX RECOMMENDATIONS ── -->
-<div class="section-heading">🔧 Root Cause &amp; Fix Recommendations</div>
-<div class="rec-section">
-  <h2>Why this report keeps failing — and how to fix it permanently</h2>
-
-  <div class="rec-item">
-    <span class="rec-num">1</span>
-    <div class="rec-body">
-      <strong>Root cause:</strong> The task was architected to run SQL directly in the Cowork VM, but <strong>the VM has no database access</strong> — no <code>psql</code>, no <code>psycopg2</code>, no <code>DATABASE_URL</code>. Per Juno's automation foundations, <strong>Retool Workflows</strong> is the correct platform for direct Trueprep Prd queries.
+    <div class="stat-card" style="border-top: 3px solid #2e7d5e;">
+      <div class="stat-label">Data As Of</div>
+      <div class="stat-value" style="font-size:1.1rem;margin-top:4px">2026-03-21</div>
+      <div class="stat-sub">HubSpot last-sync</div>
     </div>
   </div>
 
-  <div class="rec-item">
-    <span class="rec-num">2</span>
-    <div class="rec-body">
-      <strong>Correct Retool URL:</strong> The Juno Retool instance is at <code>trueprep.retool.com</code> (not <code>junotax.retool.com</code> as the original task assumed). Login required — Chrome access works once authenticated.
+  <!-- Top 25 table -->
+  <div class="section-title">Top 25 Organizations by Volume</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Organization</th>
+          <th style="text-align:center">Prior Day</th>
+          <th style="text-align:center">Current Used</th>
+          <th style="text-align:center">Δ Change</th>
+          <th style="text-align:center">Purchased</th>
+          <th>Utilization</th>
+          <th style="text-align:center">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">1</td>
+      <td style="padding:10px 12px;font-weight:600">Vincere Tax</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">759</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">2500</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:30.4%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">30.4%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">2</td>
+      <td style="padding:10px 12px;font-weight:600">Dark Horse CPAs</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">685</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+    2 <td style="padding:10px 12px;text-align:center">2000</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:34.2%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">34.2%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">3</td>
+      <td style="padding:10px 12px;font-weight:600">Travel Nurse Tax</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">578</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">1300</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:44.5%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">44.5%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">4</td>
+      <td style="padding:10px 12px;font-weight:600">Pacific Financial Navigators</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">561</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">810</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:69.3%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">69.3%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">5</td>
+      <td style="padding:10px 12px;font-weight:600">CPA Financial Advantage</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">440</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">900</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:48.9%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">48.9%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">6</td>
+      <td style="padding:10px 12px;font-weight:600">Tax Rite</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">421</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">500</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:84.2%;background:#f97316;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">84.2%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#f97316;color:#fff">WARNING</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">7</td>
+      <td style="padding:10px 12px;font-weight:600">Belt Accounting</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">406</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">850</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:47.8%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">47.8%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">8</td>
+      <td style="padding:10px 12px;font-weight:600">Duncan &amp; Associates</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">403</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">700</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:57.6%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">57.6%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">9</td>
+      <td style="padding:10px 12px;font-weight:600">JCW Tax &amp; Accounting</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">388</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">710</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:54.6%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">54.6%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">10</td>
+      <td style="padding:10px 12px;font-weight:600">Harbor Group</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">379</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">500</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:75.8%;background:#eab308;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">75.8%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">11</td>
+      <td style="padding:10px 12px;font-weight:600">Firestone Tax &amp; Accounting Services (CHILD)</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">368</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">1700</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:21.6%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">21.6%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">12</td>
+      <td style="padding:10px 12px;font-weight:600">ROR Tax Professionals</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">349</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">605</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:57.7%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">57.7%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">13</td>
+      <td style="padding:10px 12px;font-weight:600">Roberta A Otto CPA</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">327</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">500</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:65.4%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">65.4%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">14</td>
+      <td style="padding:10px 12px;font-weight:600">Seaside Resources</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">275</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">530</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:51.9%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">51.9%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OL</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">15</td>
+      <td style="padding:10px 12px;font-weight:600">The Jones CPA Group</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">270</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">505</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:53.5%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">53.5%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">16</td>
+      <td style="padding:10px 12px;font-weight:600">PAZTAX</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">258</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">1000</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:25.8%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">25.8%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">17</td>
+      <td style="padding:10px 12px;font-weight:600">Thomas &amp; Company CPA</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">247</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">350</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:70.6%;background:#eab308;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">70.6%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">18</td>
+      <td style="padding:10px 12px;font-weight:600">Wills &amp; Associates (CHILD)</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">240</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">500</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:48.0%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">48.0%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">19</td>
+      <td style="padding:10px 12px;font-weight:600">RLH Tax Services</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">239</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">505</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:47.3%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">47.3%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OL</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">20</td>
+      <td style="padding:10px 12px;font-weight:600">LedgerWay</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">232</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">1000</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:23.2%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">23.2%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">21</td>
+      <td style="padding:10px 12px;font-weight:600">ElevatedCPA</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">231</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">700</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:33.0%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">33.0%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">22</td>
+      <td style="padding:10px 12px;font-weight:600">Wealth Alliance Tax &amp; Financial Services, LLC</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">226</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">350</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:64.6%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">64.6%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OK</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">23</td>
+      <td style="padding:10px 12px;font-weight:600">K &amp; B Business Service</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">224</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">505</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:44.4%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">44.4%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OL</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">24</td>
+      <td style="padding:10px 12px;font-weight:600">Henry, Waters &amp; Associates</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">223</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">300</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:74.3%;background:#eab308;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">74.3%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:10px 12px;color:#6b7280;font-size:0.85rem">25</td>
+      <td style="padding:10px 12px;font-weight:600">Tosha Inman CPA</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;font-weight:700;text-align:center">206</td>
+      <td style="padding:10px 12px;color:#9ca3af;text-align:center">—</td>
+      <td style="padding:10px 12px;text-align:center">400</td>
+      <td style="padding:10px 12px;"><div style="display:flex;align-items:center;gap:8px;">
+      <div style="flex:1;background:#e5e7eb;border-radius:4px;height:8px;min-width:80px;">
+        <div style="width:51.5%;background:#22c55e;height:8px;border-radius:4px;"></div>
+      </div>
+      <span style="font-weight:700;min-width:52px;text-align:right">51.5%</span>
+    </div></td>
+      <td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#22c55e;color:#fff">OL</span></td>
+    </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- High utilization alerts -->
+  <div class="section-title">⚡ High Utilization Alerts (≥70%)</div>
+  <div class="alerts-grid">
+    
+    <div style="border:1.5px solid #ef4444;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">⚡ Common Cent$ Business</div>
+      <div style="font-size:0.7rem;color:#ef4444;font-weight:700;margin-top:2px">OVER CAPACITY</div>
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">133 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">133.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#ef4444;color:#fff">CRITICAL</span></div>
+    </div>
+    <div style="border:1.5px solid #ef4444;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">⚡ Edler Zain</div>
+      <div style="font-size:0.7rem;color:#ef4444;font-weight:700;margin-top:2px">OVER CAPACITY</div>
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">101 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">101.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#ef4444;color:#fff">CRITICAL</span></div>
+    </div>
+    <div style="border:1.5px solid #ef4444;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">ATS</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">20 / 20 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">100.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#ef4444;color:#fff">CRITICAL</span></div>
+    </div>
+    <div style="border:1.5px solid #ef4444;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Fire First Tax</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">107 / 108 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">99.1%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#ef4444;color:#fff">CRITICAL</span></div>
+    </div>
+    <div style="border:1.5px solid #ef4444;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Kelly R McDonald, CPA Cornerstone Professional Accountants, PC</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">109 / 114 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">95.6%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#ef4444;color:#fff">CRITICAL</span></div>
+    </div>
+    <div style="border:1.5px solid #ef4444;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Aspyr Professional Group</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">184 / 200 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">92.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#ef4444;color:#fff">CRITICAL</span></div>
+    </div>
+    <div style="border:1.5px solid #ef4444;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Leading Edge Financial</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">90 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">90.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#ef4444;color:#fff">CRITICAL</span></div>
+    </div>
+    <div style="border:1.5px solid #ef4444;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">SFBG OpCo LLC</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">90 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">90.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#ef4444;color:#fff">CRITICAL</span></div>
+    </div>
+    <div style="border:1.5px solid #f97316;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Lloyd &amp; Hodge</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">177 / 200 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">88.5%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#f97316;color:#fff">WARNING</span></div>
+    </div>
+    <div style="border:1.5px solid #f97316;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Bookkeeping Solutions</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">88 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">88.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#f97316;color:#fff">WARNING</span></div>
+    </div>
+    <div style="border:1.5px solid #f97316;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Accounting Specialists of Asheville</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">85 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">85.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#f97316;color:#fff">WARNING</span></div>
+    </div>
+    <div style="border:1.5px solid #f97316;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Taxvanta</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">127 / 150 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">84.7%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#f97316;color:#fff">WARNING</span></div>
+    </div>
+    <div style="border:1.5px solid #f97316;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Tax Rite</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">421 / 500 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">84.2%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#f97316;color:#fff">WARNING</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Daily Balance</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">154 / 200 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">77.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Harbor Group</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">379 / 500 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">75.8%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">BLUESKY WEALTH ADVISORS LLC</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">151 / 200 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">75.5%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Bulletproof Tax</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">77 / 102 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">75.5%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Laurie Rust</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">75 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">75.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Henry, Waters &amp; Associates</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">223 / 300 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">74.3%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">chesterdaniels.com</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">74 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">74.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">CPA Teaches</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">72 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">72.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Ascend Tax Advisory, &amp; Accounting Services</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">72 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">72.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Thomas &amp; Company CPA</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">247 / 350 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">70.6%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
+    </div>
+    <div style="border:1.5px solid #eab308;border-radius:8px;padding:14px;background:#fff;min-width:0;">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px;color:#1a3c34">Allied Tax Advisors</div>
+      
+      <div style="font-size:0.8rem;color:#6b7280;margin-bottom:6px">70 / 100 returns</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#1a3c34">70.0%</div>
+      <div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;background:#eab308;color:#000">WATCH</span></div>
     </div>
   </div>
 
-  <div class="rec-item">
-    <span class="rec-num">3</span>
-    <div class="rec-body">
-      <strong>Recommended permanent fix — Option A (best):</strong> Create a <strong>Retool Workflow</strong> at <code>trueprep.retool.com/workflows</code> that runs the SQL query and returns JSON via a webhook URL. Update this scheduled task's SKILL.md to call that webhook URL, parse the JSON results, and generate the HTML. This gives true day-over-day delta from a <code>subscription_audit</code> table (if one exists) or two consecutive runs.
-    </div>
-  </div>
-
-  <div class="rec-item">
-    <span class="rec-num">4</span>
-    <div class="rec-body">
-      <strong>Recommended fix — Option B (available now, no Retool setup needed):</strong> Update the task SKILL.md to query <strong>HubSpot company properties</strong> <code>returns_currently_used</code> + <code>annual_returns_purchased</code> via MCP (as this report does today). Delta is unavailable this way, but current utilization and threshold alerts are fully accurate and real-time.
-    </div>
-  </div>
-
-  <div class="rec-item">
-    <span class="rec-num">5</span>
-    <div class="rec-body">
-      <strong>Day-over-day delta — to restore it:</strong> Either (a) set up a Retool Workflow with DB access and a webhook, or (b) have the task save a prior-day snapshot JSON file to the outputs folder and diff against it on the next run. Option (b) requires no Retool changes.
-    </div>
+  <!-- Recommendations -->
+  <div id="recommendations" class="rec-section">
+    <div class="section-title" style="border-bottom:none;margin-bottom:12px">🔧 Root Cause &amp; Fix Recommendations</div>
+    <ol>
+      <li>
+        <strong>Root cause — no database access in this VM:</strong> The Cowork VM has no
+        <code>psql</code> binary and no <code>DATABASE_URL</code>. Per Juno's automation
+        foundations, <strong>Retool Workflows</strong> is the correct platform for direct
+        Trueprep Prd queries.
+      </li>
+      <li>
+        <strong>Correct Retool URL:</strong> Use <code>trueprep.retool.com</code>
+        (not <code>junotax.retool.com</code>) to access the production database.
+      </li>
+      <li>
+        <strong>Option A (best — restore true delta):</strong> Create a Retool Workflow at
+        <code>trueprep.retool.com/workflows</code> that runs the SQL query against
+        <code>tax_preparation</code> / <code>subscription</code> tables and returns JSON via
+        a webhook URL. Update this scheduled task to call that webhook, parse results, and
+        generate the HTML with true day-over-day delta from <code>subscription_audit</code>.
+      </li>
+      <li>
+        <strong>Option B (available now — current behavior):</strong> Query HubSpot company
+        properties via MCP (<code>returns_currently_used</code>,
+        <code>annual_returns_purchased</code>). Delta is unavailable but current utilization
+        and threshold alerts are accurate and available immediately.
+      </li>
+      <li>
+        <strong>How to restore day-over-day delta:</strong> Either (a) use the Retool
+        webhook with direct DB access to pull real snapshots, or (b) save a prior-day
+        snapshot JSON file and diff against it on the next run. Option (b) will self-heal
+        after the first successful run once a snapshot file exists.
+      </li>
+    </ol>
   </div>
 
 </div>
 
 <div class="footer">
-  Generated by <span>Juno Cowork</span> · Task: daily-utilization-increase · 2026-03-20 · Data: HubSpot MCP (returns_currently_used, annual_returns_purchased)
+  Generated by Juno Cowork · Task: daily-utilization-increase · 2026-03-21 · Data: HubSpot MCP (returns_currently_used, annual_returns_purchased)
 </div>
 
 </body>
