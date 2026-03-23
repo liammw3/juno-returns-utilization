@@ -1,0 +1,1014 @@
+{
+  "generated_at": "2026-03-23",
+  "source": "HubSpot MCP (returns_currently_used, annual_returns_purchased)",
+  "task": "daily-utilization-increase",
+  "stats": {
+    "total": 454,
+    "critical": 7,
+    "warning": 7,
+    "watch": 10,
+    "ok": 430
+  },
+  "top_100_by_utilization": [
+    {
+      "id": 39106469437,
+      "name": "Common Cent$ Business",
+      "used": 133,
+      "purchased": 100,
+      "util_pct": 133.0,
+      "status": "CRITICAL",
+      "over_capacity": true,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 36378385158,
+      "name": "Edler Zain",
+      "used": 101,
+      "purchased": 100,
+      "util_pct": 101.0,
+      "status": "CRITICAL",
+      "over_capacity": true,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 25474752111,
+      "name": "ATS",
+      "used": 20,
+      "purchased": 20,
+      "util_pct": 100.0,
+      "status": "CRITICAL",
+      "over_capacity": false,
+      "lifecyclestage": "evangelist"
+    },
+    {
+      "id": 51265849917,
+      "name": "Fire First Tax",
+      "used": 107,
+      "purchased": 108,
+      "util_pct": 99.1,
+      "status": "CRITICAL",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50698717543,
+      "name": "SFBG OpCo LLC",
+      "used": 95,
+      "purchased": 100,
+      "util_pct": 95.0,
+      "status": "CRITICAL",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 49050641739,
+      "name": "Kelly R McDonald, CPA Cornerstone Professional Accountants, PC",
+      "used": 109,
+      "purchased": 115,
+      "util_pct": 94.8,
+      "status": "CRITICAL",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 41065800828,
+      "name": "Leading Edge Financial",
+      "used": 90,
+      "purchased": 100,
+      "util_pct": 90.0,
+      "status": "CRITICAL",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 48706726460,
+      "name": "Lloyd & Hodge",
+      "used": 178,
+      "purchased": 200,
+      "util_pct": 89.0,
+      "status": "WARNING",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 49404725268,
+      "name": "Bookkeeping Solutions",
+      "used": 88,
+      "purchased": 100,
+      "util_pct": 88.0,
+      "status": "WARNING",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50593126520,
+      "name": "Accounting Specialists of Asheville",
+      "used": 88,
+      "purchased": 100,
+      "util_pct": 88.0,
+      "status": "WARNING",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 36325406556,
+      "name": "Taxvanta",
+      "used": 130,
+      "purchased": 150,
+      "util_pct": 86.7,
+      "status": "WARNING",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 36653293995,
+      "name": "Laurie Rust",
+      "used": 85,
+      "purchased": 100,
+      "util_pct": 85.0,
+      "status": "WARNING",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 51288201365,
+      "name": "Tax Rite",
+      "used": 421,
+      "purchased": 500,
+      "util_pct": 84.2,
+      "status": "WARNING",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39173245845,
+      "name": "Daily Balance",
+      "used": 166,
+      "purchased": 200,
+      "util_pct": 83.0,
+      "status": "WARNING",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 48510675116,
+      "name": "Harbor Group",
+      "used": 392,
+      "purchased": 500,
+      "util_pct": 78.4,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50741257291,
+      "name": "Bulletproof Tax",
+      "used": 80,
+      "purchased": 102,
+      "util_pct": 78.4,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 21730300570,
+      "name": "BLUESKY WEALTH ADVISORS LLC",
+      "used": 152,
+      "purchased": 200,
+      "util_pct": 76.0,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 42709778706,
+      "name": "CPA Teaches",
+      "used": 75,
+      "purchased": 100,
+      "util_pct": 75.0,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37452789398,
+      "name": "Henry, Waters & Associates",
+      "used": 223,
+      "purchased": 300,
+      "util_pct": 74.3,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37973241190,
+      "name": "Allied Tax Advisors",
+      "used": 74,
+      "purchased": 100,
+      "util_pct": 74.0,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 36795873464,
+      "name": "chesterdaniels.com",
+      "used": 74,
+      "purchased": 100,
+      "util_pct": 74.0,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 49011579424,
+      "name": "Ascend Tax Advisory, & Accounting Services",
+      "used": 72,
+      "purchased": 100,
+      "util_pct": 72.0,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 40703116449,
+      "name": "Thomas & Company CPA",
+      "used": 247,
+      "purchased": 350,
+      "util_pct": 70.6,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 36770084536,
+      "name": "Pacific Financial Navigators",
+      "used": 568,
+      "purchased": 810,
+      "util_pct": 70.1,
+      "status": "WATCH",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 34731788453,
+      "name": "Hanlon CPA, LLC",
+      "used": 202,
+      "purchased": 300,
+      "util_pct": 67.3,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 49509942049,
+      "name": "Weinzapfel & Co",
+      "used": 70,
+      "purchased": 104,
+      "util_pct": 67.3,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 42353779245,
+      "name": "JNK Accountancy Group",
+      "used": 136,
+      "purchased": 203,
+      "util_pct": 67.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50117150095,
+      "name": "ProBooks",
+      "used": 67,
+      "purchased": 100,
+      "util_pct": 67.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50741192352,
+      "name": "Roberta A Otto CPA",
+      "used": 331,
+      "purchased": 500,
+      "util_pct": 66.2,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 40213613493,
+      "name": "Newsome CPA",
+      "used": 65,
+      "purchased": 100,
+      "util_pct": 65.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 41625514393,
+      "name": "Hamilton Advisory, PLLC",
+      "used": 194,
+      "purchased": 300,
+      "util_pct": 64.7,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 47330406749,
+      "name": "Wealth Alliance Tax & Financial Services, LLC",
+      "used": 226,
+      "purchased": 350,
+      "util_pct": 64.6,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39131695651,
+      "name": "Noack & Company",
+      "used": 193,
+      "purchased": 300,
+      "util_pct": 64.3,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 52980695074,
+      "name": "Golden State Accounting (CHILD)",
+      "used": 128,
+      "purchased": 200,
+      "util_pct": 64.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 45235841680,
+      "name": "Bran Accounting",
+      "used": 64,
+      "purchased": 100,
+      "util_pct": 64.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 49483906946,
+      "name": "IRS Solutions Valencia, Inc.",
+      "used": 63,
+      "purchased": 100,
+      "util_pct": 63.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 35867841538,
+      "name": "Custom Accounting CPA",
+      "used": 63,
+      "purchased": 100,
+      "util_pct": 63.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 22642573458,
+      "name": "Balanced Equation",
+      "used": 64,
+      "purchased": 102,
+      "util_pct": 62.7,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 46600488373,
+      "name": "ZD Accounting Services",
+      "used": 122,
+      "purchased": 200,
+      "util_pct": 61.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50524130682,
+      "name": "CPA Help Now",
+      "used": 61,
+      "purchased": 100,
+      "util_pct": 61.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 47323431937,
+      "name": "Diehl CPA LLC",
+      "used": 119,
+      "purchased": 200,
+      "util_pct": 59.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 42712708494,
+      "name": "Sound Profit Inc.",
+      "used": 59,
+      "purchased": 100,
+      "util_pct": 59.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39131456697,
+      "name": "ROR Tax Professionals",
+      "used": 356,
+      "purchased": 605,
+      "util_pct": 58.8,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 42430272852,
+      "name": "Integrated SBA",
+      "used": 117,
+      "purchased": 200,
+      "util_pct": 58.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 44395112811,
+      "name": "Go-Pro Tax & Accounting",
+      "used": 61,
+      "purchased": 105,
+      "util_pct": 58.1,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39352993361,
+      "name": "Duncan & Associates",
+      "used": 404,
+      "purchased": 700,
+      "util_pct": 57.7,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37118276208,
+      "name": "East Carolina Accounting Services",
+      "used": 115,
+      "purchased": 200,
+      "util_pct": 57.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39124441203,
+      "name": "JCW Tax & Accounting",
+      "used": 406,
+      "purchased": 710,
+      "util_pct": 57.2,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37547720064,
+      "name": "Stiles CPA",
+      "used": 56,
+      "purchased": 100,
+      "util_pct": 56.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 28841387310,
+      "name": "Seaside Resources",
+      "used": 289,
+      "purchased": 530,
+      "util_pct": 54.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 44374203782,
+      "name": "Latitude Tax",
+      "used": 162,
+      "purchased": 300,
+      "util_pct": 54.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50094849069,
+      "name": "Rosenbaum Sobel Weinrub & Burns",
+      "used": 108,
+      "purchased": 200,
+      "util_pct": 54.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 44424289053,
+      "name": "JACKSON CPA SERVICES",
+      "used": 54,
+      "purchased": 100,
+      "util_pct": 54.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 47392201502,
+      "name": "Jing and Company",
+      "used": 161,
+      "purchased": 300,
+      "util_pct": 53.7,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 44066283354,
+      "name": "The Jones CPA Group",
+      "used": 270,
+      "purchased": 505,
+      "util_pct": 53.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50095158640,
+      "name": "Gianno & Freda CPAs & Financial Center Inc",
+      "used": 107,
+      "purchased": 200,
+      "util_pct": 53.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39130463053,
+      "name": "Sas Prinzivalli CPA PA",
+      "used": 160,
+      "purchased": 300,
+      "util_pct": 53.3,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 32890526895,
+      "name": "SBS CPA Group",
+      "used": 53,
+      "purchased": 100,
+      "util_pct": 53.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 35988840307,
+      "name": "Wills & Associates (CHILD)",
+      "used": 260,
+      "purchased": 500,
+      "util_pct": 52.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50095422255,
+      "name": "Proby Tax",
+      "used": 53,
+      "purchased": 102,
+      "util_pct": 52.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 47057022033,
+      "name": "Garry A Jones & Associates",
+      "used": 52,
+      "purchased": 100,
+      "util_pct": 52.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39093404736,
+      "name": "Tosha Inman CPA",
+      "used": 206,
+      "purchased": 400,
+      "util_pct": 51.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37453135028,
+      "name": "ABL & Co",
+      "used": 208,
+      "purchased": 405,
+      "util_pct": 51.4,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 35428054841,
+      "name": "Whelan Advisory Group",
+      "used": 51,
+      "purchased": 100,
+      "util_pct": 51.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37022202297,
+      "name": "Y10 Tax Solutions",
+      "used": 51,
+      "purchased": 100,
+      "util_pct": 51.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 21617740430,
+      "name": "Blackhawk Accounting",
+      "used": 51,
+      "purchased": 100,
+      "util_pct": 51.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39278525616,
+      "name": "Expert Tax & Trust",
+      "used": 200,
+      "purchased": 400,
+      "util_pct": 50.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 51554518865,
+      "name": "Simplified Accounting Solutions",
+      "used": 50,
+      "purchased": 100,
+      "util_pct": 50.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 47386091554,
+      "name": "McAdams Tax Group, LLC",
+      "used": 50,
+      "purchased": 100,
+      "util_pct": 50.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 42787591754,
+      "name": "Island Tides Accounting",
+      "used": 50,
+      "purchased": 100,
+      "util_pct": 50.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37328221196,
+      "name": "Mark Schwanbeck Tax Prep",
+      "used": 50,
+      "purchased": 100,
+      "util_pct": 50.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50596762935,
+      "name": "Grand Tax Advisors LLC",
+      "used": 50,
+      "purchased": 100,
+      "util_pct": 50.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 45225607272,
+      "name": "CPA Financial Advantage",
+      "used": 447,
+      "purchased": 900,
+      "util_pct": 49.7,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 43824983142,
+      "name": "Aspyr Professional Group",
+      "used": 198,
+      "purchased": 400,
+      "util_pct": 49.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37451253561,
+      "name": "Andrew & Co CPA",
+      "used": 98,
+      "purchased": 200,
+      "util_pct": 49.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 42721375368,
+      "name": "Beckley & Associates",
+      "used": 51,
+      "purchased": 104,
+      "util_pct": 49.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 49566227364,
+      "name": "Elite Accounting Services",
+      "used": 50,
+      "purchased": 103,
+      "util_pct": 48.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 41596208918,
+      "name": "One-Rubio Solutions",
+      "used": 48,
+      "purchased": 100,
+      "util_pct": 48.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 36767099709,
+      "name": "Belt Accounting",
+      "used": 406,
+      "purchased": 850,
+      "util_pct": 47.8,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "evangelist"
+    },
+    {
+      "id": 40760610824,
+      "name": "RLH Tax Services",
+      "used": 239,
+      "purchased": 505,
+      "util_pct": 47.3,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 22273490266,
+      "name": "Coy Tax Solutions",
+      "used": 47,
+      "purchased": 100,
+      "util_pct": 47.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 44669295734,
+      "name": "Krener Bookkeeping & Tax",
+      "used": 140,
+      "purchased": 300,
+      "util_pct": 46.7,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 37459611220,
+      "name": "Dreyer McGuire Canty PC",
+      "used": 140,
+      "purchased": 300,
+      "util_pct": 46.7,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 41135078416,
+      "name": "AK CPA LLC",
+      "used": 93,
+      "purchased": 200,
+      "util_pct": 46.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 35901419535,
+      "name": "Platinum Tax Management",
+      "used": 46,
+      "purchased": 100,
+      "util_pct": 46.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 38794216990,
+      "name": "Rea, Whitehead & Associates",
+      "used": 183,
+      "purchased": 400,
+      "util_pct": 45.8,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39151717554,
+      "name": "Embarkment Tax Services",
+      "used": 80,
+      "purchased": 175,
+      "util_pct": 45.7,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 49437388717,
+      "name": "Travel Nurse Tax",
+      "used": 593,
+      "purchased": 1300,
+      "util_pct": 45.6,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 44075426399,
+      "name": "Chaney & Moul CPAs",
+      "used": 91,
+      "purchased": 200,
+      "util_pct": 45.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 42879387734,
+      "name": "Carter CPA",
+      "used": 135,
+      "purchased": 300,
+      "util_pct": 45.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50566780795,
+      "name": "The Bottom Line, LLC",
+      "used": 45,
+      "purchased": 100,
+      "util_pct": 45.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 40248436499,
+      "name": "K & B Business Service",
+      "used": 224,
+      "purchased": 505,
+      "util_pct": 44.4,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 26265186874,
+      "name": "Rose Group",
+      "used": 44,
+      "purchased": 100,
+      "util_pct": 44.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 35036903795,
+      "name": "Astra Wealth Partners",
+      "used": 44,
+      "purchased": 100,
+      "util_pct": 44.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 51288325744,
+      "name": "The Onyx CPA Group, Inc.",
+      "used": 43,
+      "purchased": 100,
+      "util_pct": 43.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 50596769190,
+      "name": "Hannis T. Bourgeois, LLP",
+      "used": 43,
+      "purchased": 100,
+      "util_pct": 43.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 47438945651,
+      "name": "Stonehaven Wealth & Tax Solutions, LLC",
+      "used": 43,
+      "purchased": 100,
+      "util_pct": 43.0,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 42520977409,
+      "name": "TH Comptrollers CPA",
+      "used": 172,
+      "purchased": 405,
+      "util_pct": 42.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 44420536730,
+      "name": "Hildreth & Puga CPA",
+      "used": 170,
+      "purchased": 400,
+      "util_pct": 42.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    },
+    {
+      "id": 39635858790,
+      "name": "Grace CPA Services",
+      "used": 85,
+      "purchased": 200,
+      "util_pct": 42.5,
+      "status": "OK",
+      "over_capacity": false,
+      "lifecyclestage": "customer"
+    }
+  ]
+}
