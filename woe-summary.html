@@ -3,676 +3,876 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="favicon.png" type="image/png">
-  <title>WOE Summary â March 20, 2026</title>
+  <title>WOE Summary â March 21, 2026</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #F8F9FA;
       color: #1E1E1E;
-      padding: 32px 24px 64px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 14px;
       line-height: 1.6;
     }
-    .container { max-width: 1100px; margin: 0 auto; }
+    a { color: #013A2F; text-decoration: underline; }
 
-    /* Header */
-    .report-header {
+    /* ââ Header ââ */
+    .page-header {
       background: #013A2F;
-      border-radius: 12px;
-      padding: 28px 32px;
-      margin-bottom: 28px;
+      color: #fff;
+      padding: 28px 40px 22px;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
+      gap: 16px;
     }
-    .report-header h1 { color: #1CE49B; font-size: 24px; font-weight: 700; letter-spacing: -0.3px; }
-    .report-header .meta { color: #B4F7CA; font-size: 14px; margin-top: 4px; }
-    .report-header .badge {
+    .page-header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #1CE49B;
+    }
+    .page-header .subtitle {
+      font-size: 13px;
+      opacity: 0.75;
+      margin-top: 2px;
+      color: #fff;
+    }
+    .page-header .date-badge {
       background: #1CE49B;
       color: #013A2F;
       font-weight: 700;
       font-size: 13px;
       padding: 6px 14px;
       border-radius: 20px;
+      white-space: nowrap;
     }
 
-    /* Alert Banner */
-    .alert-banner {
-      background: #fff0f0;
-      border: 2px solid #e53e3e;
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .alert-banner .alert-icon { font-size: 22px; flex-shrink: 0; line-height: 1.4; }
-    .alert-banner strong { color: #c53030; font-size: 15px; }
-    .alert-banner p { color: #1E1E1E; font-size: 14px; margin-top: 2px; }
-
-    /* Section */
-    .section {
-      background: #fff;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      box-shadow: 0 1px 4px rgba(1,58,47,0.07);
-    }
-    .section-header {
+    /* ââ KPI Bar ââ */
+    .kpi-bar {
       background: #013A2F;
+      padding: 0 40px 24px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .kpi-card {
+      background: rgba(28, 228, 155, 0.12);
+      border: 1px solid rgba(28, 228, 155, 0.3);
+      border-radius: 10px;
+      padding: 14px 20px;
+      min-width: 150px;
+      flex: 1;
+    }
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1CE49B;
+      line-height: 1.1;
+      margin-top: 4px;
+    }
+    .kpi-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 2px;
+    }
+
+    /* ââ Layout ââ */
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 40px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .full-width { grid-column: 1 / -1; }
+
+    /* ââ Section Card ââ */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e4e8ec;
+      overflow: hidden;
+    }
+    .card-header {
+      background: #013A2F;
+      color: #fff;
       padding: 14px 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
     }
-    .section-header h2 { color: #1CE49B; font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
-    .section-header .icon { font-size: 18px; }
-    .section-body { padding: 20px; }
-
-    /* Stat Cards */
-    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 4px; }
-    .stat-card {
-      background: #F8F9FA;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 16px;
-      text-align: center;
+    .card-header h2 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      color: #1CE49B;
     }
-    .stat-card .label { font-size: 12px; color: #4a5568; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .stat-card .value { font-size: 28px; font-weight: 800; color: #013A2F; }
-    .stat-card .sub { font-size: 12px; color: #718096; margin-top: 2px; }
-    .stat-card.highlight .value { color: #1CE49B; }
-    .stat-card.danger .value { color: #e53e3e; }
-    .stat-card.warning .value { color: #d69e2e; }
-
-    /* Table */
-    table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    thead { background: #B4F7CA; }
-    thead th { padding: 10px 12px; text-align: left; font-weight: 700; color: #013A2F; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
-    tbody tr:nth-child(even) { background: #f0fdf4; }
-    tbody tr:hover { background: #e6f7ee; }
-    tbody td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
-    tbody tr:last-child td { border-bottom: none; }
-
-    /* Utilization Bar */
-    .util-bar-wrap { display: flex; align-items: center; gap: 8px; }
-    .util-bar-track { flex: 1; background: #e2e8f0; border-radius: 99px; height: 8px; overflow: visible; min-width: 80px; }
-    .util-bar-fill { height: 8px; border-radius: 99px; max-width: 100%; }
-    .util-bar-fill.critical { background: #e53e3e; }
-    .util-bar-fill.warning { background: #d69e2e; }
-    .util-bar-fill.watch { background: #1CE49B; }
-    .util-pct { font-weight: 700; font-size: 13px; min-width: 44px; text-align: right; }
-    .util-pct.critical { color: #e53e3e; }
-    .util-pct.warning { color: #d69e2e; }
-    .util-pct.watch { color: #2d7a4f; }
-
-    /* Status badges */
-    .badge-critical { background: #fff5f5; color: #e53e3e; border: 1px solid #fed7d7; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-    .badge-warning { background: #fffbeb; color: #b7791f; border: 1px solid #faf089; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-    .badge-ok { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
-    .badge-new { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
-    .badge-onboarding { background: #e9d8fd; color: #553c9a; border: 1px solid #d6bcfa; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
-    .badge-pending { background: #fefcbf; color: #744210; border: 1px solid #faf089; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
-
-    /* Support ticket rows */
-    .ticket-row { padding: 12px 0; border-bottom: 1px solid #f0f4f1; }
-    .ticket-row:last-child { border-bottom: none; }
-    .ticket-row .t-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-    .ticket-row .t-title { font-weight: 600; font-size: 14px; color: #013A2F; }
-    .ticket-row .t-body { font-size: 13px; color: #4a5568; }
-    .ticket-row .t-meta { font-size: 12px; color: #718096; margin-top: 3px; }
-    .t-status-open { background: #fff0f0; color: #c53030; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
-    .t-status-closed { background: #f0fff4; color: #276749; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
-
-    /* Escalation card */
-    .escalation-card {
-      background: #fff5f5;
-      border: 1px solid #fed7d7;
-      border-left: 4px solid #e53e3e;
-      border-radius: 6px;
-      padding: 14px 16px;
-      margin-top: 12px;
+    .card-header .badge {
+      background: #1CE49B;
+      color: #013A2F;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
     }
-    .escalation-card .ec-title { font-weight: 700; color: #c53030; font-size: 14px; }
-    .escalation-card .ec-body { font-size: 13px; color: #1E1E1E; margin-top: 4px; }
-
-    /* New customer list */
-    .customer-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #F8F9FA;
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin: 4px;
-      font-size: 13px;
+    .card-header .badge.warn {
+      background: #ff6b6b;
+      color: #fff;
     }
-    .customer-pill .cp-name { font-weight: 600; color: #013A2F; }
-    .customer-pill .cp-returns { color: #4a5568; font-size: 12px; }
+    .card-body { padding: 16px 20px; }
 
-    /* Anomaly note */
-    .anomaly-box {
-      background: #fffbeb;
-      border: 1px solid #faf089;
+    /* ââ Alert Callout ââ */
+    .alert {
+      background: #fff3cd;
+      border-left: 4px solid #e6a817;
       border-radius: 6px;
       padding: 12px 16px;
-      margin-top: 12px;
+      margin-bottom: 16px;
       font-size: 13px;
-      color: #744210;
     }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      margin-top: 40px;
-      color: #718096;
-      font-size: 12px;
+    .alert strong { color: #b37a00; }
+    .alert.critical {
+      background: #ffe5e5;
+      border-color: #d63031;
     }
+    .alert.critical strong { color: #b52626; }
+    .alert.positive {
+      background: #e8fdf4;
+      border-color: #1CE49B;
+    }
+    .alert.positive strong { color: #013A2F; }
 
-    /* Theme summary */
-    .theme-block {
+    /* ââ Table ââ */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: #013A2F;
+      color: #1CE49B;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    tbody tr:nth-child(odd) { background: #F8F9FA; }
+    tbody tr:nth-child(even) { background: #B4F7CA22; }
+    tbody tr:hover { background: #B4F7CA55; }
+    tbody td { padding: 8px 12px; vertical-align: top; border-bottom: 1px solid #e9ecef; }
+    tbody td:first-child { font-weight: 600; }
+
+    /* ââ Ticket List ââ */
+    .ticket-list { list-style: none; }
+    .ticket-item {
+      border-bottom: 1px solid #eef0f2;
+      padding: 10px 0;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f0f4f1;
+      gap: 10px;
     }
-    .theme-block:last-child { border-bottom: none; }
-    .theme-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-    .theme-title { font-weight: 700; font-size: 14px; color: #013A2F; }
-    .theme-desc { font-size: 13px; color: #4a5568; margin-top: 2px; }
-    .theme-count { background: #013A2F; color: #1CE49B; font-size: 11px; font-weight: 700; border-radius: 99px; padding: 2px 8px; margin-left: 6px; }
+    .ticket-item:last-child { border-bottom: none; }
+    .ticket-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .dot-open { background: #1CE49B; }
+    .dot-closed { background: #adb5bd; }
+    .dot-urgent { background: #d63031; }
+    .ticket-text { flex: 1; }
+    .ticket-text .name { font-weight: 600; font-size: 13px; }
+    .ticket-text .subject { color: #495057; font-size: 12px; margin-top: 1px; }
+    .ticket-text .org { color: #868e96; font-size: 11px; margin-top: 2px; }
+    .ticket-status {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+    .status-open { background: #d4edda; color: #155724; }
+    .status-closed { background: #e2e3e5; color: #383d41; }
 
-    @media (max-width: 768px) {
-      .stat-grid { grid-template-columns: repeat(2, 1fr); }
-      .report-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    /* ââ Pipeline Items ââ */
+    .pipeline-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #eef0f2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .pipeline-item:last-child { border-bottom: none; }
+    .pipeline-name { font-weight: 600; font-size: 13px; }
+    .pipeline-sub { font-size: 11px; color: #868e96; margin-top: 1px; }
+    .pipeline-amount {
+      font-weight: 700;
+      color: #013A2F;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .stage-pill {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 3px;
+    }
+    .stage-new-customer { background: #B4F7CA; color: #013A2F; }
+    .stage-upsell { background: #cce5ff; color: #004085; }
+    .stage-prospect { background: #fff3cd; color: #856404; }
+    .stage-onboarding { background: #e8fdf4; color: #013A2F; border: 1px solid #1CE49B; }
+    .stage-pending { background: #fdf3e8; color: #7a4200; border: 1px solid #e6a817; }
+
+    /* ââ Onboarding grid ââ */
+    .onboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px;
+    }
+    .onboard-chip {
+      background: #F8F9FA;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    .onboard-chip .chip-name { font-weight: 600; }
+    .onboard-chip .chip-stage { font-size: 10px; color: #868e96; margin-top: 2px; }
+
+    /* ââ Footer ââ */
+    .page-footer {
+      background: #013A2F;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 16px 40px;
+      font-size: 11px;
+    }
+
+    /* ââ No-data ââ */
+    .no-data {
+      color: #adb5bd;
+      font-size: 13px;
+      font-style: italic;
+      padding: 8px 0;
+    }
+
+    /* ââ Section divider label ââ */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #013A2F;
+      margin: 16px 0 8px;
+      border-bottom: 1px solid #B4F7CA;
+      padding-bottom: 4px;
     }
   </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- Header -->
-  <div class="report-header">
-    <div>
-      <h1>WOE Summary Report</h1>
-      <div class="meta">Friday, March 20, 2026 &nbsp;Â·&nbsp; Generated automatically</div>
-    </div>
-    <div class="badge">ð¿ Daily Ops</div>
+<!-- ââââââââââââââââââââââ HEADER ââââââââââââââââââââââ -->
+<header class="page-header">
+  <div>
+    <h1>WOE Summary</h1>
+    <div class="subtitle">Week-Over-Everything Â· Daily Operational Report</div>
   </div>
+  <div class="date-badge">Saturday, March 21, 2026</div>
+</header>
 
-  <!-- ð¨ Alert Banner â Export Regression -->
-  <div class="alert-banner">
-    <div class="alert-icon">ð¨</div>
-    <div>
-      <strong>ACTIVE INCIDENT: Export/Import Regression â Multiple Customers Affected</strong>
-      <p>Multiple support tickets filed today report that a recent update broke Drake and Lacerte export workflows, and disrupted W-2/pension payer info imports. At least 5 open tickets share this root cause. Requires immediate engineering triage.</p>
-    </div>
+<!-- ââââââââââââââââââââââ KPI BAR ââââââââââââââââââââââ -->
+<div class="kpi-bar">
+  <div class="kpi-card">
+    <div class="kpi-label">Support Tickets (48h)</div>
+    <div class="kpi-value">25</div>
+    <div class="kpi-sub">External customer conversations</div>
   </div>
-
-  <!-- ââââââââââââââââââ SECTION 1: Support Activity âââââââââââââââââââ -->
-  <div class="section">
-    <div class="section-header">
-      <span class="icon">ð¬</span>
-      <h2>Support Activity</h2>
-    </div>
-    <div class="section-body">
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="label">New Today</div>
-          <div class="value">13</div>
-          <div class="sub">conversations created</div>
-        </div>
-        <div class="stat-card danger">
-          <div class="label">Currently Open</div>
-          <div class="value">101</div>
-          <div class="sub">total open queue</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Closed Today</div>
-          <div class="value">4</div>
-          <div class="sub">of 13 new tickets</div>
-        </div>
-        <div class="stat-card warning">
-          <div class="label">Today Resolution</div>
-          <div class="value">31%</div>
-          <div class="sub">4 closed / 13 new</div>
-        </div>
-      </div>
-
-      <!-- Today's Themes -->
-      <h3 style="font-size: 14px; font-weight: 700; color: #013A2F; margin: 20px 0 10px;">Today's Dominant Themes</h3>
-
-      <div class="theme-block">
-        <div class="theme-icon">ð´</div>
-        <div>
-          <div class="theme-title">Export/Import Regression <span class="theme-count">5 tickets</span></div>
-          <div class="theme-desc">Drake 2025 export broken after today's update â only exporting stock transactions, W-2 info not populating. Lacerte duplicating field entries. Payer info for W-2s and pensions not importing. "TP and Spouse" label change mangling imports. Multiple unrelated customers reporting same cluster of issues.</div>
-        </div>
-      </div>
-
-      <div class="theme-block">
-        <div class="theme-icon">ð</div>
-        <div>
-          <div class="theme-title">Document Support Questions <span class="theme-count">2 tickets</span></div>
-          <div class="theme-desc">Customers asking which documents are supported vs. not supported for 1040 processing (Blend S / demo, Del Cerro Tax).</div>
-        </div>
-      </div>
-
-      <div class="theme-block">
-        <div class="theme-icon">ð</div>
-        <div>
-          <div class="theme-title">K-1 State Source Amounts <span class="theme-count">1 ticket</span></div>
-          <div class="theme-desc">Blue Sky Wealth Advisors â Partnership K-1 with multi-state data being mapped to wrong columns in ProConnect export. Open ticket, needs tax/product review.</div>
-        </div>
-      </div>
-
-      <div class="theme-block">
-        <div class="theme-icon">â</div>
-        <div>
-          <div class="theme-title">Onboarding / Joint Return Setup <span class="theme-count">1 ticket</span></div>
-          <div class="theme-desc">Tinley CPA â question about naming convention for joint returns (resolved/closed today).</div>
-        </div>
-      </div>
-
-      <!-- Escalation -->
-      <div class="escalation-card">
-        <div class="ec-title">â ï¸ CS Escalation â Baruno, Hannaford, Heap, Aurello &amp; Co (NEW CUSTOMER)</div>
-        <div class="ec-body">Kat Ackerman (kat@bhacpaco.com) is expressing frustration: <em>"I guess you have decided to drop any concept of help at this time. Please call me in the morning to arrange a convenient time."</em> â This account closed on March 5 (just 15 days ago, 250 returns purchased). Early-stage churn risk. Immediate callback from Kyle/Sabrina recommended.</div>
-      </div>
-
-      <!-- Notable tickets table -->
-      <h3 style="font-size: 14px; font-weight: 700; color: #013A2F; margin: 20px 0 10px;">Notable Open Tickets</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Subject</th>
-            <th>Status</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Lori Holland<br><span style="color:#718096;font-size:12px">Ascend Tax Advisory</span></td>
-            <td>What is going on with the imports?</td>
-            <td><span class="t-status-open">OPEN</span></td>
-            <td><a href="https://app.intercom.com/a/inbox/_/inbox/conversation/215473558615183" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td>Vijaya Kripanandan<br><span style="color:#718096;font-size:12px">VR Global Tax</span></td>
-            <td>Exporting to Drake</td>
-            <td><span class="t-status-open">OPEN</span></td>
-            <td><a href="https://app.intercom.com/a/inbox/_/inbox/conversation/215473564884283" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td>Jing Chen<br><span style="color:#718096;font-size:12px">JingCPAs</span></td>
-            <td>New updates coming in today not working</td>
-            <td><span class="t-status-open">OPEN</span></td>
-            <td><a href="https://app.intercom.com/a/inbox/_/inbox/conversation/215473558133532" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td>Tara Hughes<br><span style="color:#718096;font-size:12px">Blue Sky Wealth Advisors</span></td>
-            <td>K-1 State Source Amounts (ProConnect)</td>
-            <td><span class="t-status-open">OPEN</span></td>
-            <td><a href="https://app.intercom.com/a/inbox/_/inbox/conversation/215473563214117" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td>Kat Ackerman<br><span style="color:#718096;font-size:12px">Baruno, Hannaford et al.</span></td>
-            <td>RE: Juno Check In (CS Escalation)</td>
-            <td><span class="t-status-open">OPEN</span></td>
-            <td><a href="https://app.intercom.com/a/inbox/_/inbox/conversation/215473557348803" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td>Jason Lindsey<br><span style="color:#718096;font-size:12px">LKN CPA</span></td>
-            <td>Lacerte export duplicating field data</td>
-            <td><span class="t-status-closed">CLOSED</span></td>
-            <td><a href="https://app.intercom.com/a/inbox/_/inbox/conversation/215473564058228" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Open Tickets</div>
+    <div class="kpi-value">14</div>
+    <div class="kpi-sub">Awaiting resolution</div>
   </div>
-
-  <!-- âââââââââââââââââââ SECTION 2: Credit Utilization âââââââââââââââââââ -->
-  <div class="section">
-    <div class="section-header">
-      <span class="icon">â¡</span>
-      <h2>Credit Utilization â At-Risk Organizations</h2>
-    </div>
-    <div class="section-body">
-      <p style="font-size:13px;color:#4a5568;margin-bottom:16px;">Orgs at â¥80% utilization requiring proactive outreach. Source: HubSpot (synced from DB). Internal/test accounts excluded. <strong>440 total customer organizations</strong> tracked.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Organization</th>
-            <th>Used / Purchased</th>
-            <th>Utilization</th>
-            <th>Risk Level</th>
-            <th>Stage</th>
-            <th>HubSpot</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- CRITICAL (>100%) -->
-          <tr>
-            <td style="font-weight:600">Common Cent$ Business</td>
-            <td>133 / 100</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill critical" style="width:100%"></div></div>
-                <span class="util-pct critical">133%</span>
-              </div>
-            </td>
-            <td><span class="badge-critical">Over Limit</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/39106469437" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Edler Zain</td>
-            <td>101 / 100</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill critical" style="width:100%"></div></div>
-                <span class="util-pct critical">101%</span>
-              </div>
-            </td>
-            <td><span class="badge-critical">Over Limit</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/36378385158" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Kelly R McDonald CPA<br><span style="font-weight:400;font-size:12px;color:#718096">Cornerstone Professional Accts.</span></td>
-            <td>109 / 108</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill critical" style="width:100%"></div></div>
-                <span class="util-pct critical">100.9%</span>
-              </div>
-            </td>
-            <td><span class="badge-critical">Over Limit</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/49050641739" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Fire First Tax</td>
-            <td>107 / 108</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill critical" style="width:99%"></div></div>
-                <span class="util-pct critical">99.1%</span>
-              </div>
-            </td>
-            <td><span class="badge-critical">Critical</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/51265849917" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <!-- WARNING (80-99%) -->
-          <tr>
-            <td style="font-weight:600">Leading Edge Financial</td>
-            <td>90 / 100</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill warning" style="width:90%"></div></div>
-                <span class="util-pct warning">90%</span>
-              </div>
-            </td>
-            <td><span class="badge-warning">Warning</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/41065800828" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Aspyr Professional Group</td>
-            <td>179 / 200</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill warning" style="width:89.5%"></div></div>
-                <span class="util-pct warning">89.5%</span>
-              </div>
-            </td>
-            <td><span class="badge-warning">Warning</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/43824983142" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Lloyd &amp; Hodge</td>
-            <td>176 / 200</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill warning" style="width:88%"></div></div>
-                <span class="util-pct warning">88%</span>
-              </div>
-            </td>
-            <td><span class="badge-warning">Warning</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/48706726460" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Bookkeeping Solutions</td>
-            <td>88 / 100</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill warning" style="width:88%"></div></div>
-                <span class="util-pct warning">88%</span>
-              </div>
-            </td>
-            <td><span class="badge-warning">Warning</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/49404725268" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">SFBG OpCo LLC</td>
-            <td>87 / 100</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill warning" style="width:87%"></div></div>
-                <span class="util-pct warning">87%</span>
-              </div>
-            </td>
-            <td><span class="badge-warning">Warning</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/50698717543" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Taxvanta</td>
-            <td>127 / 150</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill warning" style="width:84.7%"></div></div>
-                <span class="util-pct warning">84.7%</span>
-              </div>
-            </td>
-            <td><span class="badge-warning">Warning</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/36325406556" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Tax Rite</td>
-            <td>421 / 500</td>
-            <td>
-              <div class="util-bar-wrap">
-                <div class="util-bar-track"><div class="util-bar-fill warning" style="width:84.2%"></div></div>
-                <span class="util-pct warning">84.2%</span>
-              </div>
-            </td>
-            <td><span class="badge-warning">Warning</span></td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/51288201365" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="anomaly-box">
-        â ï¸ <strong>Data Anomaly:</strong> <em>Taxdome</em> shows 17 credits used against 1 purchased (1,700% utilization). This is almost certainly a data integrity issue â this record may be a partner or integration test account rather than a real customer. Recommend reviewing and correcting the <code>annual_returns_purchased</code> value in HubSpot/DB.
-      </div>
-    </div>
+  <div class="kpi-card">
+    <div class="kpi-label">New Customers (yesterday)</div>
+    <div class="kpi-value">3</div>
+    <div class="kpi-sub">Yeager Â· Stryker Â· Spicer CPA</div>
   </div>
-
-  <!-- âââââââââââââââââââ SECTION 3: Pipeline & New Customers âââââââââââââââââââ -->
-  <div class="section">
-    <div class="section-header">
-      <span class="icon">ð¯</span>
-      <h2>HubSpot Pipeline â New Customers &amp; Signals</h2>
-    </div>
-    <div class="section-body">
-      <div class="stat-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 20px;">
-        <div class="stat-card highlight">
-          <div class="label">Closed Today</div>
-          <div class="value">2</div>
-          <div class="sub">new customers</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Closed This Week</div>
-          <div class="value">8</div>
-          <div class="sub">since Mar 14</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Currently Onboarding</div>
-          <div class="value">6+</div>
-          <div class="sub">in active onboarding</div>
-        </div>
-      </div>
-
-      <h3 style="font-size:14px;font-weight:700;color:#013A2F;margin-bottom:10px;">Closed Today â March 20</h3>
-      <div style="display:flex;flex-wrap:wrap;gap:0;margin-bottom:20px;">
-        <div class="customer-pill">
-          <div>
-            <div class="cp-name">Yeager Tax &amp; Accounting</div>
-            <div class="cp-returns">100 returns Â· <span class="badge-pending">Pending Onboarding Call</span></div>
-          </div>
-        </div>
-        <div class="customer-pill">
-          <div>
-            <div class="cp-name">Spicer CPA LLC</div>
-            <div class="cp-returns">100 returns Â· <span class="badge-pending">Pending Onboarding Call</span></div>
-          </div>
-        </div>
-      </div>
-
-      <h3 style="font-size:14px;font-weight:700;color:#013A2F;margin-bottom:10px;">Closed This Week (Mar 14â19)</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Close Date</th>
-            <th>Returns</th>
-            <th>Onboarding Stage</th>
-            <th>HubSpot</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="font-weight:600">Fiore Accounting &amp; Tax Services</td>
-            <td>Mar 17</td>
-            <td>100</td>
-            <td><span class="badge-pending">Pending Onboarding Call</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/52599375022" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">DeVito &amp; Hutchinson, PLLC</td>
-            <td>Mar 16</td>
-            <td>100</td>
-            <td><span class="badge-onboarding">Currently Onboarding</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/52954034855" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Hoboken Financial Services LLC</td>
-            <td>Mar 13</td>
-            <td>100</td>
-            <td><span class="badge-onboarding">Currently Onboarding</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/52923127664" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">CPA-ROD INC.</td>
-            <td>Mar 11</td>
-            <td>100</td>
-            <td><span class="badge-onboarding">Currently Onboarding</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/52884536350" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Bloom Financial Group</td>
-            <td>Mar 10</td>
-            <td>100</td>
-            <td><span class="badge-pending">Pending Onboarding Call</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/52589241488" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">David Urban Bookkeeping &amp; Tax</td>
-            <td>Mar 9</td>
-            <td>100</td>
-            <td><span class="badge-onboarding">Currently Onboarding</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/52728426240" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Baruno, Hannaford, Heap, Aurello &amp; Co</td>
-            <td>Mar 5</td>
-            <td>250</td>
-            <td><span class="badge-ok">Onboarded</span></td>
-            <td><a href="https://app.hubspot.com/contacts/45750757/record/0-2/52635572390" style="color:#013A2F;font-size:12px">View â</a></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="escalation-card" style="margin-top:14px;">
-        <div class="ec-title">â ï¸ Early Churn Signal â Baruno, Hannaford, Heap, Aurello &amp; Co</div>
-        <div class="ec-body">Closed March 5 (15 days ago), 250 returns purchased, marked as Onboarded â but already escalating in Intercom requesting a call. This account is in the critical 0â30 day post-close window. CS should prioritize proactive outreach today.</div>
-      </div>
-    </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Active Upsell Pipeline</div>
+    <div class="kpi-value">$56K</div>
+    <div class="kpi-sub">6 upsell/new deals closing soon</div>
   </div>
-
-  <!-- âââââââââââââââââââ SECTION 4: Operational Signals âââââââââââââââââââ -->
-  <div class="section">
-    <div class="section-header">
-      <span class="icon">ð</span>
-      <h2>Other Operational Signals</h2>
-    </div>
-    <div class="section-body">
-
-      <div class="theme-block">
-        <div class="theme-icon">ð¥</div>
-        <div>
-          <div class="theme-title">Peak Tax Season Active</div>
-          <div class="theme-desc">We are in peak tax season (FebâApr 15). The high utilization rates across the at-risk list above are consistent with expected seasonal volume spikes. Orgs at â¥80% now are at elevated risk of exhausting credits before April 15 â proactive renewal/upsell conversations should begin immediately for the top 11 flagged accounts.</div>
-        </div>
-      </div>
-
-      <div class="theme-block">
-        <div class="theme-icon">ð</div>
-        <div>
-          <div class="theme-title">Large Orgs Tracking Well</div>
-          <div class="theme-desc">Several high-volume accounts (Travel Nurse Tax: 568/1,300 = 44%, Pacific Financial Navigators: 548/810 = 68%, Belt Accounting: 406/850 = 48%) show healthy mid-season utilization. Pacific Financial Navigators at 68% may enter warning territory soon given the pace of season.</div>
-        </div>
-      </div>
-
-      <div class="theme-block">
-        <div class="theme-icon">ð</div>
-        <div>
-          <div class="theme-title">New Customer Onboarding Pipeline Strong</div>
-          <div class="theme-desc">8 new customers signed this week alone, all at 100 returns tier. Most are in Currently Onboarding or Pending Onboarding Call stage. CS team has a heavy onboarding queue â worth confirming capacity to avoid the experience seen with Baruno, Hannaford.</div>
-        </div>
-      </div>
-
-      <div class="theme-block">
-        <div class="theme-icon">ð</div>
-        <div>
-          <div class="theme-title">Low-Utilization Accounts to Monitor</div>
-          <div class="theme-desc">Several large-credit accounts remain below 50% utilization mid-season (e.g., K &amp; B Business Service: 44%, ABL &amp; Co: 51%). While these aren't at credit-exhaustion risk, they may indicate adoption issues or delayed onboarding. Worth CS check-in if they haven't been active recently.</div>
-        </div>
-      </div>
-
-    </div>
+  <div class="kpi-card">
+    <div class="kpi-label">New Prospects (today)</div>
+    <div class="kpi-value">4</div>
+    <div class="kpi-sub">Egan Tax Â· Tax Planning 360 Â· NTX Â· JC Acctg</div>
   </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    Generated automatically by Juno WOE Summary Â· March 20, 2026<br>
-    Data sources: HubSpot (440 customer companies) Â· Intercom (101 open conversations) Â· Standard exclusion filters applied
+  <div class="kpi-card">
+    <div class="kpi-label">Currently Onboarding</div>
+    <div class="kpi-value">16</div>
+    <div class="kpi-sub">Firms in active onboarding</div>
   </div>
-
 </div>
+
+<!-- ââââââââââââââââââââââ BODY ââââââââââââââââââââââ -->
+<main class="content">
+
+  <!-- ââââââââââââââ SUPPORT SPIKE ALERT ââââââââââââââ -->
+  <div class="full-width">
+    <div class="alert critical">
+      <strong>â  Support Spike â Product Update Breaking Imports (4 Tickets Today)</strong><br>
+      Multiple customers are reporting that a recent software update is inserting "TP" or "Spouse" into employer/payer name fields during exports to Lacerte, Drake, and other tax platforms. This is impacting W-2s, 1099s, pensions, and schedule data. Customers affected: Matt Canty (2409sacramento.com), Lori Holland (ascendcpa.tax), Jing Chen (jingcpas@gmail.com), Stephanie Corbaley (yourtaxcoach.com). Recommend immediate triage by engineering.
+    </div>
+    <div class="alert positive">
+      <strong>â New Customers Closed Yesterday (Mar 20):</strong> Yeager Tax &amp; Accounting, Stryker Finance LLC, and Spicer CPA LLC all converted to customer status â 3 new logos in a single day. All are in "Pending Onboarding Call" and need scheduling.
+    </div>
+  </div>
+
+  <!-- ââââââââââââââ SUPPORT: OPEN TICKETS ââââââââââââââ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Open Support Tickets</h2>
+      <span class="badge warn">14 Open</span>
+    </div>
+    <div class="card-body">
+      <ul class="ticket-list">
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-urgent"></div>
+          <div class="ticket-text">
+            <div class="name">Matt Canty</div>
+            <div class="subject">Employer &amp; Payer Name Fields Adding "TP or Spouse" in Lacerte</div>
+            <div class="org">2409sacramento.com Â· Dreyer McGuire Canty PC</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-urgent"></div>
+          <div class="ticket-text">
+            <div class="name">Lori Holland</div>
+            <div class="subject">What is going on with the imports? â Update breaking TP/Spouse logic</div>
+            <div class="org">ascendcpa.tax</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-urgent"></div>
+          <div class="ticket-text">
+            <div class="name">Jing Chen</div>
+            <div class="subject">New updates not working â Pensions and W-2 payer info missing</div>
+            <div class="org">jingcpas@gmail.com</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-urgent"></div>
+          <div class="ticket-text">
+            <div class="name">Stephanie Corbaley</div>
+            <div class="subject">Fwd: Issue â Importing New Schedules instead of Updating Existing Forms</div>
+            <div class="org">yourtaxcoach.com</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-open"></div>
+          <div class="ticket-text">
+            <div class="name">Vijaya Kripanandan</div>
+            <div class="subject">Exporting to Drake â Only stock transactions exporting, 10â12 other docs missing</div>
+            <div class="org">vrglobaltax.com Â· VR Global LLC</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-open"></div>
+          <div class="ticket-text">
+            <div class="name">Mili Borzini</div>
+            <div class="subject">Integration app displaying extra small â does not fill page</div>
+            <div class="org">goldenstateaccounting.co</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-open"></div>
+          <div class="ticket-text">
+            <div class="name">Sophia Prinzivalli</div>
+            <div class="subject">INaccuracy on reviewer â 1099 Filing Assessment errors</div>
+            <div class="org">sasprinzivallicpa.com Â· Sas Prinzivalli CPA PA</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-open"></div>
+          <div class="ticket-text">
+            <div class="name">Pam Elis</div>
+            <div class="subject">Duplicate client created after TaxDome upload</div>
+            <div class="org">rbergerco.com Â· R. Berger &amp; Company</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-open"></div>
+          <div class="ticket-text">
+            <div class="name">Linda Weathers</div>
+            <div class="subject">Can't log in â email/password not working</div>
+            <div class="org">abacustaxaccounting.com (2nd ticket this week)</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-open"></div>
+          <div class="ticket-text">
+            <div class="name">Tara Hughes</div>
+            <div class="subject">K-1 State Source Amounts â ProConnect column mapping issue</div>
+            <div class="org">blueskywa.com</div>
+          </div>
+          <span class="ticket-status status-open">OPEN</span>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- ââââââââââââââ SUPPORT: RESOLVED (SAMPLE) ââââââââââââââ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Recently Closed Tickets</h2>
+      <span class="badge">11 Closed</span>
+    </div>
+    <div class="card-body">
+      <ul class="ticket-list">
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-closed"></div>
+          <div class="ticket-text">
+            <div class="name">Vijaya Kripanandan</div>
+            <div class="subject">Drake 2025 W-2 export not showing data</div>
+            <div class="org">vrglobaltax.com</div>
+          </div>
+          <span class="ticket-status status-closed">CLOSED</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-closed"></div>
+          <div class="ticket-text">
+            <div class="name">Brett Efimov</div>
+            <div class="subject">1099 miscategorized as 1098</div>
+            <div class="org">tinleycpa.com Â· Brett A. Efimov CPA</div>
+          </div>
+          <span class="ticket-status status-closed">CLOSED</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-closed"></div>
+          <div class="ticket-text">
+            <div class="name">Judy Zschocher</div>
+            <div class="subject">"Not connected to Lacerte" message resolved</div>
+            <div class="org">sarahreamescpa.com</div>
+          </div>
+          <span class="ticket-status status-closed">CLOSED</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-closed"></div>
+          <div class="ticket-text">
+            <div class="name">Jason Lindsey</div>
+            <div class="subject">Same info duplicated into multiple fields on Lacerte export</div>
+            <div class="org">lkncpa.com Â· Daniel J Feyka CPA PC</div>
+          </div>
+          <span class="ticket-status status-closed">CLOSED</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-closed"></div>
+          <div class="ticket-text">
+            <div class="name">Linda Weathers</div>
+            <div class="subject">Account not found / password reset issue</div>
+            <div class="org">abacustaxaccounting.com</div>
+          </div>
+          <span class="ticket-status status-closed">CLOSED</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-closed"></div>
+          <div class="ticket-text">
+            <div class="name">Danielle McGee</div>
+            <div class="subject">Document shows as "not supported"</div>
+            <div class="org">delcerrotax.com</div>
+          </div>
+          <span class="ticket-status status-closed">CLOSED</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-closed"></div>
+          <div class="ticket-text">
+            <div class="name">Erica Garcia Junco</div>
+            <div class="subject">Can Juno process a 130-page 1099 Composite?</div>
+            <div class="org">nccorp.biz</div>
+          </div>
+          <span class="ticket-status status-closed">CLOSED</span>
+        </li>
+
+        <li class="ticket-item">
+          <div class="ticket-dot dot-closed"></div>
+          <div class="ticket-text">
+            <div class="name">Brett Efimov</div>
+            <div class="subject">Joint return client name format for uploads</div>
+            <div class="org">tinleycpa.com</div>
+          </div>
+          <span class="ticket-status status-closed">CLOSED</span>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- ââââââââââââââ NEW CUSTOMERS ââââââââââââââ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>New Customers (Mar 20â21)</h2>
+      <span class="badge">3 Closed</span>
+    </div>
+    <div class="card-body">
+      <div class="alert positive" style="margin-bottom:12px;">
+        <strong>3 new logos closed yesterday.</strong> All are in "Pending Onboarding Call" status â onboarding calls need to be scheduled.
+      </div>
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Yeager Tax &amp; Accounting</div>
+          <div class="pipeline-sub">yeager-tax.com Â· Closed Mar 20, 2026</div>
+          <span class="stage-pill stage-pending">Pending Onboarding Call</span>
+        </div>
+      </div>
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Stryker Finance LLC</div>
+          <div class="pipeline-sub">strykerfinance.com Â· Closed Mar 20, 2026</div>
+          <span class="stage-pill stage-pending">Pending Onboarding Call</span>
+        </div>
+      </div>
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Spicer CPA LLC</div>
+          <div class="pipeline-sub">spicercpallc.com Â· Closed Mar 20, 2026</div>
+          <span class="stage-pill stage-pending">Pending Onboarding Call</span>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:16px;">Also recently closed â awaiting onboarding</div>
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">VR Global LLC</div>
+          <div class="pipeline-sub">vrglobaltax.com Â· Closed Mar 9 Â· <em>Note: active support ticket today</em></div>
+          <span class="stage-pill stage-pending">Pending Onboarding Call</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââââââââââââââ ACTIVE UPSELL PIPELINE ââââââââââââââ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Active Upsell &amp; New Deals</h2>
+      <span class="badge">~$56K Pipeline</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:12px; color:#868e96; margin-bottom:12px;">Deals in renewal or expansion pipeline closing within 30â90 days. Stage probability â¥ 90%.</p>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Hanlon CPA, LLC â Upsell</div>
+          <div class="pipeline-sub">hanloncpa.com Â· Closing Apr 3</div>
+          <span class="stage-pill stage-upsell">Upsell</span>
+        </div>
+        <div class="pipeline-amount">$10,800</div>
+      </div>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Dreyer McGuire Canty PC â Upsell</div>
+          <div class="pipeline-sub">2409sacramento.com Â· Closing Apr 3</div>
+          <span class="stage-pill stage-upsell">Upsell</span>
+        </div>
+        <div class="pipeline-amount">$10,500</div>
+      </div>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Hamilton Advisory, PLLC â Upsell</div>
+          <div class="pipeline-sub">hamilton-cpas.com Â· Closing Apr 3</div>
+          <span class="stage-pill stage-upsell">Upsell</span>
+        </div>
+        <div class="pipeline-amount">$10,200</div>
+      </div>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Sas Prinzivalli CPA PA â New Deal</div>
+          <div class="pipeline-sub">sasprinzivallicpa.com Â· Closing Apr 3</div>
+          <span class="stage-pill stage-upsell">New Deal</span>
+        </div>
+        <div class="pipeline-amount">$9,000</div>
+      </div>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">EW Tax and Valuation Group â New Deal</div>
+          <div class="pipeline-sub">ew.tax Â· Closing Mar 31</div>
+          <span class="stage-pill stage-upsell">New Deal</span>
+        </div>
+        <div class="pipeline-amount">$7,600</div>
+      </div>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Aspyr Professional Group â Upsell</div>
+          <div class="pipeline-sub">aspyrgroup.com Â· Closing Apr 3</div>
+          <span class="stage-pill stage-upsell">Upsell</span>
+        </div>
+        <div class="pipeline-amount">$7,400</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ââââââââââââââ NEW PROSPECTS TODAY ââââââââââââââ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>New Prospects (Today / Yesterday)</h2>
+      <span class="badge">4 Added</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:12px; color:#868e96; margin-bottom:12px;">Companies that entered Opportunity stage in HubSpot in the last 48 hours.</p>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Egan Tax</div>
+          <div class="pipeline-sub">egantax.com Â· Drake 100 Returns Â· $4,000 Â· Added Mar 21</div>
+          <span class="stage-pill stage-prospect">New Opportunity</span>
+        </div>
+      </div>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">NTX Advisory Group</div>
+          <div class="pipeline-sub">ntxadvisorygroup.com Â· Drake 600 Returns Â· $19,200 Â· Added Mar 20</div>
+          <span class="stage-pill stage-prospect">New Opportunity</span>
+        </div>
+      </div>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">Tax Planning 360</div>
+          <div class="pipeline-sub">taxplanning360.com Â· Added Mar 21</div>
+          <span class="stage-pill stage-prospect">New Opportunity</span>
+        </div>
+      </div>
+
+      <div class="pipeline-item">
+        <div>
+          <div class="pipeline-name">JC Accounting and Tax Services, PLLC</div>
+          <div class="pipeline-sub">jc-accountingandtaxservices.com Â· Added Mar 20</div>
+          <span class="stage-pill stage-prospect">New Opportunity</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââââââââââââââ ACTIVE ONBOARDING ââââââââââââââ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Currently Onboarding</h2>
+      <span class="badge">16 Firms</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:12px; color:#868e96; margin-bottom:12px;">Customers in active onboarding or pending first call. Sorted by close date (most recent first).</p>
+
+      <div class="onboard-grid">
+        <div class="onboard-chip">
+          <div class="chip-name">Centennial Tax Solutions</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Mar 13</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Mansheim &amp; Associates</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Mar 6</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Lori A Ream LLC</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Mar 5</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Rockin S Business Services</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Mar 5</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">EJM Tax Service LLC</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Mar 4</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Brett A. Efimov CPA (Tinley)</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Mar 18 Â· â  Active ticket</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Private Tax Solutions</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Feb 27</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">FRESE CPA, L.C.</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Feb 23</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Alliance Accounting</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Jan 30</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Roberta A Otto CPA</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Feb 5</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Blue Lake Tax</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Feb 6</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Gianno &amp; Freda CPAs</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Jan 28</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Pensgen CPA</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Jan 16</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">H2 Advisors</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Jan 22</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Dark Horse CPAs</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Jan 14</div>
+        </div>
+        <div class="onboard-chip">
+          <div class="chip-name">Sarah Reames</div>
+          <div class="chip-stage">Currently Onboarding Â· Closed Feb 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââââââââââââââ CREDIT UTILIZATION ââââââââââââââ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Credit Utilization</h2>
+      <span class="badge warn">DB Required</span>
+    </div>
+    <div class="card-body">
+      <div class="alert" style="margin-bottom:0;">
+        <strong>Data unavailable via current tools.</strong>
+        Credit utilization metrics require a direct query to the <code>subscription</code> table using <code>subscription.returns_currently_used</code> as the authoritative source (per Rule 6 of the data architecture). The HubSpot company records for <code>returns_purchased</code> and <code>returns_used</code> are not populated in the CRM. This section will populate automatically once database (Retool/Cursor) access is available in the scheduled context.
+        <br><br>
+        <strong>To monitor manually:</strong> Run the following in Retool or Cursor against Trueprep Prd:
+        <pre style="background:#f8f0e3; padding:10px; border-radius:4px; font-size:11px; margin-top:8px; overflow-x:auto;">
+SELECT
+  o.name AS org,
+  s.returns_allocated,
+  s.returns_currently_used,
+  ROUND(s.returns_currently_used::numeric / NULLIF(s.returns_allocated,0) * 100, 1) AS utilization_pct
+FROM subscription s
+JOIN organization o ON o.id = s.organization_id
+JOIN "user" u ON u.organization_id = o.id
+WHERE u.email NOT LIKE '%@juno.tax'
+  AND LOWER(o.name) NOT LIKE '%true prep%'
+  AND LOWER(o.name) NOT LIKE '%testing%'
+  AND s.status = 'ACTIVE'
+ORDER BY utilization_pct DESC NULLS LAST
+LIMIT 30;</pre>
+        Flag any org where <strong>utilization_pct â¥ 80%</strong> as at-risk.
+      </div>
+    </div>
+  </div>
+
+  <!-- ââââââââââââââ NOTABLES ââââââââââââââ -->
+  <div class="card full-width">
+    <div class="card-header">
+      <h2>Other Notable Signals</h2>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Signal</th>
+            <th>Detail</th>
+            <th>Source</th>
+            <th>Action Needed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Kat Ackerman â frustrated customer</td>
+            <td>Closed ticket: "I guess you have decided to drop any concept of help at this time. Please call me in the morning." â bhacpaco.com</td>
+            <td>Intercom</td>
+            <td>CSM follow-up call required</td>
+          </tr>
+          <tr>
+            <td>Fred Martinez LLC â 2 simultaneous deals</td>
+            <td>Two active deals for the same org: 100 Returns (early stage) AND 500 Returns (Closing Mar 30, $16K). Potential duplicate or upsell-in-progress.</td>
+            <td>HubSpot</td>
+            <td>Sales team verify intent</td>
+          </tr>
+          <tr>
+            <td>JCW Tax &amp; Accounting â upsell closed</td>
+            <td>500-return expansion deal ($16,000) closed Feb 20. Original 200-return deal still active. Confirm credit allocation was updated.</td>
+            <td>HubSpot</td>
+            <td>CS verify subscription updated</td>
+          </tr>
+          <tr>
+            <td>Mili Borzini (Golden State Accounting) â 2 tickets</td>
+            <td>Also filed a Juno Support folder share (likely a support asset) + integration app display bug. Two open interactions.</td>
+            <td>Intercom</td>
+            <td>Consolidate and respond</td>
+          </tr>
+          <tr>
+            <td>Linda Weathers (Abacus Tax) â login loop</td>
+            <td>Opened 2 tickets (one closed, one open): can't log in + account not found. Possible account issue or email mismatch.</td>
+            <td>Intercom</td>
+            <td>Check user record in DB</td>
+          </tr>
+          <tr>
+            <td>Bold City Accounting â new prospect</td>
+            <td>boldcityaccounting.com entered HubSpot as an opportunity yesterday (Mar 20) with no owner assigned yet.</td>
+            <td>HubSpot</td>
+            <td>Assign sales owner</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<!-- ââââââââââââââââââââââ FOOTER ââââââââââââââââââââââ -->
+<footer class="page-footer">
+  Generated by Juno Cowork Â· Saturday, March 21, 2026 &nbsp;|&nbsp;
+  Sources: HubSpot CRM &nbsp;Â·&nbsp; Intercom &nbsp;|&nbsp;
+  Credit utilization requires live DB query (see above) &nbsp;Â·&nbsp;
+  Exclusions applied: @juno.tax internal, TruPrep test orgs
+</footer>
+
 </body>
 </html>
