@@ -1,605 +1,605 @@
 {
-  "date": "2026-03-23",
-  "orgs": [
-    {
+  "date": "2026-03-24",
+  "orgs": {
+    "31406069557": {
+      "name": "Taxdome",
+      "used": 17,
+      "purchased": 1,
+      "utilization_pct": 1700.0
+    },
+    "39106469437": {
       "name": "Common Cent$ Business",
       "used": 133,
       "purchased": 100,
-      "util_pct": 133.0
+      "utilization_pct": 133.0
     },
-    {
+    "36378385158": {
       "name": "Edler Zain",
       "used": 101,
       "purchased": 100,
-      "util_pct": 101.0
+      "utilization_pct": 101.0
     },
-    {
+    "25474752111": {
       "name": "ATS",
       "used": 20,
       "purchased": 20,
-      "util_pct": 100.0
+      "utilization_pct": 100.0
     },
-    {
+    "51265849917": {
       "name": "Fire First Tax",
       "used": 107,
       "purchased": 108,
-      "util_pct": 99.1
+      "utilization_pct": 99.1
     },
-    {
+    "50698717543": {
       "name": "SFBG OpCo LLC",
       "used": 95,
       "purchased": 100,
-      "util_pct": 95.0
+      "utilization_pct": 95.0
     },
-    {
+    "41065800828": {
       "name": "Leading Edge Financial",
       "used": 90,
       "purchased": 100,
-      "util_pct": 90.0
+      "utilization_pct": 90.0
     },
-    {
+    "48706726460": {
       "name": "Lloyd & Hodge",
       "used": 179,
       "purchased": 200,
-      "util_pct": 89.5
+      "utilization_pct": 89.5
     },
-    {
+    "49404725268": {
+      "name": "Bookkeeping Solutions",
+      "used": 89,
+      "purchased": 100,
+      "utilization_pct": 89.0
+    },
+    "50593126520": {
       "name": "Accounting Specialists of Asheville",
       "used": 88,
       "purchased": 100,
-      "util_pct": 88.0
+      "utilization_pct": 88.0
     },
-    {
-      "name": "Bookkeeping Solutions",
-      "used": 88,
-      "purchased": 100,
-      "util_pct": 88.0
-    },
-    {
+    "36325406556": {
       "name": "Taxvanta",
       "used": 130,
       "purchased": 150,
-      "util_pct": 86.7
+      "utilization_pct": 86.7
     },
-    {
+    "49437812548": {
+      "name": "Associates in Accounting, CPA",
+      "used": 170,
+      "purchased": 200,
+      "utilization_pct": 85.0
+    },
+    "36653293995": {
       "name": "Laurie Rust",
       "used": 85,
       "purchased": 100,
-      "util_pct": 85.0
+      "utilization_pct": 85.0
     },
-    {
+    "51288201365": {
       "name": "Tax Rite",
       "used": 421,
       "purchased": 500,
-      "util_pct": 84.2
+      "utilization_pct": 84.2
     },
-    {
+    "39173245845": {
       "name": "Daily Balance",
-      "used": 166,
+      "used": 168,
       "purchased": 200,
-      "util_pct": 83.0
+      "utilization_pct": 84.0
     },
-    {
+    "37973241190": {
+      "name": "Allied Tax Advisors",
+      "used": 81,
+      "purchased": 100,
+      "utilization_pct": 81.0
+    },
+    "21730300570": {
       "name": "BLUESKY WEALTH ADVISORS LLC",
-      "used": 159,
+      "used": 161,
       "purchased": 200,
-      "util_pct": 79.5
+      "utilization_pct": 80.5
     },
-    {
+    "48510675116": {
       "name": "Harbor Group",
       "used": 395,
       "purchased": 500,
-      "util_pct": 79.0
+      "utilization_pct": 79.0
     },
-    {
+    "50741257291": {
       "name": "Bulletproof Tax",
       "used": 80,
       "purchased": 102,
-      "util_pct": 78.4
+      "utilization_pct": 78.4
     },
-    {
+    "36795873464": {
       "name": "chesterdaniels.com",
       "used": 78,
       "purchased": 100,
-      "util_pct": 78.0
+      "utilization_pct": 78.0
     },
-    {
+    "49050641739": {
+      "name": "Kelly R McDonald, CPA Cornerstone Professional Accountants, PC",
+      "used": 127,
+      "purchased": 165,
+      "utilization_pct": 77.0
+    },
+    "42709778706": {
       "name": "CPA Teaches",
       "used": 76,
       "purchased": 100,
-      "util_pct": 76.0
+      "utilization_pct": 76.0
     },
-    {
-      "name": "Allied Tax Advisors",
-      "used": 75,
-      "purchased": 100,
-      "util_pct": 75.0
-    },
-    {
+    "37452789398": {
       "name": "Henry, Waters & Associates",
       "used": 223,
       "purchased": 300,
-      "util_pct": 74.3
+      "utilization_pct": 74.3
     },
-    {
+    "40703116449": {
       "name": "Thomas & Company CPA",
-      "used": 256,
+      "used": 258,
       "purchased": 350,
-      "util_pct": 73.1
+      "utilization_pct": 73.7
     },
-    {
-      "name": "Ascend Tax Advisory, & Accounting Services",
-      "used": 72,
-      "purchased": 100,
-      "util_pct": 72.0
-    },
-    {
+    "36770084536": {
       "name": "Pacific Financial Navigators",
-      "used": 571,
+      "used": 580,
       "purchased": 810,
-      "util_pct": 70.5
+      "utilization_pct": 71.6
     },
-    {
+    "49011579424": {
+      "name": "Ascend Tax Advisory, & Accounting Services",
+      "used": 75,
+      "purchased": 105,
+      "utilization_pct": 71.4
+    },
+    "34731788453": {
       "name": "Hanlon CPA, LLC",
-      "used": 206,
+      "used": 207,
       "purchased": 300,
-      "util_pct": 68.7
+      "utilization_pct": 69.0
     },
-    {
+    "49483906946": {
+      "name": "IRS Solutions Valencia, Inc.",
+      "used": 69,
+      "purchased": 100,
+      "utilization_pct": 69.0
+    },
+    "42353779245": {
       "name": "JNK Accountancy Group",
-      "used": 137,
+      "used": 139,
       "purchased": 203,
-      "util_pct": 67.5
+      "utilization_pct": 68.5
     },
-    {
+    "50741192352": {
       "name": "Roberta A Otto CPA",
-      "used": 336,
+      "used": 337,
       "purchased": 500,
-      "util_pct": 67.2
+      "utilization_pct": 67.4
     },
-    {
+    "40213613493": {
+      "name": "Newsome CPA",
+      "used": 67,
+      "purchased": 100,
+      "utilization_pct": 67.0
+    },
+    "50117150095": {
       "name": "ProBooks",
       "used": 67,
       "purchased": 100,
-      "util_pct": 67.0
+      "utilization_pct": 67.0
     },
-    {
-      "name": "IRS Solutions Valencia, Inc.",
-      "used": 67,
-      "purchased": 100,
-      "util_pct": 67.0
-    },
-    {
-      "name": "Kelly R McDonald, CPA Cornerstone Professional Accountants, PC",
-      "used": 109,
-      "purchased": 165,
-      "util_pct": 66.1
-    },
-    {
-      "name": "Newsome CPA",
+    "50524130682": {
+      "name": "CPA Help Now",
       "used": 66,
       "purchased": 100,
-      "util_pct": 66.0
+      "utilization_pct": 66.0
     },
-    {
+    "35867841538": {
+      "name": "Custom Accounting CPA",
+      "used": 66,
+      "purchased": 100,
+      "utilization_pct": 66.0
+    },
+    "39131695651": {
+      "name": "Noack & Company",
+      "used": 197,
+      "purchased": 300,
+      "utilization_pct": 65.7
+    },
+    "41625514393": {
       "name": "Hamilton Advisory, PLLC",
       "used": 197,
       "purchased": 300,
-      "util_pct": 65.7
+      "utilization_pct": 65.7
     },
-    {
+    "46600488373": {
       "name": "ZD Accounting Services",
       "used": 131,
       "purchased": 200,
-      "util_pct": 65.5
+      "utilization_pct": 65.5
     },
-    {
+    "45235841680": {
       "name": "Bran Accounting",
       "used": 65,
       "purchased": 100,
-      "util_pct": 65.0
+      "utilization_pct": 65.0
     },
-    {
+    "47330406749": {
       "name": "Wealth Alliance Tax & Financial Services, LLC",
       "used": 227,
       "purchased": 350,
-      "util_pct": 64.9
+      "utilization_pct": 64.9
     },
-    {
-      "name": "Noack & Company",
-      "used": 193,
-      "purchased": 300,
-      "util_pct": 64.3
-    },
-    {
+    "52980695074": {
       "name": "Golden State Accounting (CHILD)",
-      "used": 128,
+      "used": 129,
       "purchased": 200,
-      "util_pct": 64.0
+      "utilization_pct": 64.5
     },
-    {
-      "name": "Custom Accounting CPA",
-      "used": 64,
-      "purchased": 100,
-      "util_pct": 64.0
-    },
-    {
+    "22642573458": {
       "name": "Balanced Equation",
       "used": 64,
       "purchased": 102,
-      "util_pct": 62.7
+      "utilization_pct": 62.7
     },
-    {
+    "47323431937": {
+      "name": "Diehl CPA LLC",
+      "used": 125,
+      "purchased": 200,
+      "utilization_pct": 62.5
+    },
+    "39131456697": {
+      "name": "ROR Tax Professionals",
+      "used": 370,
+      "purchased": 605,
+      "utilization_pct": 61.2
+    },
+    "44395112811": {
       "name": "Go-Pro Tax & Accounting",
       "used": 64,
       "purchased": 105,
-      "util_pct": 61.0
+      "utilization_pct": 61.0
     },
-    {
-      "name": "CPA Help Now",
-      "used": 61,
-      "purchased": 100,
-      "util_pct": 61.0
-    },
-    {
-      "name": "Diehl CPA LLC",
-      "used": 120,
-      "purchased": 200,
-      "util_pct": 60.0
-    },
-    {
-      "name": "ROR Tax Professionals",
-      "used": 362,
-      "purchased": 605,
-      "util_pct": 59.8
-    },
-    {
+    "47392201502": {
       "name": "Jing and Company",
-      "used": 177,
+      "used": 179,
       "purchased": 300,
-      "util_pct": 59.0
+      "utilization_pct": 59.7
     },
-    {
+    "50095158640": {
+      "name": "Gianno & Freda CPAs & Financial Center Inc",
+      "used": 118,
+      "purchased": 200,
+      "utilization_pct": 59.0
+    },
+    "42712708494": {
       "name": "Sound Profit Inc.",
       "used": 59,
       "purchased": 100,
-      "util_pct": 59.0
+      "utilization_pct": 59.0
     },
-    {
+    "37118276208": {
+      "name": "East Carolina Accounting Services",
+      "used": 117,
+      "purchased": 200,
+      "utilization_pct": 58.5
+    },
+    "42430272852": {
       "name": "Integrated SBA",
       "used": 117,
       "purchased": 200,
-      "util_pct": 58.5
+      "utilization_pct": 58.5
     },
-    {
+    "39124441203": {
       "name": "JCW Tax & Accounting",
       "used": 412,
       "purchased": 710,
-      "util_pct": 58.0
+      "utilization_pct": 58.0
     },
-    {
-      "name": "East Carolina Accounting Services",
-      "used": 116,
-      "purchased": 200,
-      "util_pct": 58.0
+    "50095422255": {
+      "name": "Proby Tax",
+      "used": 59,
+      "purchased": 102,
+      "utilization_pct": 57.8
     },
-    {
+    "39352993361": {
       "name": "Duncan & Associates",
       "used": 404,
       "purchased": 700,
-      "util_pct": 57.7
+      "utilization_pct": 57.7
     },
-    {
-      "name": "Gianno & Freda CPAs & Financial Center Inc",
-      "used": 113,
-      "purchased": 200,
-      "util_pct": 56.5
+    "32890526895": {
+      "name": "SBS CPA Group",
+      "used": 57,
+      "purchased": 100,
+      "utilization_pct": 57.0
     },
-    {
+    "37547720064": {
+      "name": "Stiles CPA",
+      "used": 57,
+      "purchased": 100,
+      "utilization_pct": 57.0
+    },
+    "28841387310": {
+      "name": "Seaside Resources",
+      "used": 297,
+      "purchased": 530,
+      "utilization_pct": 56.0
+    },
+    "50094849069": {
       "name": "Rosenbaum Sobel Weinrub & Burns",
       "used": 112,
       "purchased": 200,
-      "util_pct": 56.0
+      "utilization_pct": 56.0
     },
-    {
-      "name": "Stiles CPA",
-      "used": 56,
-      "purchased": 100,
-      "util_pct": 56.0
-    },
-    {
+    "44374203782": {
       "name": "Latitude Tax",
-      "used": 165,
+      "used": 167,
       "purchased": 300,
-      "util_pct": 55.0
+      "utilization_pct": 55.7
     },
-    {
-      "name": "Seaside Resources",
-      "used": 290,
-      "purchased": 530,
-      "util_pct": 54.7
-    },
-    {
+    "44066283354": {
       "name": "The Jones CPA Group",
-      "used": 276,
+      "used": 278,
       "purchased": 505,
-      "util_pct": 54.7
+      "utilization_pct": 55.0
     },
-    {
-      "name": "SBS CPA Group",
-      "used": 54,
-      "purchased": 100,
-      "util_pct": 54.0
-    },
-    {
+    "44424289053": {
       "name": "JACKSON CPA SERVICES",
-      "used": 54,
+      "used": 55,
       "purchased": 100,
-      "util_pct": 54.0
+      "utilization_pct": 55.0
     },
-    {
+    "39130463053": {
       "name": "Sas Prinzivalli CPA PA",
-      "used": 161,
+      "used": 164,
       "purchased": 300,
-      "util_pct": 53.7
+      "utilization_pct": 54.7
     },
-    {
-      "name": "Y10 Tax Solutions",
-      "used": 53,
-      "purchased": 100,
-      "util_pct": 53.0
-    },
-    {
+    "47057022033": {
       "name": "Garry A Jones & Associates",
       "used": 53,
       "purchased": 100,
-      "util_pct": 53.0
+      "utilization_pct": 53.0
     },
-    {
-      "name": "Proby Tax",
-      "used": 54,
-      "purchased": 102,
-      "util_pct": 52.9
+    "37022202297": {
+      "name": "Y10 Tax Solutions",
+      "used": 53,
+      "purchased": 100,
+      "utilization_pct": 53.0
     },
-    {
+    "43824983142": {
+      "name": "Aspyr Professional Group",
+      "used": 210,
+      "purchased": 400,
+      "utilization_pct": 52.5
+    },
+    "37453135028": {
       "name": "ABL & Co",
       "used": 212,
       "purchased": 405,
-      "util_pct": 52.3
+      "utilization_pct": 52.3
     },
-    {
+    "45225607272": {
+      "name": "CPA Financial Advantage ",
+      "used": 470,
+      "purchased": 900,
+      "utilization_pct": 52.2
+    },
+    "35988840307": {
       "name": "Wills & Associates (CHILD)",
       "used": 260,
       "purchased": 500,
-      "util_pct": 52.0
+      "utilization_pct": 52.0
     },
-    {
+    "50596762935": {
+      "name": "Grand Tax Advisors LLC",
+      "used": 52,
+      "purchased": 100,
+      "utilization_pct": 52.0
+    },
+    "51554518865": {
+      "name": "Simplified Accounting Solutions",
+      "used": 52,
+      "purchased": 100,
+      "utilization_pct": 52.0
+    },
+    "21617740430": {
+      "name": "Blackhawk Accounting",
+      "used": 52,
+      "purchased": 100,
+      "utilization_pct": 52.0
+    },
+    "39093404736": {
       "name": "Tosha Inman CPA",
       "used": 206,
       "purchased": 400,
-      "util_pct": 51.5
+      "utilization_pct": 51.5
     },
-    {
-      "name": "Blackhawk Accounting",
+    "37451253561": {
+      "name": "Andrew & Co CPA",
+      "used": 103,
+      "purchased": 200,
+      "utilization_pct": 51.5
+    },
+    "37328221196": {
+      "name": "Mark Schwanbeck Tax Prep",
       "used": 51,
       "purchased": 100,
-      "util_pct": 51.0
+      "utilization_pct": 51.0
     },
-    {
-      "name": "Grand Tax Advisors LLC",
-      "used": 51,
-      "purchased": 100,
-      "util_pct": 51.0
-    },
-    {
+    "35428054841": {
       "name": "Whelan Advisory Group",
       "used": 51,
       "purchased": 100,
-      "util_pct": 51.0
+      "utilization_pct": 51.0
     },
-    {
-      "name": "CPA Financial Advantage",
-      "used": 457,
-      "purchased": 900,
-      "util_pct": 50.8
-    },
-    {
-      "name": "Aspyr Professional Group",
-      "used": 202,
-      "purchased": 400,
-      "util_pct": 50.5
-    },
-    {
+    "39278525616": {
       "name": "Expert Tax & Trust",
       "used": 202,
       "purchased": 400,
-      "util_pct": 50.5
+      "utilization_pct": 50.5
     },
-    {
-      "name": "Andrew & Co CPA",
-      "used": 101,
-      "purchased": 200,
-      "util_pct": 50.5
-    },
-    {
-      "name": "Mark Schwanbeck Tax Prep",
-      "used": 50,
-      "purchased": 100,
-      "util_pct": 50.0
-    },
-    {
-      "name": "McAdams Tax Group, LLC",
-      "used": 50,
-      "purchased": 100,
-      "util_pct": 50.0
-    },
-    {
+    "42787591754": {
       "name": "Island Tides Accounting",
       "used": 50,
       "purchased": 100,
-      "util_pct": 50.0
+      "utilization_pct": 50.0
     },
-    {
-      "name": "Simplified Accounting Solutions",
+    "47386091554": {
+      "name": "McAdams Tax Group, LLC",
       "used": 50,
       "purchased": 100,
-      "util_pct": 50.0
+      "utilization_pct": 50.0
     },
-    {
+    "42721375368": {
       "name": "Beckley & Associates",
       "used": 51,
       "purchased": 104,
-      "util_pct": 49.0
+      "utilization_pct": 49.0
     },
-    {
+    "35901419535": {
       "name": "Platinum Tax Management",
       "used": 49,
       "purchased": 100,
-      "util_pct": 49.0
+      "utilization_pct": 49.0
     },
-    {
+    "42879387734": {
+      "name": "Carter CPA",
+      "used": 146,
+      "purchased": 300,
+      "utilization_pct": 48.7
+    },
+    "49566227364": {
       "name": "Elite Accounting Services",
       "used": 50,
       "purchased": 103,
-      "util_pct": 48.5
+      "utilization_pct": 48.5
     },
-    {
+    "37459611220": {
+      "name": "Dreyer Luchetti McGuire",
+      "used": 145,
+      "purchased": 300,
+      "utilization_pct": 48.3
+    },
+    "40760610824": {
       "name": "RLH Tax Services",
       "used": 243,
       "purchased": 505,
-      "util_pct": 48.1
+      "utilization_pct": 48.1
     },
-    {
+    "22273490266": {
       "name": "Coy Tax Solutions",
       "used": 48,
       "purchased": 100,
-      "util_pct": 48.0
+      "utilization_pct": 48.0
     },
-    {
+    "41596208918": {
       "name": "One-Rubio Solutions",
       "used": 48,
       "purchased": 100,
-      "util_pct": 48.0
+      "utilization_pct": 48.0
     },
-    {
+    "50566780795": {
+      "name": "The Bottom Line, LLC",
+      "used": 48,
+      "purchased": 100,
+      "utilization_pct": 48.0
+    },
+    "36767099709": {
       "name": "Belt Accounting",
       "used": 406,
       "purchased": 850,
-      "util_pct": 47.8
+      "utilization_pct": 47.8
     },
-    {
-      "name": "Dreyer McGuire Canty PC",
+    "44669295734": {
+      "name": "Krener Bookkeeping & Tax",
       "used": 143,
       "purchased": 300,
-      "util_pct": 47.7
+      "utilization_pct": 47.7
     },
-    {
-      "name": "Krener Bookkeeping & Tax",
-      "used": 141,
-      "purchased": 300,
-      "util_pct": 47.0
-    },
-    {
-      "name": "Carter CPA",
-      "used": 141,
-      "purchased": 300,
-      "util_pct": 47.0
-    },
-    {
+    "41135078416": {
       "name": "AK CPA LLC",
-      "used": 93,
+      "used": 95,
       "purchased": 200,
-      "util_pct": 46.5
+      "utilization_pct": 47.5
     },
-    {
+    "49437388717": {
+      "name": "Travel Nurse Tax",
+      "used": 605,
+      "purchased": 1300,
+      "utilization_pct": 46.5
+    },
+    "38794216990": {
       "name": "Rea, Whitehead & Associates",
       "used": 184,
       "purchased": 400,
-      "util_pct": 46.0
+      "utilization_pct": 46.0
     },
-    {
+    "44075426399": {
       "name": "Chaney & Moul CPAs",
       "used": 92,
       "purchased": 200,
-      "util_pct": 46.0
+      "utilization_pct": 46.0
     },
-    {
-      "name": "The Bottom Line, LLC",
-      "used": 46,
-      "purchased": 100,
-      "util_pct": 46.0
-    },
-    {
+    "39151717554": {
       "name": "Embarkment Tax Services",
       "used": 80,
       "purchased": 175,
-      "util_pct": 45.7
+      "utilization_pct": 45.7
     },
-    {
-      "name": "Travel Nurse Tax",
-      "used": 593,
-      "purchased": 1300,
-      "util_pct": 45.6
-    },
-    {
+    "35036903795": {
       "name": "Astra Wealth Partners",
       "used": 45,
       "purchased": 100,
-      "util_pct": 45.0
+      "utilization_pct": 45.0
     },
-    {
+    "40248436499": {
       "name": "K & B Business Service",
       "used": 224,
       "purchased": 505,
-      "util_pct": 44.4
+      "utilization_pct": 44.4
     },
-    {
+    "26265186874": {
       "name": "Rose Group",
       "used": 44,
       "purchased": 100,
-      "util_pct": 44.0
+      "utilization_pct": 44.0
     },
-    {
-      "name": "TH Comptrollers CPA",
-      "used": 174,
-      "purchased": 405,
-      "util_pct": 43.0
+    "50596769190": {
+      "name": "Hannis T. Bourgeois, LLP",
+      "used": 44,
+      "purchased": 100,
+      "utilization_pct": 44.0
     },
-    {
+    "25858512293": {
       "name": "EW Tax and Valuation Group",
-      "used": 86,
+      "used": 87,
       "purchased": 200,
-      "util_pct": 43.0
+      "utilization_pct": 43.5
     },
-    {
+    "42520977409": {
+      "name": "TH Comptrollers CPA",
+      "used": 175,
+      "purchased": 405,
+      "utilization_pct": 43.2
+    },
+    "47438945651": {
       "name": "Stonehaven Wealth & Tax Solutions, LLC",
       "used": 43,
       "purchased": 100,
-      "util_pct": 43.0
+      "utilization_pct": 43.0
     },
-    {
+    "51288325744": {
       "name": "The Onyx CPA Group, Inc.",
       "used": 43,
       "purchased": 100,
-      "util_pct": 43.0
-    },
-    {
-      "name": "Hannis T. Bourgeois, LLP",
-      "used": 43,
-      "purchased": 100,
-      "util_pct": 43.0
-    },
-    {
-      "name": "Hildreth & Puga CPA",
-      "used": 170,
-      "purchased": 400,
-      "util_pct": 42.5
-    },
-    {
-      "name": "Grace CPA Services",
-      "used": 85,
-      "purchased": 200,
-      "util_pct": 42.5
+      "utilization_pct": 43.0
     }
-  ]
+  }
 }
