@@ -1,489 +1,622 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waiting on Eng â€” Summary Â· Juno Tax</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waiting on Eng â€” Executive Summary</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #F8F9FA;
+    color: #1E1E1E;
+    padding: 32px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .page-header {
+    margin-bottom: 28px;
+  }
+  .page-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #013A2F;
+    margin-bottom: 4px;
+  }
+  .page-header .subtitle {
+    font-size: 13px;
+    color: #666;
+  }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #F8F9FA;
-      color: #1E1E1E;
-      padding: 32px 24px 64px;
-    }
+  /* Stat row */
+  .stat-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 16px 20px;
+    flex: 1;
+    min-width: 130px;
+    border-top: 3px solid #013A2F;
+  }
+  .stat-card.highlight {
+    border-top-color: #1CE49B;
+  }
+  .stat-card.alert {
+    border-top-color: #e63946;
+  }
+  .stat-card .label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  .stat-card .value {
+    font-size: 30px;
+    font-weight: 700;
+    color: #013A2F;
+  }
+  .stat-card.alert .value {
+    color: #c0392b;
+  }
 
-    /* â”€â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .page-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-    }
-    .page-header h1 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #013A2F;
-      letter-spacing: -0.3px;
-    }
-    .page-header .meta {
-      font-size: 13px;
-      color: #6c757d;
-    }
-    .accent-bar {
-      height: 4px;
-      background: linear-gradient(90deg, #1CE49B 0%, #B4F7CA 100%);
-      border-radius: 4px;
-      margin-bottom: 28px;
-    }
+  /* Aging alert box */
+  .aging-box {
+    background: #fff5f5;
+    border: 1.5px solid #e63946;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+  }
+  .aging-box h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c0392b;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .aging-box h2::before {
+    content: "ğŸ”´";
+    font-size: 13px;
+  }
+  .aging-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .aging-table th {
+    text-align: left;
+    padding: 6px 10px;
+    color: #c0392b;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #f5c6cb;
+  }
+  .aging-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #fde8e8;
+    vertical-align: top;
+  }
+  .aging-table tr:last-child td { border-bottom: none; }
+  .age-aging {
+    color: #c0392b;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .age-medium {
+    color: #d68910;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .age-recent {
+    color: #888;
+    white-space: nowrap;
+  }
 
-    /* â”€â”€â”€ Stat Row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .stat-row {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-    .stat-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 18px 24px;
-      flex: 1;
-      min-width: 130px;
-    }
-    .stat-card .label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: #6c757d;
-      margin-bottom: 6px;
-    }
-    .stat-card .value {
-      font-size: 32px;
-      font-weight: 700;
-      color: #013A2F;
-      line-height: 1;
-    }
-    .stat-card.aging .value { color: #c0392b; }
-    .stat-card.accent-card {
-      background: #013A2F;
-      border-color: #013A2F;
-    }
-    .stat-card.accent-card .label { color: #B4F7CA; }
-    .stat-card.accent-card .value { color: #1CE49B; }
-
-    /* â”€â”€â”€ Aging Alert â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .aging-alert {
-      background: #fff5f5;
-      border: 2px solid #c0392b;
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin-bottom: 28px;
-    }
-    .aging-alert .alert-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #c0392b;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .aging-alert table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    .aging-alert th {
-      text-align: left;
-      padding: 6px 12px;
-      font-weight: 600;
-      color: #6c757d;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .aging-alert td {
-      padding: 8px 12px;
-      border-top: 1px solid #fde8e8;
-      vertical-align: top;
-    }
-    .aging-alert td:first-child { font-family: monospace; font-size: 12px; color: #6c757d; }
-    .age-badge-red {
-      display: inline-block;
-      background: #c0392b;
-      color: #fff;
-      border-radius: 4px;
-      padding: 2px 8px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    /* â”€â”€â”€ Section Tables â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .section {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-    .section-header {
-      background: #013A2F;
-      color: #fff;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .section-header h2 {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
-    .section-header .count-badge {
-      background: #1CE49B;
-      color: #013A2F;
-      font-size: 12px;
-      font-weight: 700;
-      border-radius: 12px;
-      padding: 2px 10px;
-    }
-    table.ticket-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    table.ticket-table th {
-      text-align: left;
-      padding: 10px 16px;
-      background: #B4F7CA20;
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #013A2F;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    table.ticket-table td {
-      padding: 10px 16px;
-      border-bottom: 1px solid #f1f5f9;
-      vertical-align: top;
-      line-height: 1.4;
-    }
-    table.ticket-table tr:last-child td { border-bottom: none; }
-    table.ticket-table tr:hover td { background: #f8fffe; }
-    .ticket-id { font-family: monospace; font-size: 12px; color: #6c757d; white-space: nowrap; }
-    .issue-text { color: #1E1E1E; }
-
-    /* â”€â”€â”€ Age Styles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .age-aging  { color: #c0392b; font-weight: 600; white-space: nowrap; }
-    .age-medium { color: #d35400; font-weight: 600; white-space: nowrap; }
-    .age-recent { color: #6c757d; white-space: nowrap; }
-
-    /* â”€â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      color: #adb5bd;
-      margin-top: 36px;
-    }
-    .footer span { color: #1CE49B; font-weight: 600; }
-  </style>
+  /* Section tables */
+  .section {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    overflow: hidden;
+  }
+  .section-header {
+    background: #013A2F;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .section-header h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .section-header .count-badge {
+    background: #1CE49B;
+    color: #013A2F;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 20px;
+  }
+  .ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .ticket-table th {
+    text-align: left;
+    padding: 8px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    background: #F8F9FA;
+    border-bottom: 1px solid #eee;
+  }
+  .ticket-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .ticket-table tr:last-child td { border-bottom: none; }
+  .ticket-table tr:hover td { background: #fafff9; }
+  .ticket-id {
+    font-family: monospace;
+    font-size: 12px;
+    color: #013A2F;
+    white-space: nowrap;
+  }
+  .org {
+    font-size: 11px;
+    color: #888;
+  }
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+  }
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="page-header">
-    <h1>âš™ï¸ Waiting on Eng â€” Ticket Summary</h1>
-    <div class="meta">Generated Thu, Mar 26 2026</div>
-  </div>
-  <div class="accent-bar"></div>
+<div class="page-header">
+  <h1>Waiting on Eng â€” Executive Summary</h1>
+  <div class="subtitle">Generated Thu, March 26, 2026 Â· Intercom Inbox View</div>
+</div>
 
-  <!-- â”€â”€ Stat Row â”€â”€ -->
-  <div class="stat-row">
-    <div class="stat-card accent-card">
-      <div class="label">Total Open</div>
-      <div class="value">20</div>
-    </div>
-    <div class="stat-card">
-      <div class="label">Reviewer / Workflow</div>
-      <div class="value">4</div>
-    </div>
-    <div class="stat-card">
-      <div class="label">Import / Integration</div>
-      <div class="value">8</div>
-    </div>
-    <div class="stat-card">
-      <div class="label">UI Bugs</div>
-      <div class="value">5</div>
-    </div>
-    <div class="stat-card">
-      <div class="label">Other</div>
-      <div class="value">3</div>
-    </div>
-    <div class="stat-card aging">
-      <div class="label">Aging â‰¥ 14 days</div>
-      <div class="value">1</div>
-    </div>
+<!-- Stat Row -->
+<div class="stat-row">
+  <div class="stat-card highlight">
+    <div class="label">Total Open</div>
+    <div class="value">40</div>
   </div>
+  <div class="stat-card">
+    <div class="label">Reviewer / Workflow</div>
+    <div class="value">11</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Import / Integration</div>
+    <div class="value">11</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">UI Bugs</div>
+    <div class="value">7</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Other</div>
+    <div class="value">11</div>
+  </div>
+  <div class="stat-card alert">
+    <div class="label">Aging â‰¥14 Days</div>
+    <div class="value">2</div>
+  </div>
+</div>
 
-  <!-- â”€â”€ Aging Alert â”€â”€ -->
-  <div class="aging-alert">
-    <div class="alert-title">ğŸš¨ Aging Alert â€” Tickets â‰¥ 14 Days Old</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Ticket ID</th>
-          <th>Customer</th>
-          <th>Organization</th>
-          <th>Issue</th>
-          <th>Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="ticket-id">#74118616</td>
-          <td>Molly Sobhani</td>
-          <td>â€”</td>
-          <td>Web to App Connection / Sync Error?</td>
-          <td><span class="age-badge-red">50d</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<!-- Aging Alert Box -->
+<div class="aging-box">
+  <h2>Aging Tickets (14+ Days)</h2>
+  <table class="aging-table">
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Customer</th>
+        <th>Organization</th>
+        <th>Issue</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="ticket-id">#81757950</td>
+        <td>Kristie</td>
+        <td>Kristie Vandevander, CPA</td>
+        <td>Re: Fw: Juno Onboarding Follow Up</td>
+        <td><span class="age-aging">14d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#82195161</td>
+        <td>Andy</td>
+        <td>Forge Tax and Accounting LLC</td>
+        <td>Tickets (general open issue)</td>
+        <td><span class="age-aging">15d</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <!-- â•â• SECTION 1: Reviewer / Workflow â•â• -->
-  <div class="section">
-    <div class="section-header">
-      <h2>Reviewer / Workflow</h2>
-      <span class="count-badge">4</span>
-    </div>
-    <table class="ticket-table">
-      <thead>
-        <tr>
-          <th>Ticket ID</th>
-          <th>Customer</th>
-          <th>Organization</th>
-          <th>Issue</th>
-          <th>Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="ticket-id">#86011436</td>
-          <td>Linda</td>
-          <td>Stapf Financial</td>
-          <td class="issue-text">Review â€“ Wolfe: AI reviewer flagged misclassified withholding (extra Medicare, Form 8959) and doubled charitable contributions</td>
-          <td class="age-recent">13h</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#86081097</td>
-          <td>Linda</td>
-          <td>Stapf Financial</td>
-          <td class="issue-text">Review â€“ Ringer: Reviewer errors on related return</td>
-          <td class="age-recent">14h</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85588283</td>
-          <td>Sarah</td>
-          <td>Clifton Larson Allen (CLA)</td>
-          <td class="issue-text">Reviewer flagging standard deduction incorrectly</td>
-          <td class="age-recent">20h</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85614413</td>
-          <td>Christie Bonacci</td>
-          <td>â€”</td>
-          <td class="issue-text">Reviewer hallucinations reported</td>
-          <td class="age-recent">1d</td>
-        </tr>
-      </tbody>
-    </table>
+<!-- Reviewer / Workflow -->
+<div class="section">
+  <div class="section-header">
+    <h2>Reviewer / Workflow</h2>
+    <span class="count-badge">11</span>
   </div>
+  <table class="ticket-table">
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Customer</th>
+        <th>Organization</th>
+        <th>Issue</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="ticket-id">#86011436</td>
+        <td>Linda</td>
+        <td class="org">Stapf Financial</td>
+        <td>Review -Wolfe</td>
+        <td><span class="age-recent">14h</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#86081097</td>
+        <td>Linda</td>
+        <td class="org">Stapf Financial</td>
+        <td>Review - Ringer</td>
+        <td><span class="age-recent">15h</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85588283</td>
+        <td>Sarah</td>
+        <td class="org">Clifton Larson Allen (CLA)</td>
+        <td>Reviewer Finding Standard Deduction</td>
+        <td><span class="age-recent">20h</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85624524</td>
+        <td>Zane</td>
+        <td class="org">Anderson, Holmes, Holdbrook &amp; Co.</td>
+        <td>Descriptions</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85624386</td>
+        <td>Dayna Bennett</td>
+        <td class="org">â€”</td>
+        <td>Document Descriptions Imported to CCH</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85614413</td>
+        <td>Christie Bonacci</td>
+        <td class="org">â€”</td>
+        <td>Reviewer hallucinations</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85235465</td>
+        <td>Michael</td>
+        <td class="org">Grand Tax Advisors LLC</td>
+        <td>Regenerate Binder</td>
+        <td><span class="age-recent">3d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#83678864</td>
+        <td>Tara</td>
+        <td class="org">BlueSky Wealth Advisors</td>
+        <td>Juno: Unable to Proceed to Reviewer</td>
+        <td><span class="age-recent">3d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#78047522</td>
+        <td>Laura</td>
+        <td class="org">Laura R Padgett LLC</td>
+        <td>Reviewer discrepancy</td>
+        <td><span class="age-recent">3d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85362885</td>
+        <td>Bryan</td>
+        <td class="org">Mansfield CPA</td>
+        <td>Wrong Reviewer Info</td>
+        <td><span class="age-recent">3d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85096191</td>
+        <td>Maria Tran</td>
+        <td class="org">â€”</td>
+        <td>Review Plan: Incorrect Standard Deduction for Seniors in Review Comments</td>
+        <td><span class="age-recent">3d</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <!-- â•â• SECTION 2: Import / Integration â•â• -->
-  <div class="section">
-    <div class="section-header">
-      <h2>Import / Integration</h2>
-      <span class="count-badge">8</span>
-    </div>
-    <table class="ticket-table">
-      <thead>
-        <tr>
-          <th>Ticket ID</th>
-          <th>Customer</th>
-          <th>Organization</th>
-          <th>Issue</th>
-          <th>Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="ticket-id">#85823706</td>
-          <td>Maria Tran</td>
-          <td>â€”</td>
-          <td class="issue-text">Lacerte error message when exporting data to Schedule E</td>
-          <td class="age-recent">18h</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85643367</td>
-          <td>Wylie</td>
-          <td>Astra Tax Partners LLC</td>
-          <td class="issue-text">ProConnect Juno breaks on multi-state W-2</td>
-          <td class="age-recent">19h</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85624386</td>
-          <td>Dayna Bennett</td>
-          <td>â€”</td>
-          <td class="issue-text">Document descriptions imported incorrectly to CCH</td>
-          <td class="age-recent">1d</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85445482</td>
-          <td>Himanshu Patel</td>
-          <td>â€”</td>
-          <td class="issue-text">UltraTax / Juno integration issue</td>
-          <td class="age-recent">2d</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85084202</td>
-          <td>Maria Tran</td>
-          <td>â€”</td>
-          <td class="issue-text">Form 1095-A export date incorrect</td>
-          <td class="age-recent">4d</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#84868668</td>
-          <td>Matt</td>
-          <td>Dreyer McGuire Canty, PC</td>
-          <td class="issue-text">Employer and payer name fields adding TP or Spouse label in Lacerte</td>
-          <td class="age-recent">5d</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#84689371</td>
-          <td>Louisa Else</td>
-          <td>â€”</td>
-          <td class="issue-text">Lacerte â€“ Incorrect W-2 import</td>
-          <td class="age-recent">6d</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#83810674</td>
-          <td>Wylie</td>
-          <td>Astra Tax Partners LLC</td>
-          <td class="issue-text">Schedule D transaction description truncated at 40 characters (ProConnect)</td>
-          <td class="age-medium">9d</td>
-        </tr>
-      </tbody>
-    </table>
+<!-- Import / Integration -->
+<div class="section">
+  <div class="section-header">
+    <h2>Import / Integration</h2>
+    <span class="count-badge">11</span>
   </div>
+  <table class="ticket-table">
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Customer</th>
+        <th>Organization</th>
+        <th>Issue</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="ticket-id">#85823706</td>
+        <td>Maria Tran</td>
+        <td class="org">â€”</td>
+        <td>Lacerte Error Message from Exporting Data to Schedule E</td>
+        <td><span class="age-recent">18h</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85643367</td>
+        <td>Wylie</td>
+        <td class="org">Astra Tax Partners LLC</td>
+        <td>Proconnect Juno Breaks on Multi State W2</td>
+        <td><span class="age-recent">19h</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#84689371</td>
+        <td>Louisa Else</td>
+        <td class="org">â€”</td>
+        <td>Lacerte - Incorrect W-2 Import</td>
+        <td><span class="age-recent">1d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#74118616</td>
+        <td>Molly Sobhani</td>
+        <td class="org">â€”</td>
+        <td>Web to App Connection/Sync Error?</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85084202</td>
+        <td>Maria Tran</td>
+        <td class="org">â€”</td>
+        <td>Form 1095-A: Export Date</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#84868668</td>
+        <td>Matt</td>
+        <td class="org">Dreyer McGuire Canty, PC</td>
+        <td>Employer and Payer Name Fields Adding TP or Spouse in Lacerte</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#83810674</td>
+        <td>Wylie</td>
+        <td class="org">Astra Tax Partners LLC</td>
+        <td>Schedule D Transaction over 40 Characters (Proconnect)</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85445482</td>
+        <td>Himanshu Patel</td>
+        <td class="org">â€”</td>
+        <td>Ultra Tax/Juno issue</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#83588816</td>
+        <td>Maria Tran</td>
+        <td class="org">â€”</td>
+        <td>Form 1099-MISC - Other Income</td>
+        <td><span class="age-recent">3d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#84625013</td>
+        <td>Leigh</td>
+        <td class="org">Weinzapfel &amp; Co., LLC</td>
+        <td>Importing Charitable Contributions into UltraTax</td>
+        <td><span class="age-medium">7d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#83988776</td>
+       €€ñÑùM¡•ÉÉ¤ğ½Ñø(€€€€€€€€ñÑ±…ÍÌô‰½ÉœˆùI½Í”É½ÕÀAÌğ½Ñø(€€€€€€€€ñÑù)Õ¹¼UÁ±½……¥±Ì½¸€Ì´ÄØ´ÈØğ½Ñø(€€€€€€€€ñÑøñÍÁ…¸±…ÍÌô‰…”µµ•‘¥Õ´ˆøáğ½ÍÁ…¸øğ½Ñø(€€€€€€ğ½ÑÈø(€€€€ğ½Ñ‰½‘äø(€€ğ½Ñ…‰±”ø(ğ½‘¥Øø((ğ„´´U$	ÕÌ€´´ø(ñ‘¥Ø±…ÍÌô‰Í•Ñ¥½¸ˆø(€€ñ‘¥Ø±…ÍÌô‰Í•Ñ¥½¸µ¡•…‘•Èˆø(€€€€ñ ÈùU$	ÕÌğ½ Èø(€€€€ñÍÁ…¸±…ÍÌô‰½Õ¹Ğµ‰…‘¢>7</span>
+  </div>
+  <table class="ticket-table">
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Customer</th>
+        <th>Organization</th>
+        <th>Issue</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="ticket-id">#85583600</td>
+        <td>Tracy</td>
+        <td class="org">Roberta A Otto CPA PLC</td>
+        <td>Binder pages disappeared</td>
+        <td><span class="age-recent">21h</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85507749</td>
+        <td>Kelly</td>
+        <td class="org">JOHN</td>
+        <td>Juno Binder issues</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85596649</td>
+        <td>Kelly</td>
+        <td class="org">Just One Honest Number PLLC</td>
+        <td>Juno Binder issues</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85641040</td>
+        <td>Brett Efimov</td>
+        <td class="org">â€”</td>
+        <td>Client-side exceptions</td>
+        <td><span class="age-recent">2d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#83121698</td>
+        <td>Leigh</td>
+        <td class="org">Weinzapfel &amp; Co., LLC</td>
+        <td>Cursor Jumping when Typing in Juno</td>
+        <td><span class="age-medium">7d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#84302689</td>
+        <td>Sherri</td>
+        <td class="org">Rose Group CPAs</td>
+        <td>Binder Error</td>
+        <td><span class="age-medium">8d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#83790872</td>
+        <td>Richard</td>
+        <td class="org">AM Boutzalis CPA PC</td>
+        <td>Illegible Text</td>
+        <td><span class="age-medium">9d</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <!-- â•â• SECTION 3: UI Bugs â•â• -->
-  <div class="section">
-    <div class="section-header">
-      <h2>UI Bugs</h2>
-      <span class="count-badge">5</span>
-    </div>
-    <table class="ticket-table">
-      <thead>
-        <tr>
-          <th>Ticket ID</th>
-          <th>Customer</th>
-          <th>Organization</th>
-          <th>Issue</th>
-          <th>Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="ticket-id">#85583600</td>
-          <td>Tracy</td>
-          <td>Roberta A Otto CPA PLC</td>
-          <td class="issue-text">Binder pages disappeared</td>
-          <td class="age-recent">21h</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85641040</td>
-          <td>Brett Efimov</td>
-          <td>â€”</td>
-          <td class="issue-text">Client-side exceptions occurring</td>
-          <td class="age-recent">1d</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85624524</td>
-          <td>Zane</td>
-          <td>Anderson, Holmes, Holdbrook &amp; Co.</td>
-          <td class="issue-text">Description field issues</td>
-          <td class="age-recent">1d</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85507749</td>
-          <td>Kelly</td>
-          <td>JOHN</td>
-          <td class="issue-text">Juno binder issues</td>
-          <td class="age-recent">2d</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#74118616</td>
-          <td>Molly Sobhani</td>
-          <td>â€”</td>
-          <td class="issue-text">Web-to-app connection / sync error</td>
-          <td class="age-aging">50d ğŸš¨</td>
-        </tr>
-      </tbody>
-    </table>
+<!-- Other -->
+<div class="section">
+  <div class="section-header">
+    <h2>Other</h2>
+    <span class="count-badge">11</span>
   </div>
+  <table class="ticket-table">
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Customer</th>
+        <th>Organization</th>
+        <th>Issue</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="ticket-id">#86048634</td>
+        <td>Michael Skarbek</td>
+        <td class="org">â€”</td>
+        <td>Urgent Phone Call</td>
+        <td><span class="age-recent">17h</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85998439</td>
+        <td>Alexis Davenport</td>
+        <td class="org">â€”</td>
+        <td>Tickets (general open issue)</td>
+        <td><span class="age-recent">21h</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85751431</td>
+        <td>Karen</td>
+        <td class="org">Beyond Compliance Tax &amp; Advisory</td>
+        <td>Tickets (general open issue)</td>
+        <td><span class="age-recent">1d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#85493198</td>
+        <td>Kelly</td>
+        <td class="org">Cornerstone Professional Accountants PC</td>
+        <td>Tickets (general open issue)</td>
+        <td><span class="age-recent">3d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#84811841</td>
+        <td>Michael Terebush</td>
+        <td class="org">â€”</td>
+        <td>Import Issues</td>
+        <td><span class="age-recent">6d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#83834908</td>
+        <td>Bruce Krieg</td>
+        <td class="org">â€”</td>
+        <td>Tickets (general open issue)</td>
+        <td><span class="age-recent">6d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#84473737</td>
+        <td>Jean Kwon</td>
+        <td class="org">â€”</td>
+        <td>Tickets (general open issue)</td>
+        <td><span class="age-medium">8d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#82932873</td>
+        <td>Holly</td>
+        <td class="org">Martin Ketterling and Associates</td>
+        <td>Tickets (general open issue)</td>
+        <td><span class="age-medium">9d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#82764925</td>
+        <td>Michael</td>
+        <td class="org">Firefighters First Tax Services</td>
+        <td>Error Message</td>
+        <td><span class="age-medium">13d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#81757950</td>
+        <td>Kristie</td>
+        <td class="org">Kristie Vandevander, CPA</td>
+        <td>Re: Fw: Juno Onboarding Follow Up</td>
+        <td><span class="age-aging">14d</span></td>
+      </tr>
+      <tr>
+        <td class="ticket-id">#82195161</td>
+        <td>Andy</td>
+        <td class="org">Forge Tax and Accounting LLC</td>
+        <td>Tickets (general open issue)</td>
+        <td><span class="age-aging">15d</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <!-- â•â• SECTION 4: Other â•â• -->
-  <div class="section">
-    <div class="section-header">
-      <h2>Other</h2>
-      <span class="count-badge">3</span>
-    </div>
-    <table class="ticket-table">
-      <thead>
-        <tr>
-          <th>Ticket ID</th>
-          <th>Customer</th>
-          <th>Organization</th>
-          <th>Issue</th>
-          <th>Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="ticket-id">#86048634</td>
-          <td>Michael Skarbek</td>
-          <td>â€”</td>
-          <td class="issue-text">Urgent phone call request</td>
-          <td class="age-recent">17h</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85998439</td>
-          <td>Alexis Davenport</td>
-          <td>â€”</td>
-          <td class="issue-text">General ticket (unclassified)</td>
-          <td class="age-recent">21h</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85751431</td>
-          <td>Karen</td>
-          <td>Beyond Compliance Tax &amp; Advisory</td>
-          <td class="issue-text">General ticket (unclassified)</td>
-          <td class="age-recent">21h</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="footer">
-    Auto-generated by <span>Juno AI</span> Â· Intercom "Waiting on Eng" view Â· March 26, 2026
-  </div>
+<div class="footer">
+  Juno Tax Â· Waiting on Eng Summary Â· March 26, 2026 Â· Auto-generated via Intercom
+</div>
 
 </body>
 </html>
