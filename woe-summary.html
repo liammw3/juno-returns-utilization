@@ -3,237 +3,238 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waiting on Eng — Executive Summary</title>
+  <title>Waiting on Eng — Summary · Juno Tax</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #F8F9FA;
       color: #1E1E1E;
-      padding: 32px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
+      padding: 32px 24px 64px;
     }
 
-    /* Header */
-    .header {
+    /* ─── Header ─────────────────────────────────────────────── */
+    .page-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 28px;
     }
-    .header-left h1 {
+    .page-header h1 {
       font-size: 22px;
       font-weight: 700;
       color: #013A2F;
+      letter-spacing: -0.3px;
     }
-    .header-left .subtitle {
+    .page-header .meta {
       font-size: 13px;
-      color: #555;
-      margin-top: 3px;
+      color: #6c757d;
     }
-    .juno-badge {
-      background: #013A2F;
-      color: #1CE49B;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 5px 12px;
-      border-radius: 6px;
-      text-transform: uppercase;
+    .accent-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #1CE49B 0%, #B4F7CA 100%);
+      border-radius: 4px;
+      margin-bottom: 28px;
     }
 
-    /* Stat row */
+    /* ─── Stat Row ────────────────────────────────────────────── */
     .stat-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
     }
     .stat-card {
-      background: #fff;
-      border: 1px solid #E2E6EA;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 16px 14px;
-      text-align: center;
+      padding: 18px 24px;
+      flex: 1;
+      min-width: 130px;
     }
-    .stat-card .stat-value {
-      font-size: 28px;
+    .stat-card .label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #6c757d;
+      margin-bottom: 6px;
+    }
+    .stat-card .value {
+      font-size: 32px;
       font-weight: 700;
       color: #013A2F;
-      line-height: 1.1;
+      line-height: 1;
     }
-    .stat-card .stat-label {
-      font-size: 11px;
-      color: #666;
-      margin-top: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    .stat-card.aging .value { color: #c0392b; }
+    .stat-card.accent-card {
+      background: #013A2F;
+      border-color: #013A2F;
     }
-    .stat-card.aging .stat-value { color: #C0392B; }
-    .stat-card.accent { border-top: 3px solid #1CE49B; }
+    .stat-card.accent-card .label { color: #B4F7CA; }
+    .stat-card.accent-card .value { color: #1CE49B; }
 
-    /* Aging alert */
-    .alert-box {
-      background: #FFF5F5;
-      border: 1.5px solid #C0392B;
+    /* ─── Aging Alert ─────────────────────────────────────────── */
+    .aging-alert {
+      background: #fff5f5;
+      border: 2px solid #c0392b;
       border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
     }
-    .alert-box .alert-title {
+    .aging-alert .alert-title {
       font-size: 13px;
       font-weight: 700;
-      color: #C0392B;
+      color: #c0392b;
       text-transform: uppercase;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.6px;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .alert-box table {
+    .aging-alert table {
       width: 100%;
       border-collapse: collapse;
+      font-size: 13px;
     }
-    .alert-box th {
-      font-size: 11px;
-      font-weight: 600;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 4px 8px;
+    .aging-alert th {
       text-align: left;
-    }
-    .alert-box td {
-      padding: 6px 8px;
-      font-size: 13px;
-      border-top: 1px solid #F0D0D0;
-    }
-    .alert-box tr:first-child td { border-top: none; }
-
-    /* Section */
-    .section {
-      margin-bottom: 28px;
-    }
-    .section-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #013A2F;
+      padding: 6px 12px;
+      font-weight: 600;
+      color: #6c757d;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 10px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #B4F7CA;
+      letter-spacing: 0.5px;
+    }
+    .aging-alert td {
+      padding: 8px 12px;
+      border-top: 1px solid #fde8e8;
+      vertical-align: top;
+    }
+    .aging-alert td:first-child { font-family: monospace; font-size: 12px; color: #6c757d; }
+    .age-badge-red {
+      display: inline-block;
+      background: #c0392b;
+      color: #fff;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ─── Section Tables ─────────────────────────────────────── */
+    .section {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .section-header {
+      background: #013A2F;
+      color: #fff;
+      padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .section-title .count-badge {
-      background: #B4F7CA;
-      color: #013A2F;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 12px;
+    .section-header h2 {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
     }
-
-    /* Table */
+    .section-header .count-badge {
+      background: #1CE49B;
+      color: #013A2F;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 2px 10px;
+    }
     table.ticket-table {
       width: 100%;
       border-collapse: collapse;
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid #E2E6EA;
       font-size: 13px;
     }
     table.ticket-table th {
-      background: #013A2F;
-      color: #B4F7CA;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      padding: 9px 12px;
       text-align: left;
+      padding: 10px 16px;
+      background: #B4F7CA20;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #013A2F;
+      border-bottom: 1px solid #e2e8f0;
     }
     table.ticket-table td {
-      padding: 9px 12px;
-      border-top: 1px solid #F0F3F5;
+      padding: 10px 16px;
+      border-bottom: 1px solid #f1f5f9;
       vertical-align: top;
+      line-height: 1.4;
     }
-    table.ticket-table tr:hover td {
-      background: #F8F9FA;
-    }
-    .ticket-id {
-      font-family: monospace;
-      font-size: 12px;
-      color: #555;
-      white-space: nowrap;
-    }
-    .age-aging {
-      color: #C0392B;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .age-medium {
-      color: #E67E22;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .age-recent {
-      color: #888;
-      white-space: nowrap;
-    }
+    table.ticket-table tr:last-child td { border-bottom: none; }
+    table.ticket-table tr:hover td { background: #f8fffe; }
+    .ticket-id { font-family: monospace; font-size: 12px; color: #6c757d; white-space: nowrap; }
+    .issue-text { color: #1E1E1E; }
 
-    /* Footer */
+    /* ─── Age Styles ──────────────────────────────────────────── */
+    .age-aging  { color: #c0392b; font-weight: 600; white-space: nowrap; }
+    .age-medium { color: #d35400; font-weight: 600; white-space: nowrap; }
+    .age-recent { color: #6c757d; white-space: nowrap; }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
     .footer {
       text-align: center;
-      font-size: 11px;
-      color: #aaa;
-      margin-top: 32px;
+      font-size: 12px;
+      color: #adb5bd;
+      margin-top: 36px;
     }
+    .footer span { color: #1CE49B; font-weight: 600; }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <div class="header">
-    <div class="header-left">
-      <h1>Waiting on Eng — Support Queue</h1>
-      <div class="subtitle">Generated March 25, 2026 &nbsp;·&nbsp; Intercom inbox/view/5301217</div>
-    </div>
-    <div class="juno-badge">Juno Tax</div>
+  <div class="page-header">
+    <h1>⚙️ Waiting on Eng — Ticket Summary</h1>
+    <div class="meta">Generated Thu, Mar 26 2026</div>
   </div>
+  <div class="accent-bar"></div>
 
-  <!-- Stat Row -->
+  <!-- ── Stat Row ── -->
   <div class="stat-row">
-    <div class="stat-card accent">
-      <div class="stat-value">20</div>
-      <div class="stat-label">Total Open</div>
+    <div class="stat-card accent-card">
+      <div class="label">Total Open</div>
+      <div class="value">20</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">9</div>
-      <div class="stat-label">Reviewer / Workflow</div>
+      <div class="label">Reviewer / Workflow</div>
+      <div class="value">4</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">9</div>
-      <div class="stat-label">Import / Integration</div>
+      <div class="label">Import / Integration</div>
+      <div class="value">8</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">2</div>
-      <div class="stat-label">UI Bugs</div>
+      <div class="label">UI Bugs</div>
+      <div class="value">5</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Other</div>
+      <div class="value">3</div>
     </div>
     <div class="stat-card aging">
-      <div class="stat-value">2</div>
-      <div class="stat-label">Aging (≥14 days)</div>
+      <div class="label">Aging ≥ 14 days</div>
+      <div class="value">1</div>
     </div>
   </div>
 
-  <!-- Aging Alert -->
-  <div class="alert-box">
-    <div class="alert-title">⚠ Aging Tickets — 14+ Days</div>
+  <!-- ── Aging Alert ── -->
+  <div class="aging-alert">
+    <div class="alert-title">🚨 Aging Alert — Tickets ≥ 14 Days Old</div>
     <table>
       <thead>
         <tr>
@@ -249,25 +250,18 @@
           <td class="ticket-id">#74118616</td>
           <td>Molly Sobhani</td>
           <td>—</td>
-          <td>Web to App Connection/Sync Error — documents validated in web but not appearing in app</td>
-          <td class="age-aging">49.7 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#78047522</td>
-          <td>Laura</td>
-          <td>Laura R Padgett LLC</td>
-          <td>Reviewer discrepancy — incorrect finding in review output</td>
-          <td class="age-aging">32.0 days</td>
+          <td>Web to App Connection / Sync Error?</td>
+          <td><span class="age-badge-red">50d</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Section: Reviewer / Workflow -->
+  <!-- ══ SECTION 1: Reviewer / Workflow ══ -->
   <div class="section">
-    <div class="section-title">
-      Reviewer / Workflow
-      <span class="count-badge">9</span>
+    <div class="section-header">
+      <h2>Reviewer / Workflow</h2>
+      <span class="count-badge">4</span>
     </div>
     <table class="ticket-table">
       <thead>
@@ -281,77 +275,42 @@
       </thead>
       <tbody>
         <tr>
-          <td class="ticket-id">#85614413</td>
-          <td>Christie Bonacci</td>
-          <td>—</td>
-          <td>Reviewer hallucinations — AI reviewer incorrectly flagging standard deduction and other items</td>
-          <td class="age-recent">1.0 day</td>
+          <td class="ticket-id">#86011436</td>
+          <td>Linda</td>
+          <td>Stapf Financial</td>
+          <td class="issue-text">Review – Wolfe: AI reviewer flagged misclassified withholding (extra Medicare, Form 8959) and doubled charitable contributions</td>
+          <td class="age-recent">13h</td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86081097</td>
+          <td>Linda</td>
+          <td>Stapf Financial</td>
+          <td class="issue-text">Review – Ringer: Reviewer errors on related return</td>
+          <td class="age-recent">14h</td>
         </tr>
         <tr>
           <td class="ticket-id">#85588283</td>
           <td>Sarah</td>
           <td>Clifton Larson Allen (CLA)</td>
-          <td>Reviewer finding incorrect standard deduction amount for client James Haggerty</td>
-          <td class="age-recent">1.1 days</td>
+          <td class="issue-text">Reviewer flagging standard deduction incorrectly</td>
+          <td class="age-recent">20h</td>
         </tr>
         <tr>
-          <td class="ticket-id">#85596649</td>
-          <td>Kelly DeRose</td>
-          <td>Just One Honest Number PLLC</td>
-          <td>Juno Binder issues — unable to edit or save binder after download</td>
-          <td class="age-recent">1.1 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85507749</td>
-          <td>Kelly</td>
-          <td>Just One Honest Number (JOHN)</td>
-          <td>Juno Binder issues — TaxDome-imported .dat file not populating return; binder save failures</td>
-          <td class="age-recent">1.6 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85362885</td>
-          <td>Bryan</td>
-          <td>Mansfield CPA</td>
-          <td>Wrong reviewer info — reviewer incorrectly states $3,200 senior deduction no longer applies</td>
-          <td class="age-recent">2.1 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85235465</td>
-          <td>Michael</td>
-          <td>Grand Tax Advisors LLC</td>
-          <td>Regenerate Binder — most client documents not appearing in binder after upload</td>
-          <td class="age-recent">2.9 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#85096191</td>
-          <td>Maria Tran</td>
-          <td>Tagawa &amp; Ho, LLP</td>
-          <td>Review Plan: incorrect standard deduction for seniors (65+) flagged in review comments</td>
-          <td class="age-recent">3.7 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#83810674</td>
-          <td>Wylie</td>
-          <td>Astra Tax Partners LLC</td>
-          <td>Schedule D transaction descriptions over 40 characters not being truncated consistently (Proconnect)</td>
-          <td class="age-medium">8.8 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#83678864</td>
-          <td>Tara</td>
-          <td>BlueSky Wealth Advisors</td>
-          <td>Unable to proceed to reviewer — "Proceed to Reviewer" button grayed out on multiple returns</td>
-          <td class="age-medium">9.1 days</td>
+          <td class="ticket-id">#85614413</td>
+          <td>Christie Bonacci</td>
+          <td>—</td>
+          <td class="issue-text">Reviewer hallucinations reported</td>
+          <td class="age-recent">1d</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Section: Import / Integration -->
+  <!-- ══ SECTION 2: Import / Integration ══ -->
   <div class="section">
-    <div class="section-title">
-      Import / Integration
-      <span class="count-badge">9</span>
+    <div class="section-header">
+      <h2>Import / Integration</h2>
+      <span class="count-badge">8</span>
     </div>
     <table class="ticket-table">
       <thead>
@@ -365,77 +324,70 @@
       </thead>
       <tbody>
         <tr>
-          <td class="ticket-id">#85624524</td>
-          <td>Zane Holdbrook</td>
-          <td>Anderson, Holmes, Holdbrook &amp; Co.</td>
-          <td>Export description field overwritten — Juno replaces Lacerte account names with its own during export</td>
-          <td class="age-recent">1.0 day</td>
+          <td class="ticket-id">#85823706</td>
+          <td>Maria Tran</td>
+          <td>—</td>
+          <td class="issue-text">Lacerte error message when exporting data to Schedule E</td>
+          <td class="age-recent">18h</td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#85643367</td>
+          <td>Wylie</td>
+          <td>Astra Tax Partners LLC</td>
+          <td class="issue-text">ProConnect Juno breaks on multi-state W-2</td>
+          <td class="age-recent">19h</td>
         </tr>
         <tr>
           <td class="ticket-id">#85624386</td>
           <td>Dayna Bennett</td>
           <td>—</td>
-          <td>Document descriptions imported to CCH now include "TP"/"SP" labels undesirably</td>
-          <td class="age-recent">1.0 day</td>
+          <td class="issue-text">Document descriptions imported incorrectly to CCH</td>
+          <td class="age-recent">1d</td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#85445482</td>
+          <td>Himanshu Patel</td>
+          <td>—</td>
+          <td class="issue-text">UltraTax / Juno integration issue</td>
+          <td class="age-recent">2d</td>
         </tr>
         <tr>
           <td class="ticket-id">#85084202</td>
           <td>Maria Tran</td>
-          <td>Tagawa &amp; Ho, LLP</td>
-          <td>Form 1095-A: coverage start/termination date exported as [0] — blank date issue</td>
-          <td class="age-recent">3.8 days</td>
+          <td>—</td>
+          <td class="issue-text">Form 1095-A export date incorrect</td>
+          <td class="age-recent">4d</td>
         </tr>
         <tr>
           <td class="ticket-id">#84868668</td>
           <td>Matt</td>
           <td>Dreyer McGuire Canty, PC</td>
-          <td>Employer/payer name fields now appending "TP" or "Spouse" suffix unexpectedly in Lacerte exports</td>
-          <td class="age-recent">4.9 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#84811841</td>
-          <td>Michael Terebush</td>
-          <td>—</td>
-          <td>Multiple import issues: 1099-Int/Div/B inconsistency, naming convention drift, TP/SP EIN fields</td>
-          <td class="age-recent">5.1 days</td>
+          <td class="issue-text">Employer and payer name fields adding TP or Spouse label in Lacerte</td>
+          <td class="age-recent">5d</td>
         </tr>
         <tr>
           <td class="ticket-id">#84689371</td>
           <td>Louisa Else</td>
           <td>—</td>
-          <td>Lacerte incorrect W-2 import — address fields populated with firm name instead of correct data</td>
-          <td class="age-recent">5.8 days</td>
+          <td class="issue-text">Lacerte – Incorrect W-2 import</td>
+          <td class="age-recent">6d</td>
         </tr>
         <tr>
-          <td class="ticket-id">#83588816</td>
-          <td>Maria Tran</td>
-          <td>Tagawa &amp; Ho, LLP</td>
-          <td>Form 1099-MISC exported to incorrect box; does not flow to "Other Income" on return</td>
-          <td class="age-medium">9.5 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#78047522</td>
-          <td>Laura</td>
-          <td>Laura R Padgett LLC</td>
-          <td>Reviewer discrepancy — incorrect finding in review output</td>
-          <td class="age-aging">32.0 days</td>
-        </tr>
-        <tr>
-          <td class="ticket-id">#74118616</td>
-          <td>Molly Sobhani</td>
-          <td>—</td>
-          <td>Web to App Connection/Sync Error — 12 of 15 validated documents not syncing from web to app</td>
-          <td class="age-aging">49.7 days</td>
+          <td class="ticket-id">#83810674</td>
+          <td>Wylie</td>
+          <td>Astra Tax Partners LLC</td>
+          <td class="issue-text">Schedule D transaction description truncated at 40 characters (ProConnect)</td>
+          <td class="age-medium">9d</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Section: UI Bugs -->
+  <!-- ══ SECTION 3: UI Bugs ══ -->
   <div class="section">
-    <div class="section-title">
-      UI Bugs
-      <span class="count-badge">2</span>
+    <div class="section-header">
+      <h2>UI Bugs</h2>
+      <span class="count-badge">5</span>
     </div>
     <table class="ticket-table">
       <thead>
@@ -449,25 +401,88 @@
       </thead>
       <tbody>
         <tr>
+          <td class="ticket-id">#85583600</td>
+          <td>Tracy</td>
+          <td>Roberta A Otto CPA PLC</td>
+          <td class="issue-text">Binder pages disappeared</td>
+          <td class="age-recent">21h</td>
+        </tr>
+        <tr>
           <td class="ticket-id">#85641040</td>
           <td>Brett Efimov</td>
           <td>—</td>
-          <td>Multiple client-side exceptions during session — PDF.js worker errors, session logouts</td>
-          <td class="age-recent">1.0 day</td>
+          <td class="issue-text">Client-side exceptions occurring</td>
+          <td class="age-recent">1d</td>
         </tr>
         <tr>
-          <td class="ticket-id">#85493198</td>
+          <td class="ticket-id">#85624524</td>
+          <td>Zane</td>
+          <td>Anderson, Holmes, Holdbrook &amp; Co.</td>
+          <td class="issue-text">Description field issues</td>
+          <td class="age-recent">1d</td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#85507749</td>
           <td>Kelly</td>
-          <td>Cornerstone Professional Accountants PC</td>
-          <td>Tickets — Intercom ticket view/management issue escalated by support</td>
-          <td class="age-recent">1.7 days</td>
+          <td>JOHN</td>
+          <td class="issue-text">Juno binder issues</td>
+          <td class="age-recent">2d</td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#74118616</td>
+          <td>Molly Sobhani</td>
+          <td>—</td>
+          <td class="issue-text">Web-to-app connection / sync error</td>
+          <td class="age-aging">50d 🚨</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ SECTION 4: Other ══ -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Other</h2>
+      <span class="count-badge">3</span>
+    </div>
+    <table class="ticket-table">
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Customer</th>
+          <th>Organization</th>
+          <th>Issue</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ticket-id">#86048634</td>
+          <td>Michael Skarbek</td>
+          <td>—</td>
+          <td class="issue-text">Urgent phone call request</td>
+          <td class="age-recent">17h</td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#85998439</td>
+          <td>Alexis Davenport</td>
+          <td>—</td>
+          <td class="issue-text">General ticket (unclassified)</td>
+          <td class="age-recent">21h</td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#85751431</td>
+          <td>Karen</td>
+          <td>Beyond Compliance Tax &amp; Advisory</td>
+          <td class="issue-text">General ticket (unclassified)</td>
+          <td class="age-recent">21h</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="footer">
-    Juno Tax · Support Ops · Data sourced from Intercom "Waiting on Eng" view · March 25, 2026
+    Auto-generated by <span>Juno AI</span> · Intercom "Waiting on Eng" view · March 26, 2026
   </div>
 
 </body>
