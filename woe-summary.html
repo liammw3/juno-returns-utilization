@@ -2,617 +2,601 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Waiting on Eng — Ticket Summary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waiting on Eng — Executive Summary</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: #F8F9FA;
       color: #1E1E1E;
       padding: 32px 24px;
-      min-height: 100vh;
+      max-width: 1100px;
+      margin: 0 auto;
     }
-    header {
+
+    /* Header */
+    .page-header {
       display: flex;
       align-items: center;
-      gap: 16px;
+      justify-content: space-between;
       margin-bottom: 28px;
+      border-bottom: 3px solid #1CE49B;
+      padding-bottom: 16px;
     }
-    .logo-bar {
-      width: 6px;
-      height: 48px;
-      background: #1CE49B;
-      border-radius: 4px;
-    }
-    h1 {
-      font-size: 26px;
+    .page-header h1 {
+      font-size: 1.75rem;
       font-weight: 700;
       color: #013A2F;
     }
-    .subtitle {
-      font-size: 13px;
+    .page-header .run-date {
+      font-size: 0.85rem;
       color: #555;
-      margin-top: 2px;
     }
 
-    /* Stat Row */
+    /* Stat row */
     .stat-row {
       display: flex;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       flex-wrap: wrap;
     }
     .stat-card {
       background: #fff;
-      border-radius: 10px;
-      padding: 16px 22px;
-      border: 1px solid #e5e7eb;
-      min-width: 140px;
-      flex: 1;
-    }
-    .stat-card .label {
-      font-size: 12px;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-    .stat-card .value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #013A2F;
-    }
-    .stat-card.accent .value {
-      color: #1CE49B;
-    }
-    .stat-card.alert .value {
-      color: #dc2626;
-    }
-
-    /* Aging Alert */
-    .aging-alert {
-      background: #fff5f5;
-      border: 1.5px solid #fca5a5;
+      border: 1px solid #e2e8f0;
       border-radius: 10px;
       padding: 18px 22px;
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .stat-card .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #013A2F;
+      line-height: 1;
+    }
+    .stat-card .stat-label {
+      font-size: 0.78rem;
+      color: #666;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .stat-card.highlight { border-top: 4px solid #1CE49B; }
+    .stat-card.aging-stat { border-top: 4px solid #e53e3e; }
+
+    /* Aging alert */
+    .aging-alert {
+      background: #fff5f5;
+      border: 2px solid #e53e3e;
+      border-radius: 10px;
+      padding: 20px 24px;
       margin-bottom: 28px;
     }
     .aging-alert h2 {
-      font-size: 14px;
+      color: #c53030;
+      font-size: 1rem;
       font-weight: 700;
-      color: #dc2626;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .aging-alert h2::before {
-      content: '⚠';
+    .aging-alert h2::before { content: "🔴"; }
+    .aging-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
     }
-    .aging-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .aging-item {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      font-size: 13.5px;
-    }
-    .aging-item .tid {
+    .aging-table th {
+      background: #fed7d7;
+      color: #742a2a;
+      padding: 8px 12px;
+      text-align: left;
       font-weight: 600;
-      color: #013A2F;
-      min-width: 90px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
-    .aging-item .customer-org {
-      color: #444;
-      min-width: 220px;
+    .aging-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #fed7d7;
+      vertical-align: top;
     }
-    .aging-item .issue {
-      color: #1E1E1E;
-      flex: 1;
-    }
-    .aging-item .age-badge {
-      font-weight: 600;
-      color: #dc2626;
-      white-space: nowrap;
-    }
+    .aging-table tr:last-child td { border-bottom: none; }
+    .aging-table tr:hover td { background: #fff0f0; }
 
     /* Section tables */
     .section {
-      margin-bottom: 32px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
     .section-header {
+      background: #013A2F;
+      color: #fff;
+      padding: 12px 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
+      justify-content: space-between;
     }
     .section-header h2 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #013A2F;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
-    .section-count {
-      background: #B4F7CA;
+    .section-header .count-badge {
+      background: #1CE49B;
       color: #013A2F;
-      font-size: 12px;
+      font-size: 0.78rem;
       font-weight: 700;
       padding: 2px 10px;
       border-radius: 20px;
     }
-    table {
+    .data-table {
       width: 100%;
       border-collapse: collapse;
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid #e5e7eb;
-      font-size: 13.5px;
+      font-size: 0.85rem;
     }
-    thead {
-      background: #013A2F;
-      color: #fff;
-    }
-    thead th {
-      padding: 10px 14px;
+    .data-table th {
+      background: #B4F7CA;
+      color: #013A2F;
+      padding: 9px 14px;
       text-align: left;
       font-weight: 600;
-      font-size: 12px;
-      letter-spacing: 0.4px;
+      font-size: 0.78rem;
       text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
-    tbody tr {
-      border-bottom: 1px solid #f0f0f0;
-    }
-    tbody tr:last-child {
-      border-bottom: none;
-    }
-    tbody tr:hover {
-      background: #f9fafb;
-    }
-    td {
+    .data-table td {
       padding: 10px 14px;
+      border-bottom: 1px solid #eef0f2;
       vertical-align: top;
     }
-    .ticket-id {
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #f7fffe; }
+
+    /* Age badges */
+    .age-aging {
+      color: #c53030;
       font-weight: 600;
-      color: #013A2F;
-      white-space: nowrap;
-      font-size: 12.5px;
-    }
-    .customer-name {
-      font-weight: 500;
-    }
-    .org-name {
-      font-size: 12px;
-      color: #666;
-      margin-top: 1px;
-    }
-    .age-recent {
-      color: #888;
-      font-size: 13px;
     }
     .age-medium {
-      color: #ea580c;
+      color: #c05621;
       font-weight: 600;
-      font-size: 13px;
     }
-    .age-aging {
-      color: #dc2626;
-      font-weight: 600;
-      font-size: 13px;
+    .age-recent {
+      color: #718096;
     }
 
-    .generated-at {
-      margin-top: 32px;
-      font-size: 12px;
-      color: #aaa;
-      text-align: right;
+    .ticket-id {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #4a5568;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="logo-bar"></div>
-  <div>
-    <h1>Waiting on Eng — Ticket Summary</h1>
-    <div class="subtitle">Generated April 5, 2026 &nbsp;·&nbsp; Intercom inbox view</div>
+  <div class="page-header">
+    <h1>Waiting on Eng — Executive Summary</h1>
+    <div class="run-date">Generated April 6, 2026</div>
   </div>
-</header>
 
-<!-- Stat Row -->
-<div class="stat-row">
-  <div class="stat-card">
-    <div class="label">Total Tickets</div>
-    <div class="value">35</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Reviewer / Workflow</div>
-    <div class="value">16</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Import / Integration</div>
-    <div class="value">4</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">UI Bugs</div>
-    <div class="value">9</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Other</div>
-    <div class="value">6</div>
-  </div>
-  <div class="stat-card alert">
-    <div class="label">Aging ≥14 Days</div>
-    <div class="value">4</div>
-  </div>
-</div>
-
-<!-- Aging Alert -->
-<div class="aging-alert">
-  <h2>Aging Tickets — 14+ Days Old</h2>
-  <div class="aging-list">
-    <div class="aging-item">
-      <span class="tid">#84302689</span>
-      <span class="customer-org">Sherri · Rose Group CPAs</span>
-      <span class="issue">Binder Error</span>
-      <span class="age-badge">18d</span>
+  <!-- Stat Row -->
+  <div class="stat-row">
+    <div class="stat-card highlight">
+      <div class="stat-value">35</div>
+      <div class="stat-label">Total Open</div>
     </div>
-    <div class="aging-item">
-      <span class="tid">#83790872</span>
-      <span class="customer-org">Richard · AM Boutzalis CPA PC</span>
-      <span class="issue">Illegible Text</span>
-      <span class="age-badge">19d</span>
+    <div class="stat-card">
+      <div class="stat-value">15</div>
+      <div class="stat-label">Reviewer / Workflow</div>
     </div>
-    <div class="aging-item">
-      <span class="tid">#82764925</span>
-      <span class="customer-org">Michael · Firefighters First Tax Services</span>
-      <span class="issue">Error Message</span>
-      <span class="age-badge">23d</span>
+    <div class="stat-card">
+      <div class="stat-value">8</div>
+      <div class="stat-label">UI Bugs</div>
     </div>
-    <div class="aging-item">
-      <span class="tid">#82195161</span>
-      <span class="customer-org">Andy · Forge Tax and Accounting LLC</span>
-      <span class="issue">Tickets (generic)</span>
-      <span class="age-badge">25d</span>
+    <div class="stat-card">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Import / Integration</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">8</div>
+      <div class="stat-label">Other</div>
+    </div>
+    <div class="stat-card aging-stat">
+      <div class="stat-value">5</div>
+      <div class="stat-label">Aging ≥14 days</div>
     </div>
   </div>
-</div>
 
-<!-- Reviewer / Workflow -->
-<div class="section">
-  <div class="section-header">
-    <h2>Reviewer / Workflow</h2>
-    <span class="section-count">16</span>
+  <!-- Aging Alert -->
+  <div class="aging-alert">
+    <h2>Aging Tickets — 14+ Days Without Resolution</h2>
+    <table class="aging-table">
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Customer</th>
+          <th>Organization</th>
+          <th>Issue</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ticket-id">#85235465</td>
+          <td>Michael</td>
+          <td>Grand Tax Advisors LLC</td>
+          <td>Regenerate Binder</td>
+          <td><span class="age-aging">14d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#84302689</td>
+          <td>Sherri</td>
+          <td>Rose Group CPAs</td>
+          <td>Binder Error</td>
+          <td><span class="age-aging">19d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#83790872</td>
+          <td>Richard</td>
+          <td>AM Boutzalis CPA PC</td>
+          <td>Illegible Text</td>
+          <td><span class="age-aging">20d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#82764925</td>
+          <td>Michael</td>
+          <td>Firefighters First Tax Services</td>
+          <td>Error Message</td>
+          <td><span class="age-aging">24d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#82195161</td>
+          <td>Andy</td>
+          <td>Forge Tax and Accounting LLC</td>
+          <td>General Ticket</td>
+          <td><span class="age-aging">1mo</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Ticket ID</th>
-        <th>Customer</th>
-        <th>Organization</th>
-        <th>Issue</th>
-        <th>Age</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="ticket-id">#85974241</td>
-        <td><div class="customer-name">Adam Short</div></td>
-        <td>Short Financial Group</td>
-        <td>Reviewer upload errors</td>
-        <td class="age-recent">2d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#88502109</td>
-        <td><div class="customer-name">Karen</div></td>
-        <td>Beyond Compliance Tax &amp; Advisory</td>
-        <td>FYI Only - Reviewer error</td>
-        <td class="age-recent">4d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#78047522</td>
-        <td><div class="customer-name">Laura</div></td>
-        <td>Laura R Padgett LLC</td>
-        <td>Reviewer discrepancy</td>
-        <td class="age-recent">4d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#87666973</td>
-        <td><div class="customer-name">Linda</div></td>
-        <td>Stapf Financial</td>
-        <td>Reviewer — Williams one of the random small things</td>
-        <td class="age-recent">5d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#87782505</td>
-        <td><div class="customer-name">Sarah Holtermann</div></td>
-        <td>—</td>
-        <td>Incorrect Items for Reviewer for Client</td>
-        <td class="age-recent">5d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#87580349</td>
-        <td><div class="customer-name">Sarah Holtermann</div></td>
-        <td>—</td>
-        <td>Key Findings Review Plan Issue Found</td>
-        <td class="age-recent">5d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#84882083</td>
-        <td><div class="customer-name">Sophia</div></td>
-        <td>Sas Prinzivalli CPA P.A.</td>
-        <td>INaccuracy on reviewer</td>
-        <td class="age-recent">6d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#85614413</td>
-        <td><div class="customer-name">Christie Bonacci</div></td>
-        <td>—</td>
-        <td>Reviewer hallucinations</td>
-        <td class="age-recent">6d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#87383294</td>
-        <td><div class="customer-name">Maria Tran</div></td>
-        <td>—</td>
-        <td>Reviewer's Plan</td>
-        <td class="age-recent">6d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86681099</td>
-        <td><div class="customer-name">Maria Tran</div></td>
-        <td>—</td>
-        <td>Review Plan Comments</td>
-        <td class="age-recent">6d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86679076</td>
-        <td><div class="customer-name">Maria Tran</div></td>
-        <td>—</td>
-        <td>Tax Preparation Outstanding Items — Incorrect from Tax Organizer</td>
-        <td class="age-medium">9d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86649939</td>
-        <td><div class="customer-name">Joanne Bryson</div></td>
-        <td>—</td>
-        <td>Dang/Shibuya review</td>
-        <td class="age-medium">9d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86631079</td>
-        <td><div class="customer-name">Kelly</div></td>
-        <td>Kelly R McDonald &amp; Associates PC</td>
-        <td>Reviewer Issues</td>
-        <td class="age-medium">9d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86470899</td>
-        <td><div class="customer-name">Joanne Bryson</div></td>
-        <td>—</td>
-        <td>Review issue #3</td>
-        <td class="age-medium">9d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86084767</td>
-        <td><div class="customer-name">Linda</div></td>
-        <td>Stapf Financial</td>
-        <td>Review — Ringer</td>
-        <td class="age-medium">11d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86011436</td>
-        <td><div class="customer-name">Linda</div></td>
-        <td>Stapf Financial</td>
-        <td>Review — Wolfe</td>
-        <td class="age-medium">11d</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<!-- Import / Integration -->
-<div class="section">
-  <div class="section-header">
-    <h2>Import / Integration</h2>
-    <span class="section-count">4</span>
+  <!-- Reviewer / Workflow -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Reviewer / Workflow</h2>
+      <span class="count-badge">15</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Customer</th>
+          <th>Organization</th>
+          <th>Issue</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ticket-id">#85974241</td>
+          <td>Adam</td>
+          <td>Short Financial Group</td>
+          <td>Reviewer upload errors</td>
+          <td><span class="age-recent">3d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#88502109</td>
+          <td>Karen</td>
+          <td>Beyond Compliance Tax &amp; Advisory</td>
+          <td>FYI Only - Reviewer error</td>
+          <td><span class="age-recent">5d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#78047522</td>
+          <td>Laura</td>
+          <td>Laura R Padgett LLC</td>
+          <td>Reviewer discrepancy</td>
+          <td><span class="age-recent">5d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#87666973</td>
+          <td>Linda</td>
+          <td>Stapf Financial</td>
+          <td>Reviewer — Williams: minor item discrepancy</td>
+          <td><span class="age-recent">6d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#87782505</td>
+          <td>Sarah Holtermann</td>
+          <td>—</td>
+          <td>Incorrect Items for Reviewer for Client</td>
+          <td><span class="age-recent">6d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#87580349</td>
+          <td>Sarah Holtermann</td>
+          <td>—</td>
+          <td>Key Findings Review Plan Issue Found</td>
+          <td><span class="age-recent">6d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#84882083</td>
+          <td>Sophia</td>
+          <td>Sas Prinzivalli CPA P.A.</td>
+          <td>Inaccuracy on reviewer</td>
+          <td><span class="age-medium">7d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#85614413</td>
+          <td>Christie Bonacci and 1 more</td>
+          <td>—</td>
+          <td>Reviewer hallucinations</td>
+          <td><span class="age-medium">7d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#87383294</td>
+          <td>Maria Tran and 1 more</td>
+          <td>—</td>
+          <td>Reviewer's Plan</td>
+          <td><span class="age-medium">7d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86681099</td>
+          <td>Maria Tran and 1 more</td>
+          <td>—</td>
+          <td>Review Plan Comments</td>
+          <td><span class="age-medium">7d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86649939</td>
+          <td>Joanne Bryson</td>
+          <td>—</td>
+          <td>Dang/Shibuya review</td>
+          <td><span class="age-medium">10d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86631079</td>
+          <td>Kelly</td>
+          <td>Kelly R McDonald &amp; Associates PC</td>
+          <td>Reviewer Issues</td>
+          <td><span class="age-medium">10d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86470899</td>
+          <td>Joanne Bryson</td>
+          <td>—</td>
+          <td>Review issue #3</td>
+          <td><span class="age-medium">10d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86084767</td>
+          <td>Linda</td>
+          <td>Stapf Financial</td>
+          <td>Review - Ringer</td>
+          <td><span class="age-medium">12d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86011436</td>
+          <td>Linda</td>
+          <td>Stapf Financial</td>
+          <td>Review - Wolfe</td>
+          <td><span class="age-medium">12d</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Ticket ID</th>
-        <th>Customer</th>
-        <th>Organization</th>
-        <th>Issue</th>
-        <th>Age</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="ticket-id">#88546147</td>
-        <td><div class="customer-name">James Vuong</div></td>
-        <td>—</td>
-        <td>Schedule E processing completely wrong — Juno making up categories &amp; numbers</td>
-        <td class="age-recent">4d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#88448366</td>
-        <td><div class="customer-name">Audra Brown</div></td>
-        <td>—</td>
-        <td>Form 1098-T — Education Credits</td>
-        <td class="age-recent">4d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86596594</td>
-        <td><div class="customer-name">Brian Alfonso</div></td>
-        <td>—</td>
-        <td>Business client — asking for SS# instead of EIN#</td>
-        <td class="age-medium">9d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#83588816</td>
-        <td><div class="customer-name">Maria Tran</div></td>
-        <td>—</td>
-        <td>Form 1099-MISC — Other Income</td>
-        <td class="age-medium">9d</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<!-- UI Bugs -->
-<div class="section">
-  <div class="section-header">
-    <h2>UI Bugs</h2>
-    <span class="section-count">9</span>
+  <!-- UI Bugs -->
+  <div class="section">
+    <div class="section-header">
+      <h2>UI Bugs</h2>
+      <span class="count-badge">8</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Customer</th>
+          <th>Organization</th>
+          <th>Issue</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ticket-id">#88075037</td>
+          <td>Kelsey Magana and 2 more</td>
+          <td>—</td>
+          <td>We're Having Binder Issues</td>
+          <td><span class="age-recent">3d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#89104084</td>
+          <td>Michael</td>
+          <td>Grand Tax Advisors LLC</td>
+          <td>Binder incomplete</td>
+          <td><span class="age-recent">3d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#88775235</td>
+          <td>Kelly</td>
+          <td>Kelly R McDonald &amp; Associates PC</td>
+          <td>Consistent Issue with misaligned lines</td>
+          <td><span class="age-recent">3d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#87994979</td>
+          <td>Katelyn Brown</td>
+          <td>—</td>
+          <td>Failed to Load PDF Binder</td>
+          <td><span class="age-recent">4d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86596594</td>
+          <td>Brian Alfonso and 1 more</td>
+          <td>—</td>
+          <td>Business client prompted for SS# instead of EIN#</td>
+          <td><span class="age-medium">10d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#85235465</td>
+          <td>Michael</td>
+          <td>Grand Tax Advisors LLC</td>
+          <td>Regenerate Binder</td>
+          <td><span class="age-aging">14d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#84302689</td>
+          <td>Sherri</td>
+          <td>Rose Group CPAs</td>
+          <td>Binder Error</td>
+          <td><span class="age-aging">19d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#83790872</td>
+          <td>Richard</td>
+          <td>AM Boutzalis CPA PC</td>
+          <td>Illegible Text</td>
+          <td><span class="age-aging">20d</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Ticket ID</th>
-        <th>Customer</th>
-        <th>Organization</th>
-        <th>Issue</th>
-        <th>Age</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="ticket-id">#88075037</td>
-        <td><div class="customer-name">Kelsey Magana</div></td>
-        <td>—</td>
-        <td>We're Having Binder Issues</td>
-        <td class="age-recent">2d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#89104084</td>
-        <td><div class="customer-name">Michael</div></td>
-        <td>Grand Tax Advisors LLC</td>
-        <td>Binder incomplete</td>
-        <td class="age-recent">2d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#88775235</td>
-        <td><div class="customer-name">Kelly</div></td>
-        <td>Kelly R McDonald &amp; Associates PC</td>
-        <td>Consistent issue with misaligned lines</td>
-        <td class="age-recent">2d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#87994979</td>
-        <td><div class="customer-name">Katelyn Brown</div></td>
-        <td>—</td>
-        <td>Failed to Load PDF Binder</td>
-        <td class="age-recent">3d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86414550</td>
-        <td><div class="customer-name">Cathy</div></td>
-        <td>Platinum Tax Management</td>
-        <td>Issues with Juno</td>
-        <td class="age-recent">3d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#85235465</td>
-        <td><div class="customer-name">Michael</div></td>
-        <td>Grand Tax Advisors LLC</td>
-        <td>Regenerate Binder</td>
-        <td class="age-medium">13d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#84302689</td>
-        <td><div class="customer-name">Sherri</div></td>
-        <td>Rose Group CPAs</td>
-        <td>Binder Error</td>
-        <td class="age-aging">18d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#83790872</td>
-        <td><div class="customer-name">Richard</div></td>
-        <td>AM Boutzalis CPA PC</td>
-        <td>Illegible Text</td>
-        <td class="age-aging">19d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#82764925</td>
-        <td><div class="customer-name">Michael</div></td>
-        <td>Firefighters First Tax Services</td>
-        <td>Error Message</td>
-        <td class="age-aging">23d</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<!-- Other -->
-<div class="section">
-  <div class="section-header">
-    <h2>Other</h2>
-    <span class="section-count">6</span>
+  <!-- Import / Integration -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Import / Integration</h2>
+      <span class="count-badge">4</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Customer</th>
+          <th>Organization</th>
+          <th>Issue</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ticket-id">#88546147</td>
+          <td>James Vuong</td>
+          <td>—</td>
+          <td>Schedule E processing wrong — fabricated categories &amp; numbers</td>
+          <td><span class="age-recent">5d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#88448366</td>
+          <td>Audra Brown and 1 more</td>
+          <td>—</td>
+          <td>Form 1098-T - Education Credits</td>
+          <td><span class="age-recent">5d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86679076</td>
+          <td>Maria Tran and 1 more</td>
+          <td>—</td>
+          <td>Tax Preparation Outstanding Items — Incorrect from Tax Organizer</td>
+          <td><span class="age-medium">10d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#83588816</td>
+          <td>Maria Tran and 1 more</td>
+          <td>—</td>
+          <td>Form 1099-MISC - Other Income</td>
+          <td><span class="age-medium">10d</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Ticket ID</th>
-        <th>Customer</th>
-        <th>Organization</th>
-        <th>Issue</th>
-        <th>Age</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="ticket-id">#89141062</td>
-        <td><div class="customer-name">Danielle Braga</div></td>
-        <td>—</td>
-        <td>Tickets (generic)</td>
-        <td class="age-recent">2d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#88517934</td>
-        <td><div class="customer-name">Richard</div></td>
-        <td>AM Boutzalis CPA PC</td>
-        <td>S. ROBERT ROZBRUCH (specific return issue)</td>
-        <td class="age-recent">2d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#88036634</td>
-        <td><div class="customer-name">Yakubu Gago</div></td>
-        <td>—</td>
-        <td>Tickets (generic)</td>
-        <td class="age-recent">4d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#86335911</td>
-        <td><div class="customer-name">Karen</div></td>
-        <td>Beyond Compliance Tax &amp; Advisory</td>
-        <td>Tickets (generic)</td>
-        <td class="age-medium">9d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#85751431</td>
-        <td><div class="customer-name">Karen</div></td>
-        <td>Beyond Compliance Tax &amp; Advisory</td>
-        <td>Tickets (generic)</td>
-        <td class="age-medium">11d</td>
-      </tr>
-      <tr>
-        <td class="ticket-id">#82195161</td>
-        <td><div class="customer-name">Andy</div></td>
-        <td>Forge Tax and Accounting LLC</td>
-        <td>Tickets (generic)</td>
-        <td class="age-aging">25d</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<div class="generated-at">Auto-generated by Juno WOE Summary · April 5, 2026</div>
+  <!-- Other -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Other</h2>
+      <span class="count-badge">8</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Customer</th>
+          <th>Organization</th>
+          <th>Issue</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ticket-id">#89141062</td>
+          <td>Danielle Braga</td>
+          <td>—</td>
+          <td>General Ticket</td>
+          <td><span class="age-recent">3d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#88517934</td>
+          <td>Richard</td>
+          <td>AM Boutzalis CPA PC</td>
+          <td>S. Robert Rozbruch (client issue)</td>
+          <td><span class="age-recent">3d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86414550</td>
+          <td>Cathy</td>
+          <td>Platinum Tax Management</td>
+          <td>Issues with Juno</td>
+          <td><span class="age-recent">4d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#88036634</td>
+          <td>Yakubu Gago</td>
+          <td>—</td>
+          <td>General Ticket</td>
+          <td><span class="age-recent">5d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#86335911</td>
+          <td>Karen</td>
+          <td>Beyond Compliance Tax &amp; Advisory</td>
+          <td>General Ticket</td>
+          <td><span class="age-medium">10d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#85751431</td>
+          <td>Karen</td>
+          <td>Beyond Compliance Tax &amp; Advisory</td>
+          <td>General Ticket</td>
+          <td><span class="age-medium">12d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#82764925</td>
+          <td>Michael</td>
+          <td>Firefighters First Tax Services</td>
+          <td>Error Message</td>
+          <td><span class="age-aging">24d</span></td>
+        </tr>
+        <tr>
+          <td class="ticket-id">#82195161</td>
+          <td>Andy</td>
+          <td>Forge Tax and Accounting LLC</td>
+          <td>General Ticket</td>
+          <td><span class="age-aging">1mo</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </body>
 </html>
