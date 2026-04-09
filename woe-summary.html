@@ -1,647 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waiting on Eng — Executive Summary | April 9, 2026</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WOE Eng — Waiting on Engineering</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #F8F9FA;
       color: #1E1E1E;
-      padding: 32px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    /* HEADER */
-    .page-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-    .logo-badge {
-      background: #013A2F;
-      color: #1CE49B;
-      font-size: 18px;
-      font-weight: 800;
-      padding: 8px 16px;
-      border-radius: 8px;
-      letter-spacing: 0.5px;
-    }
-    .page-title h1 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #013A2F;
-      line-height: 1.2;
-    }
-    .page-title p {
-      font-size: 13px;
-      color: #555;
-      margin-top: 2px;
-    }
-    .accent-bar {
-      height: 4px;
-      background: linear-gradient(90deg, #013A2F 0%, #1CE49B 100%);
-      border-radius: 2px;
-      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
-    /* STAT ROW */
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
+    /* ── HEADER ── */
+    .header {
+      background: #013A2F;
+      color: #fff;
+      padding: 20px 28px 16px;
+    }
+    .header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+    .logo { width: 28px; height: 28px; background: #1CE49B; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: #013A2F; flex-shrink: 0; }
+    .header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+    .header-sub { font-size: 12px; color: #B4F7CA; margin-left: 40px; }
+
+    /* ── STAT CARDS ── */
+    .stats-row {
+      display: flex; gap: 10px; padding: 16px 28px; background: #013A2F;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
     }
     .stat-card {
-      background: #fff;
-      border: 1px solid #e0e0e0;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.12);
       border-radius: 10px;
-      padding: 16px 14px;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      min-width: 90px;
       text-align: center;
     }
-    .stat-card.highlight {
-      background: #013A2F;
-      border-color: #013A2F;
-    }
-    .stat-card.highlight .stat-label { color: #B4F7CA; }
-    .stat-card.highlight .stat-value { color: #1CE49B; }
-    .stat-card.alert-card {
-      background: #fff5f5;
-      border-color: #e53e3e;
-    }
-    .stat-card.alert-card .stat-value { color: #c53030; }
-    .stat-value {
-      font-size: 28px;
-      font-weight: 800;
-      color: #013A2F;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 11px;
-      color: #666;
-      margin-top: 5px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+    .stat-card:hover { background: rgba(28,228,155,0.15); border-color: #1CE49B; }
+    .stat-card.active { background: #1CE49B; border-color: #1CE49B; color: #013A2F; }
+    .stat-card.active .stat-label { color: #013A2F; }
+    .stat-num { font-size: 26px; font-weight: 800; color: #1CE49B; line-height: 1; }
+    .stat-card.active .stat-num { color: #013A2F; }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500; }
+    .stat-divider { width: 1px; background: rgba(255,255,255,0.12); margin: 4px 0; align-self: stretch; }
 
-    /* AGING ALERT BOX */
-    .aging-alert {
-      background: #fff5f5;
-      border: 2px solid #e53e3e;
-      border-radius: 10px;
-      padding: 18px 20px;
-      margin-bottom: 24px;
-    }
-    .aging-alert-header {
+    /* ── TOOLBAR ── */
+    .toolbar {
+      background: #fff;
+      border-bottom: 1px solid #E5E7EB;
+      padding: 12px 28px;
       display: flex;
-      align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
-    .aging-alert-header .alert-icon {
-      font-size: 20px;
+    .search-wrap { position: relative; flex: 1; min-width: 180px; max-width: 300px; }
+    .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #9CA3AF; pointer-events: none; }
+    #searchInput {
+      width: 100%; padding: 7px 10px 7px 32px;
+      border: 1.5px solid #D1D5DB; border-radius: 8px;
+      font-size: 13px; outline: none; background: #F9FAFB;
+      transition: border-color 0.15s;
     }
-    .aging-alert-header h2 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #c53030;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
+    #searchInput:focus { border-color: #1CE49B; background: #fff; }
+
+    .chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+      border: 1.5px solid #D1D5DB; background: #F9FAFB; cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      white-space: nowrap;
     }
-    .aging-ticket-row {
-      display: grid;
-      grid-template-columns: 110px 180px 1fr 80px;
+    .chip:hover { border-color: #013A2F; color: #013A2F; }
+    .chip.active { background: #013A2F; border-color: #013A2F; color: #fff; }
+    .chip.aging-chip.active { background: #DC2626; border-color: #DC2626; }
+    .chip.medium-chip.active { background: #D97706; border-color: #D97706; }
+
+    .clear-btn {
+      margin-left: auto; padding: 5px 14px; border-radius: 8px;
+      border: 1.5px solid #D1D5DB; background: #fff; cursor: pointer;
+      font-size: 12px; font-weight: 500; color: #6B7280;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .clear-btn:hover { border-color: #DC2626; color: #DC2626; background: #FEF2F2; }
+    .clear-btn.hidden { opacity: 0; pointer-events: none; }
+
+    /* ── ACTIVE FILTER INDICATOR ── */
+    .filter-bar {
+      padding: 6px 28px;
+      background: #ECFDF5;
+      border-bottom: 1px solid #D1FAE5;
+      font-size: 12px; color: #065F46;
+      display: none;
+      align-items: center;
       gap: 8px;
-      padding: 10px 12px;
-      border-radius: 6px;
-      background: #fff;
-      border: 1px solid #fed7d7;
-      margin-bottom: 8px;
-      align-items: center;
+      flex-wrap: wrap;
     }
-    .aging-ticket-row:last-child { margin-bottom: 0; }
-    .ticket-id-link {
-      font-size: 13px;
-      font-weight: 700;
-      color: #c53030;
-      text-decoration: none;
+    .filter-bar.visible { display: flex; }
+    .filter-tag {
+      background: #D1FAE5; border: 1px solid #6EE7B7;
+      border-radius: 12px; padding: 2px 10px; font-size: 11px;
+      display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
     }
-    .ticket-id-link:hover { text-decoration: underline; }
-    .aging-ticket-org {
-      font-size: 13px;
-      font-weight: 600;
-      color: #1E1E1E;
-    }
-    .aging-ticket-issue {
-      font-size: 13px;
-      color: #444;
-    }
-    .age-badge {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 12px;
-      text-align: center;
-    }
-    .age-badge.aging  { background: #fed7d7; color: #c53030; font-weight: 600; }
-    .age-badge.medium { background: #feebc8; color: #c05621; font-weight: 600; }
-    .age-badge.recent { background: #f0f0f0; color: #555; }
+    .filter-tag:hover { background: #A7F3D0; }
+    .filter-tag .x { font-weight: 700; font-size: 13px; color: #065F46; }
 
-    /* CATEGORY SECTIONS */
-    .section {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
+    /* ── MAIN CONTENT ── */
+    .main { padding: 20px 28px; }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 28px; }
     .section-header {
-      background: #013A2F;
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
     }
-    .section-header h2 {
-      font-size: 14px;
-      font-weight: 700;
-      color: #1CE49B;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-    }
+    .section-header h2 { font-size: 15px; font-weight: 700; color: #013A2F; display: flex; align-items: center; gap: 7px; }
     .section-count {
-      background: #1CE49B;
-      color: #013A2F;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 2px 10px;
-      border-radius: 12px;
+      font-size: 11px; font-weight: 600; color: #6B7280;
+      background: #F3F4F6; border-radius: 12px; padding: 2px 9px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    thead tr {
-      background: #B4F7CA;
-    }
-    thead th {
-      text-align: left;
-      padding: 9px 14px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #013A2F;
-    }
-    tbody tr {
-      border-bottom: 1px solid #f0f0f0;
-      transition: background 0.1s;
-    }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: #f8fff8; }
-    tbody td {
-      padding: 10px 14px;
-      vertical-align: middle;
-    }
-    .td-ticket { font-weight: 700; color: #013A2F; white-space: nowrap; }
-    .td-customer { color: #1E1E1E; }
-    .td-org { color: #555; font-style: italic; }
-    .td-issue { color: #1E1E1E; }
 
-    /* FOOTER */
-    .footer {
-      margin-top: 28px;
-      text-align: center;
-      font-size: 12px;
-      color: #999;
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+    thead { background: #F9FAFB; }
+    th {
+      text-align: left; padding: 10px 12px;
+      font-size: 11px; font-weight: 700; color: #6B7280;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      border-bottom: 1px solid #E5E7EB;
+      cursor: pointer; user-select: none;
+      white-space: nowrap;
     }
-    .footer span {
-      color: #1CE49B;
-      font-weight: 600;
+    th:hover { color: #013A2F; }
+    th.sorted { color: #013A2F; }
+    th .sort-icon { margin-left: 4px; opacity: 0.4; font-size: 10px; }
+    th.sorted .sort-icon { opacity: 1; }
+
+    td { padding: 10px 12px; border-bottom: 1px solid #F3F4F6; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #F9FAFB; }
+
+    .td-ticket a { color: #013A2F; text-decoration: none; font-weight: 600; font-size: 12px; }
+    .td-ticket a:hover { color: #1CE49B; text-decoration: underline; }
+    .td-customer { font-weight: 500; }
+    .td-org { color: #6B7280; font-size: 13px; }
+
+    /* ── AGE BADGES ── */
+    .age-badge {
+      display: inline-block; padding: 3px 9px; border-radius: 12px;
+      font-size: 11px; font-weight: 700; white-space: nowrap;
+    }
+    .age-badge.recent { background: #DCFCE7; color: #166534; }
+    .age-badge.medium { background: #FEF9C3; color: #854D0E; }
+    .age-badge.aging  { background: #FEE2E2; color: #991B1B; }
+
+    /* ── CAT BADGE (flat view) ── */
+    .cat-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 10px; font-weight: 600; white-space: nowrap;
+    }
+    .cat-badge.cat-rw { background: #DCFCE7; color: #166534; }
+    .cat-badge.cat-ii { background: #EDE9FE; color: #5B21B6; }
+    .cat-badge.cat-ui { background: #FEE2E2; color: #991B1B; }
+    .cat-badge.cat-ot { background: #F3F4F6; color: #374151; }
+
+    /* ── AGING ALERT ── */
+    .aging-alert {
+      background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: 10px;
+      padding: 14px 18px; margin-bottom: 20px;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .aging-alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .aging-alert h3 { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 6px; }
+    .aging-alert ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .aging-alert li { font-size: 13px; color: #7F1D1D; }
+    .aging-alert a { color: #991B1B; font-weight: 600; text-decoration: none; }
+    .aging-alert a:hover { text-decoration: underline; }
+
+    /* ── ORG PILL ── */
+    .org-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #F0FDF4; border: 1px solid #BBF7D0;
+      border-radius: 12px; padding: 2px 8px; font-size: 11px;
+      color: #166534; cursor: pointer; font-weight: 500;
+      transition: background 0.12s;
+    }
+    .org-pill:hover { background: #DCFCE7; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state { text-align: center; padding: 48px 20px; color: #9CA3AF; }
+    .empty-state .icon { font-size: 40px; margin-bottom: 8px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center; padding: 20px;
+      font-size: 11px; color: #9CA3AF;
+      border-top: 1px solid #E5E7EB;
+      margin-top: 8px;
+    }
+    .footer span { color: #013A2F; font-weight: 600; }
+
+    @media (max-width: 700px) {
+      .stats-row, .toolbar, .main, .filter-bar { padding-left: 16px; padding-right: 16px; }
+      .header { padding: 16px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="page-header">
-    <div class="logo-badge">JUNO</div>
-    <div class="page-title">
-      <h1>Waiting on Engineering — Ticket Summary</h1>
-      <p>Generated April 9, 2026 &nbsp;·&nbsp; Source: Intercom Inbox</p>
-    </div>
+<div class="header">
+  <div class="header-top">
+    <div class="logo">J</div>
+    <h1>Waiting on Engineering</h1>
   </div>
-  <div class="accent-bar"></div>
+  <div class="header-sub">Intercom Inbox &nbsp;·&nbsp; View: Waiting on Eng &nbsp;·&nbsp; Auto-generated April 9, 2026</div>
+</div>
 
-  <!-- STAT ROW -->
-  <div class="stat-row">
-    <div class="stat-card highlight">
-      <div class="stat-value">37</div>
-      <div class="stat-label">Total Open</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">23</div>
-      <div class="stat-label">Reviewer / Workflow</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">4</div>
-      <div class="stat-label">Import / Integration</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">4</div>
-      <div cl!ss="stat-label">UI Bugs</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">6</div>
-      <div class="stat-label">Other</div>
-    </div>
-    <div class="stat-card alert-card">
-      <div class="stat-value">2</div>
-      <div class="stat-label">Aging (≥ 14 days)</div>
-    </div>
+<div class="stats-row" id="statsRow">
+  <div class="stat-card" data-cat="" id="statAll">
+    <div class="stat-num" id="statTotal">38</div>
+    <div class="stat-label">Total</div>
   </div>
-
-  <!-- AGING ALERT BOX -->
-  <div class="aging-alert">
-    <div class="aging-alert-header">
-      <span class="alert-icon">🚨</span>
-      <h2>Aging Alert — Tickets ≥ 14 Days Old</h2>
-    </div>
-
-    <div class="aging-ticket-row">
-      <a class="ticket-id-link" href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473438980596" target="_blank">#82195161</a>
-      <div class="aging-ticket-org">Forge Tax &amp; Accounting LLC</div>
-      <div class="aging-ticket-issue">Tickets (general Eng escalation)</div>
-      <span class="age-badge aging">~30d</span>
-    </div>
-
-    <div class="aging-ticket-row">
-      <a class="ticket-id-link" href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473179034285" target="_blank">#85751431</a>
-      <div class="aging-ticket-org">Beyond Compliance Tax &amp; Advisory</div>
-      <div class="aging-ticket-issue">Tickets (general Eng escalation)</div>
-      <span class="age-badge aging">15d</span>
-    </div>
+  <div class="stat-divider"></div>
+  <div class="stat-card" data-cat="Reviewer / Workflow">
+    <div class="stat-num">23</div>
+    <div class="stat-label">Reviewer</div>
   </div>
-
-  <!-- TABLE: REVIEWER / WORKFLOW -->
-  <div class="section">
-    <div class="section-header">
-      <h2>🔍 Reviewer / Workflow</h2>
-      <span class="section-count">23 tickets</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:110px">Ticket ID</th>
-          <th style="width:160px">Customer</th>
-          <th style="width:220px">Organization</th>
-          <th>Issue</th>
-          <th style="width:75px">Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473800431782" target="_blank" style="color:#013A2F;text-decoration:none;">#89896880</a></td>
-          <td class="td-customer">Kristie</td>
-          <td class="td-org">Kristie Vandevander, CPA</td>
-          <td class="td-issue">Interest income doesn't go to schedule b</td>
-          <td><span class="age-badge recent">1h</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473829824934" target="_blank" style="color:#013A2F;text-decoration:none;">#90443338</a></td>
-          <td class="td-customer">Linda</td>
-          <td class="td-org">Stapf Financial</td>
-          <td class="td-issue">Reviewer - Lynch</td>
-          <td><span class="age-badge recent">19h</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473633502401" target="_blank" style="color:#013A2F;text-decoration:none;">#86011436</a></td>
-          <td class="td-customer">Linda</td>
-          <td class="td-org">Stapf Financial</td>
-          <td class="td-issue">Review - Wolfe</td>
-          <td><span class="age-badge recent">2d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473817091790" target="_blank" style="color:#013A2F;text-decoration:none;">#90177971</a></td>
-          <td class="td-customer">—</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Escalation of Reviewer False Positive</td>
-          <td><span class="age-badge recent">2d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473633502401" target="_blank" style="color:#013A2F;text-decoration:none;">#86084767</a></td>
-          <td class="td-customer">Linda</td>
-          <td class="td-org">Stapf Financial</td>
-          <td class="td-issue">Review - Ringer</td>
-          <td><span class="age-badge recent">2d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473669695895" target="_blank" style="color:#013A2F;text-decoration:none;">#87666973</a></td>
-          <td class="td-customer">Linda</td>
-          <td class="td-org">Stapf Financial</td>
-          <td class="td-issue">Reviewer - Williams (random small things)</td>
-          <td><span class="age-badge recent">2d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473820399445" target="_blank" style="color:#013A2F;text-decoration:none;">#90092422</a></td>
-          <td class="td-customer">Linda</td>
-          <td class="td-org">Stapf Financial</td>
-          <td class="td-issue">Reviewer - Hoffman</td>
-          <td><span class="age-badge recent">2d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473820399445" target="_blank" style="color:#013A2F;text-decoration:none;">#90115825</a></td>
-          <td class="td-customer">Linda</td>
-          <td class="td-org">Stapf Financial</td>
-          <td class="td-issue">Reviewer - Matt Anderson</td>
-          <td><span class="age-badge recent">2d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473682895743" target="_blank" style="color:#013A2F;text-decoration:none;">#87782505</a></td>
-          <td class="td-customer">Sarah Holtermann</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Incorrect Items for Reviewer for Client</td>
-          <td><span class="age-badge recent">2d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473808484490" target="_blank" style="color:#013A2F;text-decoration:none;">#89403184</a></td>
-          <td class="td-customer">Yakubu Gago</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Model Error - Reviewer</td>
-          <td><span class="age-badge recent">3d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473807878358" target="_blank" style="color:#013A2F;text-decoration:none;">#89379240</a></td>
-          <td class="td-customer">Joanne Bryson</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Review problem - Jared &amp; Bridget Patota</td>
-          <td><span class="age-badge recent">3d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473753572428" target="_blank" style="color:#013A2F;text-decoration:none;">#88937412</a></td>
-          <td class="td-customer">Michael</td>
-          <td class="td-org">Firefighters First Tax Services</td>
-          <td class="td-issue">Schedule C / E and Source Data Entry</td>
-          <td><span class="age-badge recent">6d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473737617576" target="_blank" style="color:#013A2F;text-decoration:none;">#88546147</a></td>
-          <td class="td-customer">James Vuong</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Schedule E processing completely wrong — incorrect categories and numbers</td>
-          <td><span class="age-badge medium">8d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473735768432" target="_blank" style="color:#013A2F;text-decoration:none;">#88502109</a></td>
-          <td class="td-customer">Karen</td>
-          <td class="td-org">Beyond Compliance Tax &amp; Advisory</td>
-          <td class="td-issue">FYI Only - Reviewer error</td>
-          <td><span class="age-badge medium">8d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473193393831" target="_blank" style="color:#013A2F;text-decoration:none;">#78047522</a></td>
-          <td class="td-customer">Laura</td>
-          <td class="td-org">Laura R Padgett LLC</td>
-          <td class="td-issue">Reviewer discrepancy</td>
-          <td><span class="age-badge medium">8d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473678254978" target="_blank" style="color:#013A2F;text-decoration:none;">#87580349</a></td>
-          <td class="td-customer">Sarah Holtermann</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Key Findings Review Plan Issue Found</td>
-          <td><span class="age-badge medium">9d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473570476454" target="_blank" style="color:#013A2F;text-decoration:none;">#84882083</a></td>
-          <td class="td-customer">Sophia</td>
-          <td class="td-org">Sas Prinzivalli CPA P.A.</td>
-          <td class="td-issue">Inaccuracy on reviewer</td>
-          <td><span class="age-badge medium">10d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473597025672" target="_blank" style="color:#013A2F;text-decoration:none;">#85614413</a></td>
-          <td class="td-customer">John Gjertsen</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Reviewer hallucinations</td>
-          <td><span class="age-badge medium">10d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473672736596" target="_blank" style="color:#013A2F;text-decoration:none;">#87383294</a></td>
-          <td class="td-customer">Maria Tran</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Reviewer's Plan</td>
-          <td><span class="age-badge medium">10d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473645714296" target="_blank" style="color:#013A2F;text-decoration:none;">#86681099</a></td>
-          <td class="td-customer">Maria Tran</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Review Plan Comments</td>
-          <td><span class="age-badge medium">10d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473640040810" target="_blank" style="color:#013A2F;text-decoration:none;">#86649939</a></td>
-          <td class="td-customer">Joanne Bryson</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Dang/Shibuya review</td>
-          <td><span class="age-badge medium">13d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473640040810" target="_blank" style="color:#013A2F;text-decoration:none;">#86631079</a></td>
-          <td class="td-customer">Kelly</td>
-          <td class="td-org">Kelly R McDonald &amp; Associates PC</td>
-          <td class="td-issue">Reviewer Issues</td>
-          <td><span class="age-badge medium">13d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473627834249" target="_blank" style="color:#013A2F;text-decoration:none;">#86470899</a></td>
-          <td class="td-customer">Joanne Bryson</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Review issue #3</td>
-          <td><span class="age-badge medium">13d</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="stat-card" data-cat="Import / Integration">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Import</div>
   </div>
-
-  <!-- TABLE: IMPORT / INTEGRATION -->
-  <div class="section">
-    <div class="section-header">
-      <h2>📥 Import / Integration</h2>
-      <span class="section-count">4 tickets</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:110px">Ticket ID</th>
-          <th style="width:160px">Customer</th>
-          <th style="width:220px">Organization</th>
-          <th>Issue</th>
-          <th style="width:75px">Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473817508126" target="_blank" style="color:#013A2F;text-decoration:none;">#90187170</a></td>
-          <td class="td-customer">Richard</td>
-          <td class="td-org">AM Boutzalis CPA PC</td>
-          <td class="td-issue">Binder Issue — 1099 Disappeared</td>
-          <td><span class="age-badge recent">1d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473802777762" target="_blank" style="color:#013A2F;text-decoration:none;">#89703736</a></td>
-          <td class="td-customer">Karen</td>
-          <td class="td-org">Beyond Compliance Tax &amp; Advisory</td>
-          <td class="td-issue">1099-MISC routing</td>
-          <td><span class="age-badge recent">3d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473706012026" target="_blank" style="color:#013A2F;text-decoration:none;">#88075037</a></td>
-          <td class="td-customer">Audra Brown</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">We're Having Binder Issues</td>
-          <td><span class="age-badge recent">6d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473528282044" target="_blank" style="color:#013A2F;text-decoration:none;">#83588816</a></td>
-          <td class="td-customer">Maria Tran</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Form 1099-MISC — Other Income</td>
-          <td><span class="age-badge medium">13d</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="stat-card" data-cat="UI Bugs">
+    <div class="stat-num">4</div>
+    <div class="stat-label">UI Bugs</div>
   </div>
-
-  <!-- TABLE: UI BUGS -->
-  <div class="section">
-    <div class="section-header">
-      <h2>🐛 UI Bugs</h2>
-      <span class="section-count">4 tickets</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:110px">Ticket ID</th>
-          <th style="width:160px">Customer</th>
-          <th style="width:220px">Organization</th>
-          <th>Issue</th>
-          <th style="width:75px">Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473777771008" target="_blank" style="color:#013A2F;text-decoration:none;">#89378616</a></td>
-          <td class="td-customer">Maria Tran</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Juno App — Last Exported Column not sortable to top</td>
-          <td><span class="age-badge recent">13m</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473828864343" target="_blank" style="color:#013A2F;text-decoration:none;">#90421823</a></td>
-          <td class="td-customer">Shannon</td>
-          <td class="td-org">Shannon Hall Tax</td>
-          <td class="td-issue">Document error</td>
-          <td><span class="age-badge recent">20h</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473749060432" target="_blank" style="color:#013A2F;text-decoration:none;">#88775235</a></td>
-          <td class="td-customer">Kelly</td>
-          <td class="td-org">Kelly R McDonald &amp; Associates PC</td>
-          <td class="td-issue">Consistent issue with misaligned lines</td>
-          <td><span class="age-badge recent">6d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473638284390" target="_blank" style="color:#013A2F;text-decoration:none;">#86596594</a></td>
-          <td class="td-customer">Zsofia Alfonso</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Business client — asking for SS# instead of EIN#</td>
-          <td><span class="age-badge medium">13d</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="stat-card" data-cat="Other">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Other</div>
   </div>
-
-  <!-- TABLE: OTHER -->
-  <div class="section">
-    <div class="section-header">
-      <h2>📋 Other</h2>
-      <span class="section-count">6 tickets</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:110px">Ticket ID</th>
-          <th style="width:160px">Customer</th>
-          <th style="width:220px">Organization</th>
-          <th>Issue</th>
-          <th style="width:75px">Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473724728170" target="_blank" style="color:#013A2F;text-decoration:none;">#88010889</a></td>
-          <td class="td-customer">Christopher</td>
-          <td class="td-org">George Peter Klee CPA LLC</td>
-          <td class="td-issue">Help (general)</td>
-          <td><span class="age-badge recent">18h</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473815655754" target="_blank" style="color:#013A2F;text-decoration:none;">#90149358</a></td>
-          <td class="td-customer">Liz Zaslove</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Advisor not thinking correctly</td>
-          <td><span class="age-badge recent">2d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473807209064" target="_blank" style="color:#013A2F;text-decoration:none;">#89270744</a></td>
-          <td class="td-customer">Karen</td>
-          <td class="td-org">Beyond Compliance Tax &amp; Advisory</td>
-          <td class="td-issue">FYI — No response required</td>
-          <td><span class="age-badge recent">3d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473784698978" target="_blank" style="color:#013A2F;text-decoration:none;">#89141062</a></td>
-          <td class="td-customer">Danielle Braga</td>
-          <td class="td-org">—</td>
-          <td class="td-issue">Tickets (general)</td>
-          <td><span class="age-badge recent">6d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473624779497" target="_blank" style="color:#013A2F;text-decoration:none;">#86335911</a></td>
-          <td class="td-customer">Karen</td>
-          <td class="td-org">Beyond Compliance Tax &amp; Advisory</td>
-          <td class="td-issue">Tickets (general)</td>
-          <td><span class="age-badge medium">13d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473179034285" target="_blank" style="color:#013A2F;text-decoration:none;">#85751431</a></td>
-          <td class="td-customer">Karen</td>
-          <td class="td-org">Beyond Compliance Tax &amp; Advisory</td>
-          <td class="td-issue">Tickets (general)</td>
-          <td><span class="age-badge aging">15d</span></td>
-        </tr>
-        <tr>
-          <td class="td-ticket"><a href="https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473438980596" target="_blank" style="color:#013A2F;text-decoration:none;">#82195161</a></td>
-          <td class="td-customer">Andy</td>
-          <td class="td-org">Forge Tax and Accounting LLC</td>
-          <td class="td-issue">Tickets (general)</td>
-          <td><span class="age-badge aging">~30d</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="stat-divider"></div>
+  <div class="stat-card" data-age="aging" style="border-color:rgba(220,38,38,0.35)">
+    <div class="stat-num" style="color:#FCA5A5">2</div>
+    <div class="stat-label">&#8805; 14 Days</div>
   </div>
+</div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    Auto-generated by <span>Juno Cowork</span> &nbsp;·&nbsp; April 9, 2026 &nbsp;·&nbsp; Data source: Intercom Inbox &nbsp;·&nbsp; View: Waiting on Eng
+<div class="toolbar">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="Search tickets, customers, orgs&#8230;">
   </div>
+  <div class="chip-group">
+    <div class="chip active" data-age-filter="all">All ages</div>
+    <div class="chip" data-age-filter="recent">Recent &lt;7d</div>
+    <div class="chip medium-chip" data-age-filter="medium">Medium 7&#8211;13d</div>
+    <div class="chip aging-chip" data-age-filter="aging">&#9888; Aging &#8805;14d</div>
+  </div>
+  <button class="clear-btn hidden" id="clearBtn">&#x2715; Clear filters</button>
+</div>
 
+<div class="filter-bar" id="filterBar"></div>
+
+<div class="main" id="main"></div>
+
+<div class="footer">
+  Auto-generated by <span>Juno Cowork</span> &nbsp;&middot;&nbsp; April 9, 2026 &nbsp;&middot;&nbsp; Data source: Intercom Inbox &nbsp;&middot;&nbsp; View: Waiting on Eng
+</div>
+
+<script>
+const TICKETS = [
+  {id:'#89896880',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473800431782',customer:'Kristie',org:'Kristie Vandevander, CPA',issue:"Interest income doesn't go to schedule b",age:'1h',ageDays:0.0417,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#90443338',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473829824934',customer:'Linda',org:'Stapf Financial',issue:'Reviewer - Lynch',age:'19h',ageDays:0.7917,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#86011436',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473633502401',customer:'Linda',org:'Stapf Financial',issue:'Review - Wolfe',age:'2d',ageDays:2,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#90177971',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473817091790',customer:'',org:'',issue:'Escalation of Reviewer False Positive',age:'2d',ageDays:2,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#86084767',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473633502401',customer:'Linda',org:'Stapf Financial',issue:'Review - Ringer',age:'2d',ageDays:2,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#87666973',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473669695895',customer:'Linda',org:'Stapf Financial',issue:'Reviewer - Williams (random small things)',age:'2d',ageDays:2,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#90092422',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473820399445',customer:'Linda',org:'Stapf Financial',issue:'Reviewer - Hoffman',age:'2d',ageDays:2,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#90115825',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473820399445',customer:'Linda',org:'Stapf Financial',issue:'Reviewer - Matt Anderson',age:'2d',ageDays:2,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#87782505',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473682895743',customer:'Sarah Holtermann',org:'',issue:'Incorrect Items for Reviewer for Client',age:'2d',ageDays:2,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#89403184',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473808484490',customer:'Yakubu Gago',org:'',issue:'Model Error - Reviewer',age:'3d',ageDays:3,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#89379240',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473807878358',customer:'Joanne Bryson',org:'',issue:'Review problem - Jared & Bridget Patota',age:'3d',ageDays:3,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#88937412',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473753572428',customer:'Michael',org:'Firefighters First Tax Services',issue:'Schedule C / E and Source Data Entry',age:'6d',ageDays:6,ageClass:'recent',cat:'Reviewer / Workflow'},
+  {id:'#88546147',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473737617576',customer:'James Vuong',org:'',issue:'Schedule E processing completely wrong — incorrect categories and numbers',age:'8d',ageDays:8,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#88502109',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473735768432',customer:'Karen',org:'Beyond Compliance Tax & Advisory',issue:'FYI Only - Reviewer error',age:'8d',ageDays:8,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#78047522',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473193393831',customer:'Laura',org:'Laura R Padgett LLC',issue:'Reviewer discrepancy',age:'8d',ageDays:8,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#87580349',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473678254978',customer:'Sarah Holtermann',org:'',issue:'Key Findings Review Plan Issue Found',age:'9d',ageDays:9,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#84882083',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473570476454',customer:'Sophia',org:'Sas Prinzivalli CPA P.A.',issue:'Inaccuracy on reviewer',age:'10d',ageDays:10,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#85614413',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473597025672',customer:'John Gjertsen',org:'',issue:'Reviewer hallucinations',age:'10d',ageDays:10,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#87383294',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473672736596',customer:'Maria Tran',org:'',issue:"Reviewer's Plan",age:'10d',ageDays:10,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#86681099',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473645714296',customer:'Maria Tran',org:'',issue:'Review Plan Comments',age:'10d',ageDays:10,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#86649939',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473640040810',customer:'Joanne Bryson',org:'',issue:'Dang/Shibuya review',age:'13d',ageDays:13,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#86631079',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473640040810',customer:'Kelly',org:'Kelly R McDonald & Associates PC',issue:'Reviewer Issues',age:'13d',ageDays:13,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#86470899',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473627834249',customer:'Joanne Bryson',org:'',issue:'Review issue #3',age:'13d',ageDays:13,ageClass:'medium',cat:'Reviewer / Workflow'},
+  {id:'#90187170',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473817508126',customer:'Richard',org:'AM Boutzalis CPA PC',issue:'Binder Issue — 1099 Disappeared',age:'1d',ageDays:1,ageClass:'recent',cat:'Import / Integration'},
+  {id:'#89703736',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473802777762',customer:'Karen',org:'Beyond Compliance Tax & Advisory',issue:'1099-MISC routing',age:'3d',ageDays:3,ageClass:'recent',cat:'Import / Integration'},
+  {id:'#88075037',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473706012026',customer:'Audra Brown',org:'',issue:"We're Having Binder Issues",age:'6d',ageDays:6,ageClass:'recent',cat:'Import / Integration'},
+  {id:'#83588816',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473528282044',customer:'Maria Tran',org:'',issue:'Form 1099-MISC — Other Income',age:'13d',ageDays:13,ageClass:'medium',cat:'Import / Integration'},
+  {id:'#89378616',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473777771008',customer:'Maria Tran',org:'',issue:'Juno App — Last Exported Column not sortable to top',age:'13m',ageDays:0.009,ageClass:'recent',cat:'UI Bugs'},
+  {id:'#90421823',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473828864343',customer:'Shannon',org:'Shannon Hall Tax',issue:'Document error',age:'20h',ageDays:0.8333,ageClass:'recent',cat:'UI Bugs'},
+  {id:'#88775235',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473749060432',customer:'Kelly',org:'Kelly R McDonald & Associates PC',issue:'Consistent issue with misaligned lines',age:'6d',ageDays:6,ageClass:'recent',cat:'UI Bugs'},
+  {id:'#86596594',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473638284390',customer:'Zsofia Alfonso',org:'',issue:'Business client — asking for SS# instead of EIN#',age:'13d',ageDays:13,ageClass:'medium',cat:'UI Bugs'},
+  {id:'#88010889',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473724728170',customer:'Christopher',org:'George Peter Klee CPA LLC',issue:'Help (general)',age:'18h',ageDays:0.75,ageClass:'recent',cat:'Other'},
+  {id:'#90149358',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473815655754',customer:'Liz Zaslove',org:'',issue:'Advisor not thinking correctly',age:'2d',ageDays:2,ageClass:'recent',cat:'Other'},
+  {id:'#89270744',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473807209064',customer:'Karen',org:'Beyond Compliance Tax & Advisory',issue:'FYI — No response required',age:'3d',ageDays:3,ageClass:'recent',cat:'Other'},
+  {id:'#89141062',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473784698978',customer:'Danielle Braga',org:'',issue:'Tickets (general)',age:'6d',ageDays:6,ageClass:'recent',cat:'Other'},
+  {id:'#86335911',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473624779497',customer:'Karen',org:'Beyond Compliance Tax & Advisory',issue:'Tickets (general)',age:'13d',ageDays:13,ageClass:'medium',cat:'Other'},
+  {id:'#85751431',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473179034285',customer:'Karen',org:'Beyond Compliance Tax & Advisory',issue:'Tickets (general)',age:'15d',ageDays:15,ageClass:'aging',cat:'Other'},
+  {id:'#82195161',href:'https://app.intercom.com/a/inbox/rc7bfq1j/inbox/view/5301217/conversation/215473438980596',customer:'Andy',org:'Forge Tax and Accounting LLC',issue:'Tickets (general)',age:'~30d',ageDays:30,ageClass:'aging',cat:'Other'}
+];
+
+const CATS = ['Reviewer / Workflow','Import / Integration','UI Bugs','Other'];
+const CAT_ICONS = {'Reviewer / Workflow':'🔍','Import / Integration':'📥','UI Bugs':'🐛','Other':'📋'};
+const CAT_SLUG = {'Reviewer / Workflow':'rw','Import / Integration':'ii','UI Bugs':'ui','Other':'ot'};
+
+let state = {search:'',ageFilter:'all',catFilter:null,orgFilter:null,sortCol:'ageDays',sortDir:'desc'};
+
+function applyFilters(tickets) {
+  return tickets.filter(t => {
+    if (state.catFilter && t.cat !== state.catFilter) return false;
+    if (state.orgFilter && t.org !== state.orgFilter) return false;
+    if (state.ageFilter !== 'all' && t.ageClass !== state.ageFilter) return false;
+    if (state.search) {
+      const q = state.search.toLowerCase();
+      if (!t.id.toLowerCase().includes(q) && !t.customer.toLowerCase().includes(q) &&
+          !t.org.toLowerCase().includes(q) && !t.issue.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function sortTickets(tickets) {
+  const col = state.sortCol, dir = state.sortDir === 'asc' ? 1 : -1;
+  return [...tickets].sort((a,b) => {
+    let va = a[col], vb = b[col];
+    if (typeof va === 'string') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+    return va < vb ? -dir : va > vb ? dir : 0;
+  });
+}
+
+function isFiltered() {
+  return state.search || state.ageFilter !== 'all' || state.catFilter || state.orgFilter;
+}
+
+function orgCell(org) {
+  if (!org) return '<span style="color:#D1D5DB">—</span>';
+  const safe = org.replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+  return `<span class="org-pill" data-org="${safe}">${safe}</span>`;
+}
+
+function thHTML(label, col, width) {
+  const active = state.sortCol === col;
+  const icon = active ? (state.sortDir === 'asc' ? '&#9650;' : '&#9660;') : '&#9650;&#9660;';
+  const w = width ? ` style="width:${width}"` : '';
+  return `<th data-col="${col}" class="${active?'sorted':''}"${w}>${label}<span class="sort-icon">${icon}</span></th>`;
+}
+
+function rowHTML(t, showCat) {
+  const catCell = showCat ? `<td><span class="cat-badge cat-${CAT_SLUG[t.cat]}">${CAT_ICONS[t.cat]} ${t.cat}</span></td>` : '';
+  const cust = t.customer || '<span style="color:#D1D5DB">—</span>';
+  return `<tr>
+    <td class="td-ticket"><a href="${t.href}" target="_blank">${t.id}</a></td>
+    <td class="td-customer">${cust}</td>
+    <td class="td-org">${orgCell(t.org)}</td>
+    <td>${t.issue}</td>
+    ${catCell}
+    <td><span class="age-badge ${t.ageClass}">${t.age}</span></td>
+  </tr>`;
+}
+
+function tableHTML(tickets, showCat) {
+  const catTh = showCat ? thHTML('Category','cat','130px') : '';
+  const rows = tickets.length
+    ? tickets.map(t => rowHTML(t, showCat)).join('')
+    : `<tr><td colspan="${showCat?6:5}" style="text-align:center;padding:32px;color:#9CA3AF">No tickets match</td></tr>`;
+  return `<table>
+    <thead><tr>${thHTML('Ticket ID','id','110px')}${thHTML('Customer','customer','150px')}${thHTML('Organization','org','200px')}${thHTML('Issue','issue')}${catTh}${thHTML('Age','ageDays','75px')}</tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function render() {
+  const filtered = applyFilters(TICKETS);
+  const sorted = sortTickets(filtered);
+  const anyFilter = isFiltered();
+
+  // Stat cards
+  document.querySelectorAll('.stat-card').forEach(card => {
+    const age = card.dataset.age, cat = card.dataset.cat;
+    let active = false;
+    if (age === 'aging') active = state.ageFilter==='aging' && !state.catFilter && !state.orgFilter && !state.search;
+    else if (cat === '') active = !state.catFilter && !state.orgFilter && !state.search && state.ageFilter==='all';
+    else active = state.catFilter===cat && !state.orgFilter && !state.search && state.ageFilter==='all';
+    card.classList.toggle('active', active);
+  });
+
+  // Age chips
+  document.querySelectorAll('[data-age-filter]').forEach(chip =>
+    chip.classList.toggle('active', chip.dataset.ageFilter === state.ageFilter));
+
+  // Clear btn
+  document.getElementById('clearBtn').classList.toggle('hidden', !anyFilter);
+
+  // Filter bar
+  const filterBar = document.getElementById('filterBar');
+  const tags = [];
+  if (state.search) tags.push(`<span class="filter-tag" data-clear="search">&#128269; "${state.search}" <span class="x">&#215;</span></span>`);
+  if (state.catFilter) tags.push(`<span class="filter-tag" data-clear="cat">${CAT_ICONS[state.catFilter]} ${state.catFilter} <span class="x">&#215;</span></span>`);
+  if (state.orgFilter) tags.push(`<span class="filter-tag" data-clear="org">&#127970; ${state.orgFilter} <span class="x">&#215;</span></span>`);
+  if (state.ageFilter !== 'all') {
+    const lbl = {recent:'Recent &lt;7d',medium:'Medium 7–13d',aging:'Aging &#8805;14d'}[state.ageFilter];
+    tags.push(`<span class="filter-tag" data-clear="age">&#8987; ${lbl} <span class="x">&#215;</span></span>`);
+  }
+  if (tags.length) {
+    filterBar.innerHTML = `<strong>${filtered.length} of ${TICKETS.length}</strong> tickets &nbsp;&#183;&nbsp; ${tags.join('')}`;
+    filterBar.classList.add('visible');
+  } else {
+    filterBar.classList.remove('visible');
+  }
+
+  // Main
+  const main = document.getElementById('main');
+  if (anyFilter) {
+    if (!sorted.length) {
+      main.innerHTML = `<div class="empty-state"><div class="icon">&#128269;</div><p>No tickets match your filters.</p></div>`;
+      return;
+    }
+    main.innerHTML = `<div class="section"><div class="section-header"><h2>Results</h2><span class="section-count">${sorted.length} ticket${sorted.length!==1?'s':''}</span></div>${tableHTML(sorted,true)}</div>`;
+    return;
+  }
+
+  // Grouped view
+  const aging = TICKETS.filter(t => t.ageClass==='aging');
+  let html = '';
+  if (aging.length) {
+    html += `<div class="aging-alert"><div class="aging-alert-icon">&#128680;</div><div>
+      <h3>Aging Alert — ${aging.length} Ticket${aging.length>1?'s':''} &#8805; 14 Days Old</h3>
+      <ul>${aging.map(t=>`<li><a href="${t.href}" target="_blank">${t.id}</a> &nbsp;&#183;&nbsp; ${t.age} &nbsp;&#183;&nbsp; ${(t.org||t.customer||'Unknown').replace(/&/g,'&amp;')} &nbsp;&#183;&nbsp; ${t.issue}</li>`).join('')}</ul>
+    </div></div>`;
+  }
+  for (const cat of CATS) {
+    const catTix = sortTickets(TICKETS.filter(t => t.cat===cat));
+    if (!catTix.length) continue;
+    html += `<div class="section"><div class="section-header"><h2>${CAT_ICONS[cat]} ${cat}</h2><span class="section-count">${catTix.length} ticket${catTix.length!==1?'s':''}</span></div>${tableHTML(catTix,false)}</div>`;
+  }
+  main.innerHTML = html;
+}
+
+// Events
+document.getElementById('searchInput').addEventListener('input', e => { state.search = e.target.value.trim(); render(); });
+
+document.querySelectorAll('[data-age-filter]').forEach(chip =>
+  chip.addEventListener('click', () => { state.ageFilter = chip.dataset.ageFilter; render(); }));
+
+document.getElementById('statsRow').addEventListener('click', e => {
+  const card = e.target.closest('.stat-card'); if (!card) return;
+  const age = card.dataset.age, cat = card.dataset.cat;
+  if (age === 'aging') { state.ageFilter='aging'; state.catFilter=null; state.orgFilter=null; state.search=''; document.getElementById('searchInput').value=''; }
+  else if (cat === '') { state.catFilter=null; state.orgFilter=null; state.search=''; state.ageFilter='all'; document.getElementById('searchInput').value=''; }
+  else { state.catFilter=cat; state.orgFilter=null; state.ageFilter='all'; state.search=''; document.getElementById('searchInput').value=''; }
+  render();
+});
+
+document.getElementById('main').addEventListener('click', e => {
+  const th = e.target.closest('th[data-col]');
+  if (th) {
+    const col = th.dataset.col;
+    if (state.sortCol===col) state.sortDir = state.sortDir==='asc'?'desc':'asc';
+    else { state.sortCol=col; state.sortDir = col==='ageDays'?'desc':'asc'; }
+    render(); return;
+  }
+  const pill = e.target.closest('.org-pill');
+  if (pill) { state.orgFilter=pill.dataset.org; state.catFilter=null; state.ageFilter='all'; state.search=''; document.getElementById('searchInput').value=''; render(); }
+});
+
+document.getElementById('filterBar').addEventListener('click', e => {
+  const tag = e.target.closest('[data-clear]'); if (!tag) return;
+  const w = tag.dataset.clear;
+  if (w==='search') { state.search=''; document.getElementById('searchInput').value=''; }
+  if (w==='cat') state.catFilter=null;
+  if (w==='org') state.orgFilter=null;
+  if (w==='age') state.ageFilter='all';
+  render();
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  state = {search:'',ageFilter:'all',catFilter:null,orgFilter:null,sortCol:'ageDays',sortDir:'desc'};
+  document.getElementById('searchInput').value='';
+  render();
+});
+
+render();
+</script>
 </body>
 </html>
