@@ -164,7 +164,7 @@ function rowHtml(o){
   const sc=o.st==='CRITICAL'?'CR':o.st==='WARNING'?'WA':o.st==='WATCH'?'WC':'';
   const dc=o.dutil>0?'up':o.dutil<0?'dn':'';
   const ds=o.dutil>0?'+':'';const dus=o.du>0?'+':'';
-  return '<tr class="'+sc+'" onclick="drillDown(''+o.id+'')" style="cursor:pointer">'
+  return '<tr class="'+sc+'" onclick="drillDown(\''+o.id+'\')" style="cursor:pointer">'
     +'<td>'+o.n+'</td><td>'+o.p+'</td><td>'+o.u+'</td>'
     +'<td>'+o.up.toFixed(1)+'%</td>'
     +'<td class="'+dc+'">'+dus+o.du+'</td>'
